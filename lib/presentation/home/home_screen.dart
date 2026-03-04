@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:elder_shield/application/security_controller.dart';
 
 /// Placeholder Home screen wired up in Block 6.
@@ -12,10 +13,50 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
+  bool _permissionsGranted = false;
+  bool _requestedOnce = false;
+
   @override
   void initState() {
     super.initState();
-    // Start listening to native SMS/call events.
+    _ensurePermissionsAndStart();
+  }
+
+  Future<void> _ensurePermissionsAndStart() async {
+    // Only request once per app lifetime of this widget instance.
+    if (_requestedOnce) return;
+    _requestedOnce = true;
+
+    final smsStatus = await Permission.sms.status;
+    final phoneStatus = await Permission.phone.status;
+
+    if (!smsStatus.isGranted || !phoneStatus.isGranted) {
+      final result = await [
+        Permission.sms,
+        Permission.phone,
+      ].request();
+
+      final smsGranted = result[Permission.sms]?.isGranted ?? false;
+      final phoneGranted = result[Permission.phone]?.isGranted ?? false;
+
+      if (!smsGranted || !phoneGranted) {
+        if (mounted) {
+          setState(() {
+            _permissionsGranted = false;
+          });
+        }
+        // Do not start SecurityController; native side would throw SecurityException.
+        return;
+      }
+    }
+
+    if (mounted) {
+      setState(() {
+        _permissionsGranted = true;
+      });
+    }
+
+    // Permissions are granted — safe to start listening to native events.
     ref.read(securityControllerProvider).start();
   }
 
@@ -27,25 +68,39 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Colors.white,
       ),
-      body: const Center(
+      body: Center(
         child: Padding(
-          padding: EdgeInsets.all(24.0),
+          padding: const EdgeInsets.all(24.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.shield, size: 80, color: Color(0xFF1565C0)),
-              SizedBox(height: 24),
+              const Icon(Icons.shield, size: 80, color: Color(0xFF1565C0)),
+              const SizedBox(height: 24),
               Text(
-                'Elder Shield is active.',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                _permissionsGranted
+                    ? 'Elder Shield is active.'
+                    : 'Permissions required to activate Elder Shield.',
+                style: const TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
               Text(
-                'Your messages and calls are being monitored for scams.',
-                style: TextStyle(fontSize: 16),
+                _permissionsGranted
+                    ? 'Your messages and calls are being monitored for scams.'
+                    : 'Please grant SMS and Phone permissions so we can monitor messages and calls for scams.',
+                style: const TextStyle(fontSize: 16),
                 textAlign: TextAlign.center,
               ),
+              if (!_permissionsGranted) ...[
+                const SizedBox(height: 24),
+                ElevatedButton(
+                  onPressed: _ensurePermissionsAndStart,
+                  child: const Text('Enable protection'),
+                ),
+              ],
             ],
           ),
         ),

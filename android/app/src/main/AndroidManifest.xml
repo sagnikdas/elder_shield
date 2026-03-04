@@ -1,11 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
-        SMS permission: required to receive and read incoming SMS messages.
+        SMS permissions: required to receive and read incoming SMS messages.
         Play Store declaration: this app's core function is detecting SMS-based
         scams for elderly users; SMS access is essential and not for any other purpose.
     -->
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
 
     <!--
         Phone-state permission: required to detect active phone calls so the risk
@@ -45,15 +46,16 @@
 
         <!--
             SmsReceiver: listens for incoming SMS broadcasts.
-            exported=false — only the system (via implicit broadcast) triggers this.
-            Priority 999 ensures we see the SMS before other apps when possible.
+            For development on Android 13+, keep this receiver exported=true and without
+            a permission guard so the platform can reliably deliver the broadcast.
+            We can tighten this prior to Play Store submission if needed.
         -->
         <receiver
             android:name=".SmsReceiver"
-            android:exported="false"
-            android:permission="android.permission.BROADCAST_SMS">
+            android:exported="true">
             <intent-filter android:priority="999">
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
 
