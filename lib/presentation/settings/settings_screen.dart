@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:elder_shield/application/app_providers.dart';
+import 'package:elder_shield/presentation/settings/about_screen.dart';
 import 'package:elder_shield/presentation/settings/permissions_explained_screen.dart';
 import 'package:elder_shield/presentation/settings/privacy_policy_screen.dart';
 import 'package:elder_shield/services/settings_service.dart';
-/// Settings: sensitivity mode, trusted contacts, delete history, re-run permissions, version. Block 10: Privacy policy & permissions explained.
+import 'package:elder_shield/utils/haptic.dart';
+import 'package:elder_shield/utils/responsive.dart';
+
+/// Settings: collapsible sections (Appearance, Text size, Legal, Sensitivity, Trusted contacts), theme, haptics.
 class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key});
 
@@ -15,6 +19,7 @@ class SettingsScreen extends ConsumerStatefulWidget {
 
 class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   String _sensitivityMode = 'conservative';
+  String _themeMode = 'system';
   List<TrustedContact> _contacts = [];
 
   @override
@@ -26,16 +31,27 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   Future<void> _load() async {
     final settings = ref.read(settingsServiceProvider);
     final mode = await settings.getSensitivityMode();
+    final theme = await settings.getThemeMode();
     final contacts = await settings.getTrustedContacts();
     if (mounted) {
       setState(() {
         _sensitivityMode = mode;
+        _themeMode = theme;
         _contacts = contacts;
       });
     }
   }
 
+  Future<void> _setThemeMode(String mode) async {
+    selectionClick();
+    final settings = ref.read(settingsServiceProvider);
+    await settings.setThemeMode(mode);
+    ref.read(themeModeProvider.notifier).state = mode;
+    setState(() => _themeMode = mode);
+  }
+
   Future<void> _setSensitivity(String mode) async {
+    selectionClick();
     final settings = ref.read(settingsServiceProvider);
     await settings.setSensitivityMode(mode);
     setState(() => _sensitivityMode = mode);
@@ -89,6 +105,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   }
 
   Future<void> _onFontScaleChanged(double value) async {
+    selectionClick();
     ref.read(fontScaleProvider.notifier).state = value;
     final settings = ref.read(settingsServiceProvider);
     await settings.setFontScale(value);
@@ -97,6 +114,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     final fontScale = ref.watch(fontScaleProvider);
+    final padding = horizontalPadding(context);
+    final theme = Theme.of(context);
+
     return Scaffold(
       appBar: AppBar(
         leading: Padding(
@@ -104,157 +124,232 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           child: Image.asset('assets/icon/icon.png', fit: BoxFit.contain),
         ),
         title: const Text('Settings'),
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: theme.colorScheme.primary,
         foregroundColor: Colors.white,
       ),
       body: ListView(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.symmetric(horizontal: padding, vertical: 16),
         children: [
-          Text(
-            'Text size',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            'Adjust to see text larger or smaller. Changes apply immediately.',
-            style: TextStyle(
-              fontSize: 14,
-              color: Theme.of(context).colorScheme.onSurfaceVariant,
-              height: 1.3,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Row(
+          // Appearance (theme)
+          ExpansionTile(
+            leading: Icon(Icons.palette_outlined, color: theme.colorScheme.primary),
+            title: Text('Appearance', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+            subtitle: Text(_themeMode == 'system' ? 'System' : _themeMode == 'light' ? 'Light' : 'Dark', style: TextStyle(fontSize: 14, color: theme.colorScheme.onSurfaceVariant)),
+            onExpansionChanged: (_) => lightImpact(),
             children: [
-              Text('A', style: TextStyle(fontSize: 14)),
-              Expanded(
-                child: Slider(
-                  value: fontScale.clamp(0.8, 1.5),
-                  min: 0.8,
-                  max: 1.5,
-                  divisions: 7,
-                  label: '${(fontScale.clamp(0.8, 1.5) * 100).round()}%',
-                  onChanged: (v) => _onFontScaleChanged(v),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: ['light', 'dark', 'system'].map((mode) {
+                    final label = mode == 'system' ? 'System' : mode == 'light' ? 'Light' : 'Dark';
+                    return RadioListTile<String>(
+                      title: Text(label),
+                      value: mode,
+                      groupValue: _themeMode,
+                      onChanged: (v) => v != null ? _setThemeMode(v) : null,
+                    );
+                  }).toList(),
                 ),
               ),
-              Text('A', style: TextStyle(fontSize: 22)),
             ],
           ),
-          const SizedBox(height: 24),
-          Text(
-            'Legal & information',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 8),
-          ListTile(
-            leading: const Icon(Icons.privacy_tip_outlined),
-            title: const Text('Privacy policy'),
-            subtitle: const Text('How we use your data'),
-            onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) => const PrivacyPolicyScreen(),
+          const Divider(height: 1),
+          // Text size
+          ExpansionTile(
+            leading: Icon(Icons.text_fields, color: theme.colorScheme.primary),
+            title: Text('Text size', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+            subtitle: Text('${(fontScale.clamp(0.8, 1.5) * 100).round()}%', style: TextStyle(fontSize: 14, color: theme.colorScheme.onSurfaceVariant)),
+            onExpansionChanged: (_) => lightImpact(),
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Adjust to see text larger or smaller. Changes apply immediately.', style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
+                    const SizedBox(height: 12),
+                    Row(
+                      children: [
+                        Text('A', style: TextStyle(fontSize: 14)),
+                        Expanded(
+                          child: Slider(
+                            value: fontScale.clamp(0.8, 1.5),
+                            min: 0.8,
+                            max: 1.5,
+                            divisions: 7,
+                            label: '${(fontScale.clamp(0.8, 1.5) * 100).round()}%',
+                            onChanged: (v) => _onFontScaleChanged(v),
+                          ),
+                        ),
+                        Text('A', style: TextStyle(fontSize: 22)),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
+            ],
           ),
-          ListTile(
-            leading: const Icon(Icons.info_outline),
-            title: const Text('Permissions explained'),
-            subtitle: const Text('Why we need each permission'),
-            onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) => const PermissionsExplainedScreen(),
+          const Divider(height: 1),
+          // Legal & information
+          ExpansionTile(
+            leading: Icon(Icons.gavel_outlined, color: theme.colorScheme.primary),
+            title: Text('Legal & information', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+            onExpansionChanged: (_) => lightImpact(),
+            children: [
+              ListTile(
+                leading: const Icon(Icons.privacy_tip_outlined),
+                title: const Text('Privacy policy'),
+                subtitle: const Text('How we use your data'),
+                onTap: () {
+                  selectionClick();
+                  Navigator.of(context).push(MaterialPageRoute(builder: (_) => const PrivacyPolicyScreen()));
+                },
               ),
-            ),
+              ListTile(
+                leading: const Icon(Icons.info_outline),
+                title: const Text('Permissions explained'),
+                subtitle: const Text('Why we need each permission'),
+                onTap: () {
+                  selectionClick();
+                  Navigator.of(context).push(MaterialPageRoute(builder: (_) => const PermissionsExplainedScreen()));
+                },
+              ),
+            ],
           ),
-          const SizedBox(height: 24),
-          Text(
-            'Sensitivity',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          const Divider(height: 1),
+          // Sensitivity
+          ExpansionTile(
+            leading: Icon(Icons.tune, color: theme.colorScheme.primary),
+            title: Text('Sensitivity', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+            subtitle: Text(_sensitivityMode[0].toUpperCase() + _sensitivityMode.substring(1), style: TextStyle(fontSize: 14, color: theme.colorScheme.onSurfaceVariant)),
+            onExpansionChanged: (_) => lightImpact(),
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
+                child: Column(
+                  children: ['conservative', 'balanced', 'sensitive'].map((mode) {
+                    final desc = switch (mode) {
+                      'conservative' => 'Fewer alerts. Only very obvious scams.',
+                      'balanced' => 'Medium. Good for most people.',
+                      'sensitive' => 'More alerts. Catches more but may flag some safe messages.',
+                      _ => '',
+                    };
+                    return RadioListTile<String>(
+                      title: Text(mode[0].toUpperCase() + mode.substring(1)),
+                      subtitle: Text(desc, style: const TextStyle(fontSize: 13)),
+                      value: mode,
+                      groupValue: _sensitivityMode,
+                      onChanged: (v) => v != null ? _setSensitivity(v) : null,
+                    );
+                  }).toList(),
+                ),
+              ),
+            ],
           ),
-          const SizedBox(height: 8),
-          ...['conservative', 'balanced', 'sensitive'].map((mode) {
-            final desc = switch (mode) {
-              'conservative' => 'Fewer alerts. Only very obvious scams.',
-              'balanced' => 'Medium. Good for most people.',
-              'sensitive' => 'More alerts. Catches more but may flag some safe messages.',
-              _ => '',
-            };
-            return RadioListTile<String>(
-              title: Text(mode[0].toUpperCase() + mode.substring(1)),
-              subtitle: Text(desc, style: const TextStyle(fontSize: 13)),
-              value: mode,
-              // ignore: deprecated_member_use
-              groupValue: _sensitivityMode,
-              // ignore: deprecated_member_use
-              onChanged: (v) => v != null ? _setSensitivity(v) : null,
-            );
-          }),
-          const SizedBox(height: 24),
-          const Text(
-            'Trusted contacts',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          const Divider(height: 1),
+          // Trusted contacts
+          ExpansionTile(
+            leading: Icon(Icons.contacts_outlined, color: theme.colorScheme.primary),
+            title: Text('Trusted contacts', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+            subtitle: Text(_contacts.isEmpty ? 'None' : '${_contacts.length} contact${_contacts.length == 1 ? '' : 's'}', style: TextStyle(fontSize: 14, color: theme.colorScheme.onSurfaceVariant)),
+            onExpansionChanged: (_) => lightImpact(),
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'You can call them with one tap from Home or when we show a scam warning. First in the list is used for the main "Call" button.',
+                      style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+                    ),
+                    const SizedBox(height: 8),
+                    ...List.generate(_contacts.length, (i) {
+                      final c = _contacts[i];
+                      return ListTile(
+                        title: Text(c.name.isEmpty ? c.number : c.name),
+                        subtitle: c.name.isNotEmpty ? Text(c.number) : null,
+                        leading: i == 0 ? Icon(Icons.star, size: 20, color: theme.colorScheme.primary) : null,
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              icon: const Icon(Icons.edit_outlined),
+                              onPressed: () {
+                                selectionClick();
+                                _showEditContactDialog(i);
+                              },
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.remove_circle_outline),
+                              onPressed: () {
+                                selectionClick();
+                                _removeContact(i);
+                              },
+                            ),
+                          ],
+                        ),
+                        onTap: () {
+                          selectionClick();
+                          _showEditContactDialog(i);
+                        },
+                      );
+                    }),
+                    if (_contacts.length < 3)
+                      ListTile(
+                        leading: const Icon(Icons.person_add),
+                        title: const Text('Add contact'),
+                        onTap: () {
+                          selectionClick();
+                          _showAddContactDialog();
+                        },
+                      ),
+                  ],
+                ),
+              ),
+            ],
           ),
-          const SizedBox(height: 4),
-          Text(
-            'You can call them with one tap from Home or when we show a scam warning. First in the list is used for the main "Call" button.',
-            style: TextStyle(
-              fontSize: 14,
-              color: Theme.of(context).colorScheme.onSurfaceVariant,
-              height: 1.3,
-            ),
-          ),
-          const SizedBox(height: 8),
-          ...List.generate(_contacts.length, (i) {
-            final c = _contacts[i];
-            return ListTile(
-              title: Text(c.name.isEmpty ? c.number : c.name),
-              subtitle: c.name.isNotEmpty ? Text(c.number) : null,
-              leading: i == 0
-                  ? Icon(Icons.star, size: 20, color: Theme.of(context).colorScheme.primary)
-                  : null,
-              trailing: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.edit_outlined),
-                    onPressed: () => _showEditContactDialog(i),
+          const Divider(height: 1),
+          // Data & permissions (bottom actions)
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                OutlinedButton.icon(
+                  onPressed: () {
+                    mediumImpact();
+                    _deleteAllHistory();
+                  },
+                  icon: const Icon(Icons.delete_outline),
+                  label: const Text('Delete all history'),
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: Colors.red,
+                    side: const BorderSide(color: Colors.red),
                   ),
-                  IconButton(
-                    icon: const Icon(Icons.remove_circle_outline),
-                    onPressed: () => _removeContact(i),
-                  ),
-                ],
-              ),
-              onTap: () => _showEditContactDialog(i),
-            );
-          }),
-          if (_contacts.length < 3)
-            ListTile(
-              leading: const Icon(Icons.person_add),
-              title: const Text('Add contact'),
-              onTap: () => _showAddContactDialog(),
-            ),
-          const SizedBox(height: 24),
-          OutlinedButton.icon(
-            onPressed: _deleteAllHistory,
-            icon: const Icon(Icons.delete_outline),
-            label: const Text('Delete all history'),
-            style: OutlinedButton.styleFrom(
-              foregroundColor: Colors.red,
-              side: const BorderSide(color: Colors.red),
-            ),
-          ),
-          const SizedBox(height: 16),
-          TextButton(
-            onPressed: _rerunPermissions,
-            child: const Text('Re-run permissions check'),
-          ),
-          const SizedBox(height: 32),
-          Text(
-            'App version: 1.0.0',
-            style: TextStyle(
-              fontSize: 12,
-              color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
+                const SizedBox(height: 8),
+                TextButton(
+                  onPressed: () {
+                    lightImpact();
+                    _rerunPermissions();
+                  },
+                  child: const Text('Re-run permissions check'),
+                ),
+                const SizedBox(height: 16),
+                ListTile(
+                  leading: Icon(Icons.info_outlined, color: theme.colorScheme.primary),
+                  title: const Text('About Elder Shield'),
+                  subtitle: Text(AboutScreen.appVersion),
+                  onTap: () {
+                    selectionClick();
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (_) => const AboutScreen()),
+                    );
+                  },
+                ),
+              ],
             ),
           ),
         ],

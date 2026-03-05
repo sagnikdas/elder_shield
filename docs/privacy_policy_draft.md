@@ -76,7 +76,7 @@ If we change this policy (for example, if we add optional cloud features in a fu
 
 ## 8. Contact
 
-For privacy-related questions or requests about Elder Shield, please contact [insert your contact email or support URL here].
+For privacy-related questions or requests about Elder Shield, please contact [sagnikd91@gmail.com].
 
 ---
 

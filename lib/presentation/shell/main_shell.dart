@@ -4,6 +4,7 @@ import 'package:elder_shield/application/app_providers.dart';
 import 'package:elder_shield/presentation/home/home_screen.dart';
 import 'package:elder_shield/presentation/messages/messages_screen.dart';
 import 'package:elder_shield/presentation/settings/settings_screen.dart';
+import 'package:elder_shield/utils/haptic.dart';
 
 /// Bottom nav: Home, Messages, Settings.
 class MainShell extends ConsumerWidget {
@@ -26,7 +27,10 @@ class MainShell extends ConsumerWidget {
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
-        onTap: (i) => ref.read(shellTabIndexProvider.notifier).state = i,
+        onTap: (i) {
+          selectionClick();
+          ref.read(shellTabIndexProvider.notifier).state = i;
+        },
         items: _tabs
             .map((t) => BottomNavigationBarItem(
                   icon: Icon(t.icon),

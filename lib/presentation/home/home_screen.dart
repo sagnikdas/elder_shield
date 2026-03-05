@@ -4,6 +4,8 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:elder_shield/application/app_providers.dart';
 import 'package:elder_shield/application/security_controller.dart';
+import 'package:elder_shield/utils/haptic.dart';
+import 'package:elder_shield/utils/responsive.dart';
 
 /// Home: protection status, today risk count, large "Call trusted contact" button.
 class HomeScreen extends ConsumerStatefulWidget {
@@ -89,6 +91,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   Widget build(BuildContext context) {
     final hasTrusted = _trustedContactNumber != null &&
         _trustedContactNumber!.trim().isNotEmpty;
+    final padding = horizontalPadding(context);
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    final riskCardColor = _todayRiskCount > 0
+        ? (isDark ? Colors.orange.shade900.withValues(alpha: 0.3) : Colors.orange.shade50)
+        : (isDark ? theme.colorScheme.surfaceContainerHighest : Colors.grey.shade100);
 
     return Scaffold(
       appBar: AppBar(
@@ -97,22 +105,23 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           child: Image.asset('assets/icon/icon.png', fit: BoxFit.contain),
         ),
         title: const Text('Elder Shield'),
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: theme.colorScheme.primary,
         foregroundColor: Colors.white,
       ),
       body: RefreshIndicator(
         onRefresh: () async {
+          lightImpact();
           await _loadTodayCount();
           await _loadTrustedContact();
         },
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
           child: Padding(
-            padding: const EdgeInsets.all(24),
+            padding: EdgeInsets.all(padding),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const SizedBox(height: 16),
+                SizedBox(height: verticalPadding(context)),
                 // Protection status
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -137,65 +146,72 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 if (!_permissionsGranted) ...[
                   const SizedBox(height: 12),
                   ElevatedButton(
-                    onPressed: _ensurePermissionsAndStart,
+                    onPressed: () {
+                      lightImpact();
+                      _ensurePermissionsAndStart();
+                    },
                     child: const Text('Enable protection'),
                   ),
                 ],
-                const SizedBox(height: 32),
-                // Today's risk summary (tappable -> Messages tab in Block 7)
+                SizedBox(height: verticalPadding(context) * 1.5),
+                // Today's risk summary (tappable -> Messages tab)
                 Material(
-                  color: _todayRiskCount > 0
-                      ? Colors.orange.shade50
-                      : Colors.grey.shade100,
+                  color: riskCardColor,
                   borderRadius: BorderRadius.circular(12),
                   child: InkWell(
-                    onTap: () =>
-                        ref.read(shellTabIndexProvider.notifier).state = 1,
+                    onTap: () {
+                      selectionClick();
+                      ref.read(shellTabIndexProvider.notifier).state = 1;
+                    },
                     borderRadius: BorderRadius.circular(12),
                     child: Padding(
-                      padding: const EdgeInsets.all(16),
+                      padding: EdgeInsets.all(padding * 0.75),
                       child: Text(
                         _todayRiskCount > 0
                             ? '$_todayRiskCount suspicious message${_todayRiskCount == 1 ? '' : 's'} detected today.'
                             : 'No suspicious activity today.',
-                        style: const TextStyle(fontSize: 16),
+                        style: theme.textTheme.bodyLarge,
                         textAlign: TextAlign.center,
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(height: 32),
+                SizedBox(height: verticalPadding(context) * 1.5),
                 // Large Call trusted contact button (min 56 dp)
                 if (hasTrusted)
                   SizedBox(
                     height: 64,
                     child: ElevatedButton.icon(
-                      onPressed: _callTrustedContact,
+                      onPressed: () {
+                        selectionClick();
+                        _callTrustedContact();
+                      },
                       icon: const Icon(Icons.phone, size: 28),
                       label: Text(
                         'Call ${_trustedContactName?.isNotEmpty == true ? _trustedContactName! : 'Trusted Contact'}',
                         style: const TextStyle(fontSize: 18),
                       ),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF1565C0),
-                        foregroundColor: Colors.white,
+                        backgroundColor: theme.colorScheme.primary,
+                        foregroundColor: theme.colorScheme.onPrimary,
                       ),
                     ),
                   )
                 else
                   Card(
                     child: Padding(
-                      padding: const EdgeInsets.all(16),
+                      padding: EdgeInsets.all(padding),
                       child: Column(
                         children: [
-                          const Text(
+                          Text(
                             'Add a trusted contact so you can call them quickly if you get a scary message.',
-                            style: TextStyle(fontSize: 16),
+                            style: theme.textTheme.bodyLarge,
                             textAlign: TextAlign.center,
                           ),
                           const SizedBox(height: 12),
                           TextButton.icon(
                             onPressed: () {
+                              selectionClick();
                               ref.read(shellTabIndexProvider.notifier).state = 2;
                             },
                             icon: const Icon(Icons.person_add),

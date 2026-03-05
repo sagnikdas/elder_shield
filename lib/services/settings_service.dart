@@ -24,6 +24,7 @@ class SettingsKeys {
   static const sensitivityMode = 'sensitivity_mode'; // e.g. 'conservative', 'balanced', 'sensitive'
   static const trustedContacts = 'trusted_contacts'; // JSON array of {name, number}
   static const fontScale = 'font_scale'; // double as string, e.g. '1.0'. 1.0 = 100%.
+  static const themeMode = 'theme_mode'; // 'light', 'dark', 'system'
 }
 
 /// Secure settings stored in [FlutterSecureStorage].
@@ -93,6 +94,18 @@ class SettingsService {
     await _storage.write(
       key: SettingsKeys.fontScale,
       value: scale.toString(),
+    );
+  }
+
+  /// Theme mode: 'light', 'dark', or 'system'. Defaults to 'system'.
+  Future<String> getThemeMode() async {
+    return await _storage.read(key: SettingsKeys.themeMode) ?? 'system';
+  }
+
+  Future<void> setThemeMode(String mode) async {
+    await _storage.write(
+      key: SettingsKeys.themeMode,
+      value: mode,
     );
   }
 

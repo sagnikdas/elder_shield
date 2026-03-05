@@ -30,3 +30,6 @@ final shellTabIndexProvider = StateProvider<int>((ref) => 0);
 
 /// Text scale factor for the whole app (1.0 = 100%). Updated in Settings; applied via MaterialApp builder.
 final fontScaleProvider = StateProvider<double>((ref) => 1.0);
+
+/// Theme mode: 'light', 'dark', 'system'. Updated in Settings; applied in app.dart.
+final themeModeProvider = StateProvider<String>((ref) => 'system');

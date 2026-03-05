@@ -4,6 +4,8 @@ import 'package:elder_shield/application/app_providers.dart';
 import 'package:elder_shield/data/message_repository.dart';
 import 'package:elder_shield/domain/detector/heuristic_detector.dart';
 import 'package:elder_shield/presentation/messages/risk_detail_sheet.dart';
+import 'package:elder_shield/utils/haptic.dart';
+import 'package:elder_shield/utils/responsive.dart';
 
 /// Messages list with risk badges; tap opens Risk Detail sheet. All / High Risk filter.
 class MessagesScreen extends ConsumerStatefulWidget {
@@ -26,6 +28,8 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final padding = horizontalPadding(context);
+    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         leading: Padding(
@@ -33,25 +37,31 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
           child: Image.asset('assets/icon/icon.png', fit: BoxFit.contain),
         ),
         title: const Text('Messages'),
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: theme.colorScheme.primary,
         foregroundColor: Colors.white,
       ),
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            padding: EdgeInsets.symmetric(horizontal: padding, vertical: 12),
             child: Row(
               children: [
                 FilterChip(
                   label: const Text('All'),
                   selected: !_highRiskOnly,
-                  onSelected: (v) => setState(() => _highRiskOnly = false),
+                  onSelected: (v) {
+                    selectionClick();
+                    setState(() => _highRiskOnly = false);
+                  },
                 ),
-                const SizedBox(width: 8),
+                const SizedBox(width: 12),
                 FilterChip(
                   label: const Text('High Risk'),
                   selected: _highRiskOnly,
-                  onSelected: (v) => setState(() => _highRiskOnly = true),
+                  onSelected: (v) {
+                    selectionClick();
+                    setState(() => _highRiskOnly = true);
+                  },
                 ),
               ],
             ),
@@ -67,10 +77,10 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                 if (list.isEmpty) {
                   return Center(
                     child: Padding(
-                      padding: const EdgeInsets.all(24),
+                      padding: EdgeInsets.all(padding * 1.5),
                       child: Text(
                         'No messages analyzed yet. Elder Shield will check new messages automatically.',
-                        style: Theme.of(context).textTheme.bodyLarge,
+                        style: theme.textTheme.bodyLarge,
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -78,15 +88,18 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                 }
                 return RefreshIndicator(
                   onRefresh: () async {
+                    lightImpact();
                     setState(() {});
                   },
                   child: ListView.builder(
+                    padding: EdgeInsets.symmetric(horizontal: padding * 0.5),
                     itemCount: list.length,
                     itemBuilder: (context, index) {
                       final msg = list[index];
                       return _MessageTile(
                         message: msg,
                         onTap: () {
+                          selectionClick();
                           showRiskDetailSheet(
                             context,
                             message: msg,
@@ -129,42 +142,47 @@ class _MessageTile extends StatelessWidget {
       RiskBand.high => ('HIGH', Colors.red),
     };
 
-    return ListTile(
-      title: Text(
-        message.sender,
-        style: const TextStyle(fontWeight: FontWeight.w600),
-      ),
-      subtitle: Text(snippet),
-      trailing: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(
-              color: badgeColor.withValues(alpha: 0.2),
-              borderRadius: BorderRadius.circular(6),
-            ),
-            child: Text(
-              badgeLabel,
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-                color: badgeColor.shade700,
+    final theme = Theme.of(context);
+    return Card(
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      child: ListTile(
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        title: Text(
+          message.sender,
+          style: const TextStyle(fontWeight: FontWeight.w600),
+        ),
+        subtitle: Text(snippet),
+        trailing: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              decoration: BoxDecoration(
+                color: badgeColor.withValues(alpha: 0.2),
+                borderRadius: BorderRadius.circular(6),
+              ),
+              child: Text(
+                badgeLabel,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: badgeColor.shade700,
+                ),
               ),
             ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            dateStr,
-            style: TextStyle(
-              fontSize: 12,
-              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            const SizedBox(height: 4),
+            Text(
+              dateStr,
+              style: TextStyle(
+                fontSize: 12,
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
+        onTap: onTap,
       ),
-      onTap: onTap,
     );
   }
 }
