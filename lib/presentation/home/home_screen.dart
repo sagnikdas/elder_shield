@@ -52,16 +52,19 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final smsStatus = await Permission.sms.status;
     final phoneStatus = await Permission.phone.status;
 
-    if (!smsStatus.isGranted || !phoneStatus.isGranted) {
+    final notificationStatus = await Permission.notification.status;
+    if (!smsStatus.isGranted || !phoneStatus.isGranted || !notificationStatus.isGranted) {
       final result = await [
         Permission.sms,
         Permission.phone,
+        Permission.notification,
       ].request();
 
       final smsGranted = result[Permission.sms]?.isGranted ?? false;
       final phoneGranted = result[Permission.phone]?.isGranted ?? false;
+      final notificationGranted = result[Permission.notification]?.isGranted ?? true;
 
-      if (!smsGranted || !phoneGranted) {
+      if (!smsGranted || !phoneGranted || !notificationGranted) {
         if (mounted) setState(() => _permissionsGranted = false);
         return;
       }

@@ -139,6 +139,16 @@ class MessageRepository {
     }).toList();
   }
 
+  /// Delete a message and its reasons from local storage.
+  /// Does not delete the SMS from the system inbox (only the default SMS app can do that).
+  Future<void> deleteMessage(int messageId) async {
+    final db = await _db.database;
+    await db.transaction((txn) async {
+      await txn.delete(AppDatabase.tableReasons, where: 'message_id = ?', whereArgs: [messageId]);
+      await txn.delete(AppDatabase.tableMessages, where: 'id = ?', whereArgs: [messageId]);
+    });
+  }
+
   /// Save user feedback label for a message (e.g. user marks scam/safe).
   Future<void> saveFeedback({
     required int messageId,

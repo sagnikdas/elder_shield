@@ -32,11 +32,13 @@ class _OnboardingPermissionsScreenState
     final result = await [
       Permission.sms,
       Permission.phone,
+      Permission.notification,
     ].request();
 
     final smsOk = result[Permission.sms]?.isGranted ?? false;
     final phoneOk = result[Permission.phone]?.isGranted ?? false;
-    final allOk = smsOk && phoneOk;
+    final notificationOk = result[Permission.notification]?.isGranted ?? true; // pre-Android 13 no runtime ask
+    final allOk = smsOk && phoneOk && notificationOk;
 
     if (mounted) {
       setState(() {
@@ -72,6 +74,15 @@ class _OnboardingPermissionsScreenState
               const SizedBox(height: 12),
               _bullet(
                 'Phone: so we know when you are on a call. Scammers often ask for OTPs while you are on the phone.',
+              ),
+              const SizedBox(height: 20),
+              Text(
+                'When you tap "Allow Permissions" below, your device will ask for: Messages, Phone, and Notifications (so we can alert you about possible scams even when the app is closed).',
+                style: TextStyle(
+                  fontSize: 14,
+                  height: 1.3,
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
               ),
               const Spacer(),
               if (_showRetry) ...[

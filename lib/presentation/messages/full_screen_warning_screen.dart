@@ -3,27 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:elder_shield/application/app_providers.dart';
 import 'package:elder_shield/data/message_repository.dart';
-import 'package:elder_shield/domain/detector/heuristic_detector.dart';
 
-/// Risk detail bottom sheet: message, reasons, actions (Scam / Safe / Call Trusted / Block).
-void showRiskDetailSheet(
-  BuildContext context, {
-  required AnalyzedMessage message,
-  required VoidCallback onDismiss,
-}) {
-  showModalBottomSheet(
-    context: context,
-    isScrollControlled: true,
-    useSafeArea: true,
-    builder: (ctx) => _RiskDetailSheetContent(
-      message: message,
-      onDismiss: onDismiss,
-    ),
-  );
-}
-
-class _RiskDetailSheetContent extends ConsumerWidget {
-  const _RiskDetailSheetContent({
+/// Full-screen warning shown when the app is opened from the "possible scam"
+/// notification (app was killed). Same actions as the sheet; [onDismiss] closes
+/// the screen and shows the main app.
+class FullScreenWarningScreen extends ConsumerWidget {
+  const FullScreenWarningScreen({
+    super.key,
     required this.message,
     required this.onDismiss,
   });
@@ -36,21 +22,53 @@ class _RiskDetailSheetContent extends ConsumerWidget {
     final repo = ref.read(messageRepositoryProvider);
     final settings = ref.read(settingsServiceProvider);
 
-    return DraggableScrollableSheet(
-      initialChildSize: 0.7,
-      minChildSize: 0.5,
-      maxChildSize: 1,
-      expand: false,
-      builder: (context, scrollController) {
-        return SingleChildScrollView(
-          controller: scrollController,
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Elder Shield'),
+        centerTitle: true,
+        backgroundColor: Colors.red.shade700,
+        foregroundColor: Colors.white,
+        actions: [
+          TextButton(
+            onPressed: onDismiss,
+            child: const Text('Dismiss', style: TextStyle(color: Colors.white)),
+          ),
+        ],
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisSize: MainAxisSize.min,
             children: [
+              Container(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                decoration: BoxDecoration(
+                  color: Colors.red.shade50,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Row(
+                  children: [
+                    Icon(Icons.warning_amber_rounded,
+                        size: 40, color: Colors.red.shade700),
+                    const SizedBox(width: 12),
+                    const Expanded(
+                      child: Text(
+                        'Warning: Possible scam message',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
               Text(
-                message.sender,
+                'From: ${message.sender}',
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
@@ -58,43 +76,50 @@ class _RiskDetailSheetContent extends ConsumerWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                message.body,
+                message.body.length > 200
+                    ? '${message.body.substring(0, 200)}…'
+                    : message.body,
                 style: const TextStyle(fontSize: 16, height: 1.4),
               ),
-              const SizedBox(height: 16),
-              _RiskBandChip(band: message.band),
               if (message.reasons.isNotEmpty) ...[
                 const SizedBox(height: 16),
                 Text(
-                  'Why this was flagged:',
-                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                  message.reasons.first,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red.shade700,
+                  ),
                 ),
-                const SizedBox(height: 8),
-                ...message.reasons.map((r) => Padding(
-                      padding: const EdgeInsets.only(bottom: 4),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text('• ', style: TextStyle(fontSize: 16)),
-                          Expanded(child: Text(r, style: const TextStyle(fontSize: 15))),
-                        ],
-                      ),
-                    )),
+                if (message.reasons.length > 1) ...[
+                  const SizedBox(height: 8),
+                  ...message.reasons.skip(1).map((r) => Padding(
+                        padding: const EdgeInsets.only(bottom: 4),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text('• ', style: TextStyle(fontSize: 16)),
+                            Expanded(
+                                child: Text(r,
+                                    style: const TextStyle(fontSize: 15))),
+                          ],
+                        ),
+                      )),
+                ],
               ],
               const SizedBox(height: 24),
               _ActionButton(
                 label: 'This is a Scam',
                 icon: Icons.report,
                 onPressed: () async {
-                  await repo.saveFeedback(messageId: message.id, label: 'scam');
+                  await repo.saveFeedback(
+                      messageId: message.id, label: 'scam');
                   if (context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Marked as scam. Thank you.')),
+                      const SnackBar(
+                          content: Text('Marked as scam. Thank you.')),
                     );
                     onDismiss();
-                    Navigator.of(context).pop();
                   }
                 },
               ),
@@ -103,11 +128,9 @@ class _RiskDetailSheetContent extends ConsumerWidget {
                 label: 'This is Safe',
                 icon: Icons.check_circle,
                 onPressed: () async {
-                  await repo.saveFeedback(messageId: message.id, label: 'safe');
-                  if (context.mounted) {
-                    onDismiss();
-                    Navigator.of(context).pop();
-                  }
+                  await repo.saveFeedback(
+                      messageId: message.id, label: 'safe');
+                  if (context.mounted) onDismiss();
                 },
               ),
               const SizedBox(height: 12),
@@ -115,19 +138,19 @@ class _RiskDetailSheetContent extends ConsumerWidget {
                 future: settings.getTrustedContacts(),
                 builder: (context, snap) {
                   final contacts = snap.data ?? [];
-                  final first = contacts.isNotEmpty ? contacts.first : null;
-                  if (first == null) {
-                    return const SizedBox.shrink();
-                  }
+                  final first =
+                      contacts.isNotEmpty ? contacts.first : null;
+                  if (first == null) return const SizedBox.shrink();
                   return _ActionButton(
-                    label: 'Call ${first.name.isNotEmpty ? first.name : "Trusted Contact"}',
+                    label:
+                        'Call ${first.name.isNotEmpty ? first.name : "Trusted Contact"}',
                     icon: Icons.phone,
                     onPressed: () async {
                       final uri = Uri.parse(
-                        'tel:${first.number.replaceAll(RegExp(r'\s'), '')}',
-                      );
+                          'tel:${first.number.replaceAll(RegExp(r'\s'), '')}');
                       if (await canLaunchUrl(uri)) {
-                        await launchUrl(uri, mode: LaunchMode.externalApplication);
+                        await launchUrl(uri,
+                            mode: LaunchMode.externalApplication);
                       }
                     },
                   );
@@ -148,7 +171,6 @@ class _RiskDetailSheetContent extends ConsumerWidget {
                       ),
                     );
                     onDismiss();
-                    Navigator.of(context).pop();
                     final number = message.sender
                         .replaceAll(RegExp(r'[^\d+]'), '');
                     if (number.isNotEmpty) {
@@ -164,47 +186,20 @@ class _RiskDetailSheetContent extends ConsumerWidget {
               const SizedBox(height: 16),
               TextButton(
                 onPressed: () async {
-                  final number = message.sender.replaceAll(RegExp(r'[^\d+]'), '');
+                  final number = message.sender
+                      .replaceAll(RegExp(r'[^\d+]'), '');
                   if (number.isEmpty) return;
                   final uri = Uri.parse('sms:$number');
                   if (await canLaunchUrl(uri)) {
-                    await launchUrl(uri, mode: LaunchMode.externalApplication);
+                    await launchUrl(uri,
+                        mode: LaunchMode.externalApplication);
                   }
                 },
-                child: const Text('Block this sender (opens messaging app)'),
+                child: const Text(
+                    'Block this sender (opens messaging app)'),
               ),
             ],
           ),
-        );
-      },
-    );
-  }
-}
-
-class _RiskBandChip extends StatelessWidget {
-  const _RiskBandChip({required this.band});
-
-  final RiskBand band;
-
-  @override
-  Widget build(BuildContext context) {
-    final (label, color) = switch (band) {
-      RiskBand.low => ('LOW RISK', Colors.grey),
-      RiskBand.medium => ('MEDIUM RISK — Review', Colors.orange),
-      RiskBand.high => ('HIGH RISK — Possible Scam', Colors.red),
-    };
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.2),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Text(
-        label,
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          color: color.shade700,
-          fontSize: 16,
         ),
       ),
     );

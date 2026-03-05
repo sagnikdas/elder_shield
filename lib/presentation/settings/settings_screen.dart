@@ -124,16 +124,38 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             'Trusted contacts',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
+          const SizedBox(height: 4),
+          Text(
+            'You can call them with one tap from Home or when we show a scam warning. First in the list is used for the main "Call" button.',
+            style: TextStyle(
+              fontSize: 14,
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+              height: 1.3,
+            ),
+          ),
           const SizedBox(height: 8),
           ...List.generate(_contacts.length, (i) {
             final c = _contacts[i];
             return ListTile(
               title: Text(c.name.isEmpty ? c.number : c.name),
               subtitle: c.name.isNotEmpty ? Text(c.number) : null,
-              trailing: IconButton(
-                icon: const Icon(Icons.remove_circle_outline),
-                onPressed: () => _removeContact(i),
+              leading: i == 0
+                  ? Icon(Icons.star, size: 20, color: Theme.of(context).colorScheme.primary)
+                  : null,
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.edit_outlined),
+                    onPressed: () => _showEditContactDialog(i),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.remove_circle_outline),
+                    onPressed: () => _removeContact(i),
+                  ),
+                ],
               ),
+              onTap: () => _showEditContactDialog(i),
             );
           }),
           if (_contacts.length < 3)
@@ -173,13 +195,72 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   Future<void> _showAddContactDialog() async {
     final nameController = TextEditingController();
     final numberController = TextEditingController();
-    final ok = await showDialog<bool>(
+    final ok = await _showContactDialog(
+      title: 'Add trusted contact',
+      consent: 'They can be called with one tap from Home or when we show a scam warning.',
+      nameController: nameController,
+      numberController: numberController,
+      confirmLabel: 'Add',
+    );
+    if (ok != true || !mounted) return;
+    final name = nameController.text.trim();
+    final number = numberController.text.trim();
+    if (number.isEmpty) return;
+    final updated = [..._contacts, TrustedContact(name: name, number: number)];
+    if (updated.length > 3) updated.removeRange(3, updated.length);
+    final settings = ref.read(settingsServiceProvider);
+    await settings.setTrustedContacts(updated);
+    setState(() => _contacts = updated);
+  }
+
+  Future<void> _showEditContactDialog(int index) async {
+    final c = _contacts[index];
+    final nameController = TextEditingController(text: c.name);
+    final numberController = TextEditingController(text: c.number);
+    final ok = await _showContactDialog(
+      title: 'Edit trusted contact',
+      consent: null,
+      nameController: nameController,
+      numberController: numberController,
+      confirmLabel: 'Save',
+    );
+    if (ok != true || !mounted) return;
+    final name = nameController.text.trim();
+    final number = numberController.text.trim();
+    if (number.isEmpty) return;
+    final updated = List<TrustedContact>.from(_contacts)
+      ..[index] = TrustedContact(name: name, number: number);
+    final settings = ref.read(settingsServiceProvider);
+    await settings.setTrustedContacts(updated);
+    setState(() => _contacts = updated);
+  }
+
+  Future<bool?> _showContactDialog({
+    required String title,
+    required String? consent,
+    required TextEditingController nameController,
+    required TextEditingController numberController,
+    required String confirmLabel,
+  }) {
+    return showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Add trusted contact'),
+        title: Text(title),
         content: Column(
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            if (consent != null) ...[
+              Text(
+                consent,
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Theme.of(ctx).colorScheme.onSurfaceVariant,
+                  height: 1.3,
+                ),
+              ),
+              const SizedBox(height: 16),
+            ],
             TextField(
               controller: nameController,
               decoration: const InputDecoration(
@@ -208,19 +289,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           ),
           FilledButton(
             onPressed: () => Navigator.of(ctx).pop(true),
-            child: const Text('Add'),
+            child: Text(confirmLabel),
           ),
         ],
       ),
     );
-    if (ok != true || !mounted) return;
-    final name = nameController.text.trim();
-    final number = numberController.text.trim();
-    if (number.isEmpty) return;
-    final updated = [..._contacts, TrustedContact(name: name, number: number)];
-    if (updated.length > 3) updated.removeRange(3, updated.length);
-    final settings = ref.read(settingsServiceProvider);
-    await settings.setTrustedContacts(updated);
-    setState(() => _contacts = updated);
   }
 }

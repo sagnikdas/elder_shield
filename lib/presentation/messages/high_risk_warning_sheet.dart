@@ -169,6 +169,34 @@ class _HighRiskWarningContent extends ConsumerWidget {
                   );
                 },
               ),
+              const SizedBox(height: 12),
+              _ActionButton(
+                label: 'Delete message',
+                icon: Icons.delete_outline,
+                onPressed: () async {
+                  await repo.deleteMessage(message.id);
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                          'Removed from Elder Shield. Opening messaging app so you can delete it from your phone.',
+                        ),
+                      ),
+                    );
+                    onDismiss();
+                    Navigator.of(context).pop();
+                    final number = message.sender
+                        .replaceAll(RegExp(r'[^\d+]'), '');
+                    if (number.isNotEmpty) {
+                      final uri = Uri.parse('sms:$number');
+                      if (await canLaunchUrl(uri)) {
+                        await launchUrl(uri,
+                            mode: LaunchMode.externalApplication);
+                      }
+                    }
+                  }
+                },
+              ),
               const SizedBox(height: 16),
               TextButton(
                 onPressed: () async {

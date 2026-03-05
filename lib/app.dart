@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:elder_shield/application/app_providers.dart';
-import 'package:elder_shield/presentation/messages/high_risk_alert_listener.dart';
+import 'package:elder_shield/presentation/launch_gate.dart';
 import 'package:elder_shield/presentation/onboarding/onboarding_flow.dart';
-import 'package:elder_shield/presentation/shell/main_shell.dart';
 
 class ElderShieldApp extends ConsumerStatefulWidget {
   const ElderShieldApp({super.key});
@@ -55,6 +54,6 @@ class _ElderShieldAppState extends ConsumerState<ElderShieldApp> {
         setState(() => _onboardingComplete = true);
       });
     }
-    return const HighRiskAlertListener(child: MainShell());
+    return const LaunchGate();
   }
 }

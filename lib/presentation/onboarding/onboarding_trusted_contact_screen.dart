@@ -55,71 +55,86 @@ class _OnboardingTrustedContactScreenState
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const SizedBox(height: 32),
-              Text(
-                'Add a trusted contact',
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 22,
-                    ),
-              ),
-              const SizedBox(height: 8),
-              const Text(
-                'Someone you can call if you get a scary message — like a family member.',
-                style: TextStyle(fontSize: 16, height: 1.4),
-              ),
-              const SizedBox(height: 24),
-              TextField(
-                controller: _nameController,
-                decoration: const InputDecoration(
-                  labelText: 'Name',
-                  hintText: 'e.g. My son',
-                  border: OutlineInputBorder(),
-                ),
-                textCapitalization: TextCapitalization.words,
-              ),
-              const SizedBox(height: 16),
-              TextField(
-                controller: _numberController,
-                decoration: const InputDecoration(
-                  labelText: 'Phone number',
-                  hintText: 'e.g. +91 98765 43210',
-                  border: OutlineInputBorder(),
-                ),
-                keyboardType: TextInputType.phone,
-              ),
-              const Spacer(),
-              SizedBox(
-                width: double.infinity,
-                height: 56,
-                child: ElevatedButton(
-                  onPressed: _addAndFinish,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF1565C0),
-                    foregroundColor: Colors.white,
-                  ),
-                  child: const Text('Done', style: TextStyle(fontSize: 18)),
-                ),
-              ),
-              const SizedBox(height: 12),
-              TextButton(
-                onPressed: widget.onSkip,
-                child: Text(
-                  'Skip for now',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 24),
-            ],
+        child: SingleChildScrollView(
+          padding: EdgeInsets.fromLTRB(
+            24,
+            24,
+            24,
+            24 + MediaQuery.of(context).viewInsets.bottom,
           ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const SizedBox(height: 32),
+                Text(
+                  'Add a trusted contact',
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 22,
+                      ),
+                ),
+                const SizedBox(height: 8),
+                const Text(
+                  'Someone you can call if you get a scary message — like a family member.',
+                  style: TextStyle(fontSize: 16, height: 1.4),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'By adding them, you can call this person with one tap from the Home screen or when we show a scam warning.',
+                  style: TextStyle(
+                    fontSize: 14,
+                    height: 1.4,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                ),
+                const SizedBox(height: 24),
+                TextField(
+                  controller: _nameController,
+                  decoration: const InputDecoration(
+                    labelText: 'Name',
+                    hintText: 'e.g. My son',
+                    border: OutlineInputBorder(),
+                  ),
+                  textCapitalization: TextCapitalization.words,
+                ),
+                const SizedBox(height: 16),
+                TextField(
+                  controller: _numberController,
+                  decoration: const InputDecoration(
+                    labelText: 'Phone number',
+                    hintText: 'e.g. +91 98765 43210',
+                    border: OutlineInputBorder(),
+                  ),
+                  keyboardType: TextInputType.phone,
+                ),
+                const SizedBox(height: 32),
+                SizedBox(
+                  width: double.infinity,
+                  height: 56,
+                  child: ElevatedButton(
+                    onPressed: _addAndFinish,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF1565C0),
+                      foregroundColor: Colors.white,
+                    ),
+                    child: const Text('Done', style: TextStyle(fontSize: 18)),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                TextButton(
+                  onPressed: widget.onSkip,
+                  child: Text(
+                    'Skip for now',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 24),
+              ],
+            ),
         ),
       ),
     );

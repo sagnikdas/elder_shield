@@ -5,8 +5,8 @@ import 'package:elder_shield/data/message_repository.dart';
 import 'package:elder_shield/presentation/messages/high_risk_warning_sheet.dart';
 
 /// When [pendingHighRiskMessageProvider] is set, shows the high-risk warning sheet.
-/// Also shows the sheet when the app comes to foreground (e.g. from another app)
-/// with a pending message, so the warning appears over YouTube or any other app.
+/// When the app comes to foreground with a pending message, shows the sheet.
+/// (Launch from "possible scam" notification is handled by [LaunchGate] with full-screen warning.)
 class HighRiskAlertListener extends ConsumerStatefulWidget {
   const HighRiskAlertListener({super.key, required this.child});
 
