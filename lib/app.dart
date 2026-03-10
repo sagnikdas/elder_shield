@@ -109,14 +109,33 @@ class _ElderShieldAppState extends ConsumerState<ElderShieldApp> {
 
   Widget _buildHome() {
     if (_onboardingComplete == null) {
-      return const Scaffold(
+      return Scaffold(
         body: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              CircularProgressIndicator(),
-              SizedBox(height: 12),
-              Text('Loading…'),
+              Image.asset(
+                'assets/icon/icon.png',
+                width: 96,
+                height: 96,
+              ),
+              const SizedBox(height: 16),
+              Text(
+                'Elder Shield',
+                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'On-device scam protection for you.',
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 24),
+              const CircularProgressIndicator(),
             ],
           ),
         ),

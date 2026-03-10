@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:elder_shield/application/app_providers.dart';
@@ -28,7 +30,10 @@ class _LaunchGateState extends ConsumerState<LaunchGate> {
   }
 
   Future<void> _checkLaunchSms() async {
-    final data = await getLaunchSms();
+    final data = await getLaunchSms().timeout(
+      const Duration(seconds: 5),
+      onTimeout: () => null,
+    );
     if (!mounted) return;
     if (data == null) {
       setState(() => _checked = true);
