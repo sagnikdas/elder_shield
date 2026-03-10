@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:elder_shield/application/app_providers.dart';
@@ -8,6 +10,7 @@ import 'package:elder_shield/presentation/messages/risk_detail_sheet.dart';
 import 'package:elder_shield/presentation/widgets/elder_shield_app_bar.dart';
 import 'package:elder_shield/utils/haptic.dart';
 import 'package:elder_shield/utils/responsive.dart';
+import 'package:elder_shield/utils/snackbars.dart';
 
 /// Messages list with risk badges; tap opens Risk Detail sheet. All / High Risk filter.
 class MessagesScreen extends ConsumerStatefulWidget {
@@ -19,6 +22,32 @@ class MessagesScreen extends ConsumerStatefulWidget {
 
 class _MessagesScreenState extends ConsumerState<MessagesScreen> {
   bool _highRiskOnly = false;
+  final ScrollController _scrollController = ScrollController();
+  Timer? _autoRefreshTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    _startAutoRefresh();
+  }
+
+  @override
+  void dispose() {
+    _autoRefreshTimer?.cancel();
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _startAutoRefresh() {
+    _autoRefreshTimer?.cancel();
+    _autoRefreshTimer = Timer.periodic(const Duration(seconds: 30), (_) {
+      if (!mounted) return;
+      // Only refresh when Messages tab is currently visible.
+      final currentIndex = ref.read(shellTabIndexProvider);
+      if (currentIndex != 1) return;
+      setState(() {});
+    });
+  }
 
   Future<List<AnalyzedMessage>> _fetchMessages() async {
     final repo = ref.read(messageRepositoryProvider);
@@ -45,6 +74,13 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                   child: FilterChip(
                     label: const Text('All'),
                     selected: !_highRiskOnly,
+                    showCheckmark: false,
+                    selectedColor: theme.colorScheme.primary,
+                    labelStyle: TextStyle(
+                      color: !_highRiskOnly
+                          ? theme.colorScheme.onSurface
+                          : theme.colorScheme.onPrimary,
+                    ),
                     onSelected: (v) {
                       selectionClick();
                       setState(() => _highRiskOnly = false);
@@ -57,6 +93,13 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                   child: FilterChip(
                     label: const Text('High Risk'),
                     selected: _highRiskOnly,
+                    showCheckmark: false,
+                    selectedColor: theme.colorScheme.primary,
+                    labelStyle: TextStyle(
+                      color: _highRiskOnly
+                          ? theme.colorScheme.onPrimary
+                          : theme.colorScheme.onSurface,
+                    ),
                     onSelected: (v) {
                       selectionClick();
                       setState(() => _highRiskOnly = true);
@@ -112,12 +155,22 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                   );
                 }
                 return RefreshIndicator(
-                  onRefresh: () async {
+                  onRefresh: () {
                     lightImpact();
                     setState(() {});
+                    _scrollController.animateTo(
+                      0,
+                      duration: const Duration(milliseconds: 250),
+                      curve: Curves.easeOut,
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      elderSnackBar('List updated'),
+                    );
+                    return Future<void>.value();
                   },
                   child: ListView.builder(
                     padding: EdgeInsets.symmetric(horizontal: padding * 0.5),
+                    controller: _scrollController,
                     itemCount: list.length,
                     itemBuilder: (context, index) {
                       final msg = list[index];
@@ -234,54 +287,115 @@ class _MessageTile extends StatelessWidget {
         ? '${message.body.substring(0, 60)}…'
         : message.body;
     final date = DateTime.fromMillisecondsSinceEpoch(message.timestamp);
-    final dateStr = '${date.day}/${date.month}/${date.year} ${date.hour}:${date.minute.toString().padLeft(2, '0')}';
+    final now = DateTime.now();
+    String formatTime(DateTime d) {
+      final hour = d.hour % 12 == 0 ? 12 : d.hour % 12;
+      final minute = d.minute.toString().padLeft(2, '0');
+      final suffix = d.hour >= 12 ? 'PM' : 'AM';
+      return '$hour:$minute $suffix';
+    }
 
-    final (badgeLabel, badgeColor) = switch (message.band) {
-      RiskBand.low => ('LOW', Colors.grey),
-      RiskBand.medium => ('MEDIUM', Colors.orange),
-      RiskBand.high => ('HIGH', Colors.red),
+    String dateStr;
+    final isSameDay = now.year == date.year &&
+        now.month == date.month &&
+        now.day == date.day;
+    final yesterday = now.subtract(const Duration(days: 1));
+    final isYesterday = yesterday.year == date.year &&
+        yesterday.month == date.month &&
+        yesterday.day == date.day;
+    if (isSameDay) {
+      dateStr = 'Today, ${formatTime(date)}';
+    } else if (isYesterday) {
+      dateStr = 'Yesterday, ${formatTime(date)}';
+    } else {
+      const months = [
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec',
+      ];
+      final month = months[date.month - 1];
+      dateStr = '$month ${date.day}, ${formatTime(date)}';
+    }
+
+    final (badgeLabel, Color badgeBg, Color badgeText) = switch (message.band) {
+      RiskBand.low => (
+          'Low risk',
+          DesignTokens.riskLow.withValues(alpha: 0.12),
+          DesignTokens.riskLow,
+        ),
+      RiskBand.medium => (
+          'Medium risk — review',
+          DesignTokens.riskMedium.withValues(alpha: 0.12),
+          DesignTokens.riskMedium,
+        ),
+      RiskBand.high => (
+          'High risk — possible scam',
+          DesignTokens.riskHigh.withValues(alpha: 0.12),
+          DesignTokens.riskHigh,
+        ),
     };
 
     final theme = Theme.of(context);
     return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      child: ListTile(
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        title: Text(
-          message.sender,
-          style: const TextStyle(fontWeight: FontWeight.w600),
-        ),
-        subtitle: Text(snippet),
-        trailing: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(
-                color: badgeColor.withValues(alpha: 0.2),
-                borderRadius: BorderRadius.circular(6),
-              ),
-              child: Text(
-                badgeLabel,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  color: badgeColor.shade700,
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(minHeight: 72),
+        child: ListTile(
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          title: Text(
+            message.sender,
+            style: const TextStyle(fontWeight: FontWeight.w600),
+          ),
+          subtitle: Padding(
+            padding: const EdgeInsets.only(top: 4),
+            child: Text(
+              snippet,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          trailing: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: badgeBg,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Text(
+                  badgeLabel,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: badgeText,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              dateStr,
-              style: TextStyle(
-                fontSize: 12,
-                color: theme.colorScheme.onSurfaceVariant,
+              const SizedBox(height: 6),
+              Text(
+                dateStr,
+                style: TextStyle(
+                  fontSize: 12,
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
+          onTap: onTap,
         ),
-        onTap: onTap,
       ),
     );
   }
