@@ -186,8 +186,18 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Adjust to see text larger or smaller. Changes apply immediately.', style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
-                    const SizedBox(height: 12),
+                    Text(
+                      'Adjust to see text larger or smaller. Changes apply immediately.',
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: theme.colorScheme.onSurfaceVariant,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      'Elder Shield keeps you safe from scam messages.',
+                      style: theme.textTheme.bodyLarge,
+                    ),
+                    const SizedBox(height: 16),
                     Row(
                       children: [
                         Text('A', style: TextStyle(fontSize: 14)),
@@ -197,7 +207,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                             min: 0.8,
                             max: 1.5,
                             divisions: 7,
-                            label: '${(fontScale.clamp(0.8, 1.5) * 100).round()}%',
+                            label:
+                                '${(fontScale.clamp(0.8, 1.5) * 100).round()}%',
                             onChanged: (v) => _onFontScaleChanged(v),
                           ),
                         ),
@@ -241,7 +252,18 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           ExpansionTile(
             leading: Icon(Icons.tune, color: theme.colorScheme.primary),
             title: Text('Sensitivity', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-            subtitle: Text(_sensitivityMode[0].toUpperCase() + _sensitivityMode.substring(1), style: TextStyle(fontSize: 14, color: theme.colorScheme.onSurfaceVariant)),
+            subtitle: Text(
+              switch (_sensitivityMode) {
+                'conservative' => 'Fewer alerts',
+                'balanced' => 'Balanced',
+                'sensitive' => 'More alerts',
+                _ => _sensitivityMode,
+              },
+              style: TextStyle(
+                fontSize: 14,
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+            ),
             onExpansionChanged: (_) => lightImpact(),
             children: [
               Padding(
@@ -249,13 +271,22 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 child: Column(
                   children: ['conservative', 'balanced', 'sensitive'].map((mode) {
                     final desc = switch (mode) {
-                      'conservative' => 'Fewer alerts. Only very obvious scams.',
-                      'balanced' => 'Medium. Good for most people.',
-                      'sensitive' => 'More alerts. Catches more but may flag some safe messages.',
+                      'conservative' =>
+                          'Only very obvious scams. Good if you prefer fewer alerts.',
+                      'balanced' =>
+                          'Good for most people. A balance of scams caught and noise.',
+                      'sensitive' =>
+                          'Catches more scams but may sometimes flag safe messages.',
                       _ => '',
                     };
+                    final label = switch (mode) {
+                      'conservative' => 'Fewer alerts',
+                      'balanced' => 'Balanced',
+                      'sensitive' => 'More alerts',
+                      _ => mode[0].toUpperCase() + mode.substring(1),
+                    };
                     return RadioListTile<String>(
-                      title: Text(mode[0].toUpperCase() + mode.substring(1)),
+                      title: Text(label),
                       subtitle: Text(desc, style: const TextStyle(fontSize: 13)),
                       value: mode,
                       // ignore: deprecated_member_use
@@ -329,9 +360,24 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       ListTile(
                         leading: const Icon(Icons.person_add),
                         title: const Text('Add contact'),
+                        subtitle: const Text('Type a name and phone number'),
                         onTap: () {
                           selectionClick();
                           _showAddContactDialog();
+                        },
+                      ),
+                    if (_contacts.length < 3)
+                      ListTile(
+                        leading: const Icon(Icons.contact_phone_outlined),
+                        title: const Text('Choose from contacts'),
+                        subtitle: const Text('Pick a number from your phone'),
+                        onTap: () {
+                          selectionClick();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            elderSnackBar(
+                              'Device contact picker is not available yet on this preview build.',
+                            ),
+                          );
                         },
                       ),
                   ],
@@ -346,19 +392,26 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                OutlinedButton.icon(
+                Text(
+                  'Advanced',
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                TextButton.icon(
                   onPressed: () {
                     mediumImpact();
                     _deleteAllHistory();
                   },
                   icon: const Icon(Icons.delete_outline),
                   label: const Text('Delete all history'),
-                  style: OutlinedButton.styleFrom(
+                  style: TextButton.styleFrom(
                     foregroundColor: Colors.red,
-                    side: const BorderSide(color: Colors.red),
                   ),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 12),
                 TextButton(
                   onPressed: () {
                     lightImpact();
@@ -371,9 +424,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   leading: Icon(Icons.open_in_new, color: theme.colorScheme.primary),
                   title: const Text('Emergency pop-up over other apps'),
                   subtitle: Text(
-                    _overlayEnabled
-                        ? 'Enabled: high-risk warnings can appear above other apps'
-                        : 'Off: tap to enable the Android overlay permission',
+                    '${_overlayEnabled ? 'Enabled: high-risk warnings can appear above other apps.' : 'Off: tap to enable the Android overlay permission.'} Recommended so we can warn you even when you’re in another app.',
                   ),
                   onTap: _openOverlayPermissionSettings,
                 ),
@@ -505,7 +556,18 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             child: const Text('Cancel'),
           ),
           FilledButton(
-            onPressed: () => Navigator.of(ctx).pop(true),
+            onPressed: () {
+              final number = numberController.text.trim();
+              final isValid =
+                  RegExp(r'^\\+?[0-9]{6,}$').hasMatch(number); // basic validation
+              if (!isValid) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  elderSnackBar('Enter a valid phone number'),
+                );
+                return;
+              }
+              Navigator.of(ctx).pop(true);
+            },
             child: Text(confirmLabel),
           ),
         ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:elder_shield/presentation/settings/how_it_works_screen.dart';
 import 'package:elder_shield/presentation/settings/permissions_explained_screen.dart';
 import 'package:elder_shield/presentation/settings/privacy_policy_screen.dart';
 import 'package:elder_shield/utils/haptic.dart';
@@ -71,6 +72,17 @@ class AboutScreen extends StatelessWidget {
               selectionClick();
               Navigator.of(context).push(
                 MaterialPageRoute(builder: (_) => const PermissionsExplainedScreen()),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.help_outline),
+            title: const Text('How Elder Shield works'),
+            subtitle: const Text('What we check, when we alert, what to do'),
+            onTap: () {
+              selectionClick();
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const HowItWorksScreen()),
               );
             },
           ),

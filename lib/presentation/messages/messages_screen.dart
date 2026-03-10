@@ -230,36 +230,35 @@ class _MessageSkeletonTile extends StatelessWidget {
     final theme = Theme.of(context);
     final base = theme.colorScheme.surfaceContainerHighest;
     return Container(
-      height: 78,
       decoration: BoxDecoration(
         color: base,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: theme.colorScheme.outlineVariant),
       ),
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            height: 14,
+            height: 10,
             width: 160,
             decoration: BoxDecoration(
               color: theme.colorScheme.surfaceContainerHigh,
               borderRadius: BorderRadius.circular(8),
             ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 6),
           Container(
-            height: 12,
+            height: 8,
             width: double.infinity,
             decoration: BoxDecoration(
               color: theme.colorScheme.surfaceContainerHigh,
               borderRadius: BorderRadius.circular(8),
             ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 4),
           Container(
-            height: 12,
+            height: 8,
             width: 220,
             decoration: BoxDecoration(
               color: theme.colorScheme.surfaceContainerHigh,
