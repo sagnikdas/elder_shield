@@ -39,6 +39,10 @@ class _HighRiskWarningContent extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final repo = ref.read(messageRepositoryProvider);
     final settings = ref.read(settingsServiceProvider);
+     final theme = Theme.of(context);
+     final errorBg = theme.colorScheme.errorContainer;
+     final errorIcon = theme.colorScheme.error;
+     final errorText = theme.colorScheme.onErrorContainer;
 
     return DraggableScrollableSheet(
       initialChildSize: 0.85,
@@ -53,24 +57,38 @@ class _HighRiskWarningContent extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisSize: MainAxisSize.min,
             children: [
+              Center(
+                child: Container(
+                  width: 40,
+                  height: 4,
+                  margin: const EdgeInsets.only(bottom: 12),
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.3),
+                    borderRadius: BorderRadius.circular(999),
+                  ),
+                ),
+              ),
               Container(
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 decoration: BoxDecoration(
-                  color: Colors.red.shade50,
+                  color: errorBg,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Row(
                   children: [
-                    Icon(Icons.warning_amber_rounded,
-                        size: 40, color: Colors.red.shade700),
+                    Icon(
+                      Icons.warning_amber_rounded,
+                      size: 40,
+                      color: errorIcon,
+                    ),
                     const SizedBox(width: 12),
-                    const Expanded(
+                    Expanded(
                       child: Text(
                         'Warning: Possible scam message',
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black87,
+                          color: errorText,
                         ),
                       ),
                     ),
@@ -195,7 +213,18 @@ class _HighRiskWarningContent extends ConsumerWidget {
                   }
                 },
                 child: const Text(
-                    'Block this sender (opens messaging app)'),
+                  'Block this sender (opens messaging app)',
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              const SizedBox(height: 12),
+              Center(
+                child: Text(
+                  'Swipe up for more details',
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
+                ),
               ),
             ],
           ),

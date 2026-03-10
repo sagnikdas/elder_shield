@@ -21,6 +21,10 @@ class FullScreenWarningScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final repo = ref.read(messageRepositoryProvider);
     final settings = ref.read(settingsServiceProvider);
+    final theme = Theme.of(context);
+    final errorBg = theme.colorScheme.errorContainer;
+    final errorIcon = theme.colorScheme.error;
+    final errorText = theme.colorScheme.onErrorContainer;
 
     return Scaffold(
       appBar: AppBar(
@@ -28,14 +32,17 @@ class FullScreenWarningScreen extends ConsumerWidget {
           padding: const EdgeInsets.all(8.0),
           child: Image.asset('assets/icon/icon.png', fit: BoxFit.contain),
         ),
-        title: const Text('Elder Shield'),
+        title: const Text('Possible scam'),
         centerTitle: true,
-        backgroundColor: Colors.red.shade700,
+        backgroundColor: errorIcon,
         foregroundColor: Colors.white,
         actions: [
           TextButton(
             onPressed: onDismiss,
-            child: const Text('Dismiss', style: TextStyle(color: Colors.white)),
+            child: const Text(
+              'I’ll check later',
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+            ),
           ),
         ],
       ),
@@ -49,25 +56,35 @@ class FullScreenWarningScreen extends ConsumerWidget {
               Container(
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 decoration: BoxDecoration(
-                  color: Colors.red.shade50,
+                  color: errorBg,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Row(
                   children: [
-                    Icon(Icons.warning_amber_rounded,
-                        size: 40, color: Colors.red.shade700),
+                    Icon(
+                      Icons.warning_amber_rounded,
+                      size: 40,
+                      color: errorIcon,
+                    ),
                     const SizedBox(width: 12),
-                    const Expanded(
+                    Expanded(
                       child: Text(
                         'Warning: Possible scam message',
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black87,
+                          color: errorText,
                         ),
                       ),
                     ),
                   ],
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'Closing this screen does not delete the message from your phone.',
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: theme.colorScheme.onSurfaceVariant,
                 ),
               ),
               const SizedBox(height: 20),
@@ -119,10 +136,7 @@ class FullScreenWarningScreen extends ConsumerWidget {
                   await repo.saveFeedback(
                       messageId: message.id, label: 'scam');
                   if (context.mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                          content: Text('Marked as scam. Thank you.')),
-                    );
+                    // No SnackBar here; focus on the warning screen itself.
                     onDismiss();
                   }
                 },
