@@ -5,10 +5,16 @@ import 'package:permission_handler/permission_handler.dart';
 class OnboardingPermissionsScreen extends StatefulWidget {
   const OnboardingPermissionsScreen({
     super.key,
+    required this.step,
+    required this.totalSteps,
+    required this.onBack,
     required this.onDone,
     required this.onSkip,
   });
 
+  final int step;
+  final int totalSteps;
+  final VoidCallback onBack;
   final VoidCallback onDone;
   final VoidCallback onSkip;
 
@@ -53,13 +59,28 @@ class _OnboardingPermissionsScreenState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: widget.onBack,
+        ),
+        title: Text(
+          'Step ${widget.step} of ${widget.totalSteps}',
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
+        ),
+        centerTitle: true,
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const SizedBox(height: 32),
+              const SizedBox(height: 16),
               Text(
                 'Why we need access',
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(

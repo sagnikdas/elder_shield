@@ -17,9 +17,14 @@ class OnboardingFlow extends ConsumerStatefulWidget {
 
 class _OnboardingFlowState extends ConsumerState<OnboardingFlow> {
   int _step = 0;
+  static const int _totalSteps = 3;
 
   void _next() {
     setState(() => _step++);
+  }
+
+  void _back() {
+    if (_step > 0) setState(() => _step--);
   }
 
   void _goToTrustedContact() {
@@ -34,18 +39,27 @@ class _OnboardingFlowState extends ConsumerState<OnboardingFlow> {
 
   @override
   Widget build(BuildContext context) {
-    if (_step == 0) {
-      return OnboardingWelcomeScreen(onGetStarted: _next);
-    }
-    if (_step == 1) {
-      return OnboardingPermissionsScreen(
-        onDone: _goToTrustedContact,
-        onSkip: _goToTrustedContact,
-      );
-    }
-    return OnboardingTrustedContactScreen(
-      onFinish: _finishOnboarding,
-      onSkip: _finishOnboarding,
-    );
+    final child = _step == 0
+        ? OnboardingWelcomeScreen(
+            step: _step + 1,
+            totalSteps: _totalSteps,
+            onGetStarted: _next,
+          )
+        : _step == 1
+            ? OnboardingPermissionsScreen(
+                step: _step + 1,
+                totalSteps: _totalSteps,
+                onBack: _back,
+                onDone: _goToTrustedContact,
+                onSkip: _goToTrustedContact,
+              )
+            : OnboardingTrustedContactScreen(
+                step: _step + 1,
+                totalSteps: _totalSteps,
+                onBack: _back,
+                onFinish: _finishOnboarding,
+                onSkip: _finishOnboarding,
+              );
+    return child;
   }
 }

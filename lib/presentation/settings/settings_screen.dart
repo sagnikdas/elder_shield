@@ -4,6 +4,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:elder_shield/application/app_providers.dart';
 import 'package:elder_shield/platform/overlay_alerts.dart';
 import 'package:elder_shield/presentation/settings/about_screen.dart';
+import 'package:elder_shield/presentation/settings/how_it_works_screen.dart';
 import 'package:elder_shield/presentation/settings/permissions_explained_screen.dart';
 import 'package:elder_shield/presentation/settings/privacy_policy_screen.dart';
 import 'package:elder_shield/services/settings_service.dart';
@@ -374,6 +375,18 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                         : 'Off: tap to enable the Android overlay permission',
                   ),
                   onTap: _openOverlayPermissionSettings,
+                ),
+                const SizedBox(height: 8),
+                ListTile(
+                  leading: Icon(Icons.help_outline, color: theme.colorScheme.primary),
+                  title: const Text('How Elder Shield works'),
+                  subtitle: const Text('What we check, when we alert, what to do'),
+                  onTap: () {
+                    selectionClick();
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (_) => const HowItWorksScreen()),
+                    );
+                  },
                 ),
                 const SizedBox(height: 8),
                 ListTile(

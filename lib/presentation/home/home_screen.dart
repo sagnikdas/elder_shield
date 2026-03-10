@@ -21,6 +21,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   int _todayRiskCount = 0;
   String? _trustedContactName;
   String? _trustedContactNumber;
+  bool _showCallButtonTooltip = false;
 
   @override
   void initState() {
@@ -28,16 +29,35 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     _ensurePermissionsAndStart();
     _loadTrustedContact();
     _loadTodayCount();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _maybeShowPostOnboardingDialog());
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Future<void>.delayed(const Duration(milliseconds: 800), _maybeShowCallButtonTooltip);
+    });
+  }
+
+  Future<void> _maybeShowCallButtonTooltip() async {
+    if (!mounted) return;
+    final settings = ref.read(settingsServiceProvider);
+    if (await settings.isCallButtonTooltipShown()) return;
+    if (!mounted) return;
+    final hasTrusted = _trustedContactNumber != null && _trustedContactNumber!.trim().isNotEmpty;
+    if (!hasTrusted) return;
+    if (!mounted) return;
+    setState(() => _showCallButtonTooltip = true);
+  }
+
+  Future<void> _dismissCallButtonTooltip() async {
+    if (!_showCallButtonTooltip) return;
+    final settings = ref.read(settingsServiceProvider);
+    await settings.setCallButtonTooltipShown(true);
+    if (mounted) setState(() => _showCallButtonTooltip = false);
   }
 
   Future<void> _maybeShowPostOnboardingDialog() async {
     final settings = ref.read(settingsServiceProvider);
     if (await settings.isPostOnboardingDialogShown()) return;
+    if (!_permissionsGranted) return;
     if (!mounted) return;
     await _loadTrustedContact();
-    if (!mounted) return;
-    await settings.setPostOnboardingDialogShown(true);
     if (!mounted) return;
     final name = _trustedContactName?.isNotEmpty == true
         ? _trustedContactName!
@@ -59,6 +79,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         ],
       ),
     );
+    await settings.setPostOnboardingDialogShown(true);
   }
 
   Future<void> _loadTrustedContact() async {
@@ -107,6 +128,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       setState(() => _permissionsGranted = true);
     }
     ref.read(securityControllerProvider).start();
+    await _maybeShowPostOnboardingDialog();
   }
 
   Future<void> _callTrustedContact() async {
@@ -250,23 +272,64 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 SizedBox(height: verticalPadding(context) * 1.5),
                 // Large Call trusted contact button (min 56 dp)
                 if (hasTrusted)
-                  SizedBox(
-                    height: 64,
-                    child: ElevatedButton.icon(
-                      onPressed: () {
-                        selectionClick();
-                        _callTrustedContact();
-                      },
-                      icon: const Icon(Icons.phone, size: 28),
-                      label: Text(
-                        'Call ${_trustedContactName?.isNotEmpty == true ? _trustedContactName! : 'Trusted Contact'}',
-                        style: const TextStyle(fontSize: 18),
+                  Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      SizedBox(
+                        height: 64,
+                        child: ElevatedButton.icon(
+                          onPressed: () {
+                            if (_showCallButtonTooltip) {
+                              _dismissCallButtonTooltip();
+                            }
+                            selectionClick();
+                            _callTrustedContact();
+                          },
+                          icon: const Icon(Icons.phone, size: 28),
+                          label: Text(
+                            'Call ${_trustedContactName?.isNotEmpty == true ? _trustedContactName! : 'Trusted Contact'}',
+                            style: const TextStyle(fontSize: 18),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: theme.colorScheme.primary,
+                            foregroundColor: theme.colorScheme.onPrimary,
+                          ),
+                        ),
                       ),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: theme.colorScheme.primary,
-                        foregroundColor: theme.colorScheme.onPrimary,
-                      ),
-                    ),
+                      if (_showCallButtonTooltip)
+                        Positioned(
+                          left: 0,
+                          right: 0,
+                          bottom: 72,
+                          child: Material(
+                            elevation: 4,
+                            borderRadius: BorderRadius.circular(12),
+                            color: theme.colorScheme.surfaceContainerHighest,
+                            child: InkWell(
+                              onTap: () {
+                                selectionClick();
+                                _dismissCallButtonTooltip();
+                              },
+                              borderRadius: BorderRadius.circular(12),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.lightbulb_outline, color: theme.colorScheme.primary, size: 24),
+                                    const SizedBox(width: 12),
+                                    Expanded(
+                                      child: Text(
+                                        'Tap here anytime you get a worrying message.',
+                                        style: theme.textTheme.bodyMedium,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                    ],
                   )
                 else
                   Card(

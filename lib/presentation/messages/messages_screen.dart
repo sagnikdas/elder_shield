@@ -78,10 +78,23 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                   return Center(
                     child: Padding(
                       padding: EdgeInsets.all(padding * 1.5),
-                      child: Text(
-                        'No messages analyzed yet. Elder Shield will check new messages automatically.',
-                        style: theme.textTheme.bodyLarge,
-                        textAlign: TextAlign.center,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            'No messages analyzed yet. Elder Shield will check new messages automatically.',
+                            style: theme.textTheme.bodyLarge,
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(height: 12),
+                          Text(
+                            'When we find something suspicious, we\'ll notify you and you can open it here.',
+                            style: theme.textTheme.bodyMedium?.copyWith(
+                              color: theme.colorScheme.onSurfaceVariant,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
                       ),
                     ),
                   );

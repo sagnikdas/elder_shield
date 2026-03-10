@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:elder_shield/application/app_providers.dart';
+import 'package:elder_shield/presentation/messages/example_warning_sheet.dart';
 import 'package:elder_shield/services/settings_service.dart';
+import 'package:elder_shield/utils/haptic.dart';
 
 /// Block 6 — Onboarding screen 3: add one trusted contact (name + number).
 class OnboardingTrustedContactScreen extends ConsumerStatefulWidget {
   const OnboardingTrustedContactScreen({
     super.key,
+    required this.step,
+    required this.totalSteps,
+    required this.onBack,
     required this.onFinish,
     required this.onSkip,
   });
 
+  final int step;
+  final int totalSteps;
+  final VoidCallback onBack;
   final VoidCallback onFinish;
   final VoidCallback onSkip;
 
@@ -54,11 +62,26 @@ class _OnboardingTrustedContactScreenState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: widget.onBack,
+        ),
+        title: Text(
+          'Step ${widget.step} of ${widget.totalSteps}',
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
+        ),
+        centerTitle: true,
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.fromLTRB(
             24,
-            24,
+            16,
             24,
             24 + MediaQuery.of(context).viewInsets.bottom,
           ),
@@ -66,7 +89,7 @@ class _OnboardingTrustedContactScreenState
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const SizedBox(height: 32),
+                const SizedBox(height: 16),
                 Text(
                   'Add a trusted contact',
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
@@ -130,6 +153,18 @@ class _OnboardingTrustedContactScreenState
                       fontSize: 16,
                       color: Theme.of(context).colorScheme.primary,
                     ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                TextButton.icon(
+                  onPressed: () {
+                    selectionClick();
+                    showExampleWarningSheet(context);
+                  },
+                  icon: const Icon(Icons.visibility_outlined, size: 20),
+                  label: const Text('See what a warning looks like'),
+                  style: TextButton.styleFrom(
+                    foregroundColor: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),
                 ),
                 const SizedBox(height: 24),
