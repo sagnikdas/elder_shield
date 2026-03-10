@@ -51,10 +51,15 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
 
   Future<List<AnalyzedMessage>> _fetchMessages() async {
     final repo = ref.read(messageRepositoryProvider);
-    if (_highRiskOnly) {
-      return repo.fetchHighRisk(limit: 50);
+    try {
+      if (_highRiskOnly) {
+        return await repo.fetchHighRisk(limit: 50);
+      }
+      return await repo.fetchRecent(limit: 50);
+    } catch (_) {
+      // Let FutureBuilder handle the error via snapshot.hasError
+      rethrow;
     }
-    return repo.fetchRecent(limit: 50);
   }
 
   @override
@@ -129,6 +134,31 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
             child: FutureBuilder<List<AnalyzedMessage>>(
               future: _fetchMessages(),
               builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return Center(
+                    child: Padding(
+                      padding: EdgeInsets.all(padding * 1.5),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            'Something went wrong while loading messages.',
+                            style: theme.textTheme.bodyLarge,
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'Pull down to try again.',
+                            style: theme.textTheme.bodyMedium?.copyWith(
+                              color: theme.colorScheme.onSurfaceVariant,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                }
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return ListView(
                     padding: EdgeInsets.symmetric(horizontal: padding),

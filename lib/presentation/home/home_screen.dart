@@ -124,6 +124,34 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
       if (!smsGranted || !phoneGranted || !notificationGranted) {
         if (mounted) setState(() => _permissionsGranted = false);
+        // If user has chosen "Don't ask again", guide them to app settings.
+        final smsPerm = await Permission.sms.status;
+        final phonePerm = await Permission.phone.status;
+        if (smsPerm.isPermanentlyDenied || phonePerm.isPermanentlyDenied) {
+          if (!mounted) return;
+          await showDialog<void>(
+            context: context,
+            builder: (ctx) => AlertDialog(
+              title: const Text('Enable protection in Settings'),
+              content: const Text(
+                'Elder Shield needs SMS and Phone access to check your messages for scams.\n\nOpen app settings to turn these permissions on?',
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(ctx).pop(),
+                  child: const Text('Cancel'),
+                ),
+                FilledButton(
+                  onPressed: () {
+                    Navigator.of(ctx).pop();
+                    openAppSettings();
+                  },
+                  child: const Text('Open settings'),
+                ),
+              ],
+            ),
+          );
+        }
         return;
       }
     }

@@ -137,7 +137,15 @@ class _RiskDetailSheetContent extends ConsumerWidget {
                 label: 'This is a Scam',
                 icon: Icons.report,
                 onPressed: () async {
-                  await repo.saveFeedback(messageId: message.id, label: 'scam');
+                  try {
+                    await repo.saveFeedback(messageId: message.id, label: 'scam');
+                  } catch (_) {
+                    if (!context.mounted) return;
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      elderSnackBar('Something went wrong. Try again.'),
+                    );
+                    return;
+                  }
                   if (context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       elderSnackBar('Marked as scam. Thank you.'),
@@ -175,7 +183,15 @@ class _RiskDetailSheetContent extends ConsumerWidget {
                 label: 'This is Safe',
                 icon: Icons.check_circle,
                 onPressed: () async {
-                  await repo.saveFeedback(messageId: message.id, label: 'safe');
+                  try {
+                    await repo.saveFeedback(messageId: message.id, label: 'safe');
+                  } catch (_) {
+                    if (!context.mounted) return;
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      elderSnackBar('Something went wrong. Try again.'),
+                    );
+                    return;
+                  }
                   if (context.mounted) {
                     onDismiss();
                     Navigator.of(context).pop();

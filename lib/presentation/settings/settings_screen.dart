@@ -95,10 +95,17 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     );
     if (ok != true || !mounted) return;
     final repo = ref.read(messageRepositoryProvider);
-    await repo.clearAll();
-    if (mounted) {
+    try {
+      await repo.clearAll();
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          elderSnackBar('History deleted'),
+        );
+      }
+    } catch (_) {
+      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        elderSnackBar('History deleted'),
+        elderSnackBar('Something went wrong. Try again.'),
       );
     }
   }

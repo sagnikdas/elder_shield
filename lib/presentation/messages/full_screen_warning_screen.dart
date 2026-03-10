@@ -133,8 +133,18 @@ class FullScreenWarningScreen extends ConsumerWidget {
                 label: 'This is a Scam',
                 icon: Icons.report,
                 onPressed: () async {
-                  await repo.saveFeedback(
-                      messageId: message.id, label: 'scam');
+                  try {
+                    await repo.saveFeedback(
+                        messageId: message.id, label: 'scam');
+                  } catch (_) {
+                    if (!context.mounted) return;
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Something went wrong. Try again.'),
+                      ),
+                    );
+                    return;
+                  }
                   if (context.mounted) {
                     // No SnackBar here; focus on the warning screen itself.
                     onDismiss();
@@ -146,8 +156,18 @@ class FullScreenWarningScreen extends ConsumerWidget {
                 label: 'This is Safe',
                 icon: Icons.check_circle,
                 onPressed: () async {
-                  await repo.saveFeedback(
-                      messageId: message.id, label: 'safe');
+                  try {
+                    await repo.saveFeedback(
+                        messageId: message.id, label: 'safe');
+                  } catch (_) {
+                    if (!context.mounted) return;
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Something went wrong. Try again.'),
+                      ),
+                    );
+                    return;
+                  }
                   if (context.mounted) onDismiss();
                 },
               ),
