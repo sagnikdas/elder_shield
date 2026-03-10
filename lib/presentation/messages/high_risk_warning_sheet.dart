@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:elder_shield/application/app_providers.dart';
 import 'package:elder_shield/data/message_repository.dart';
+import 'package:elder_shield/presentation/messages/risk_detail_sheet.dart';
 
 /// Full-height bottom sheet for real-time high-risk alert (Block 7).
 /// Same actions as Risk Detail: This is a Scam / This is Safe / Call Trusted / Block sender.
@@ -117,6 +118,7 @@ class _HighRiskWarningContent extends ConsumerWidget {
                 ],
               ],
               const SizedBox(height: 24),
+              // Primary safety actions first: Scam, then Call Trusted Contact
               _ActionButton(
                 label: 'This is a Scam',
                 icon: Icons.report,
@@ -128,19 +130,6 @@ class _HighRiskWarningContent extends ConsumerWidget {
                       const SnackBar(
                           content: Text('Marked as scam. Thank you.')),
                     );
-                    onDismiss();
-                    Navigator.of(context).pop();
-                  }
-                },
-              ),
-              const SizedBox(height: 12),
-              _ActionButton(
-                label: 'This is Safe',
-                icon: Icons.check_circle,
-                onPressed: () async {
-                  await repo.saveFeedback(
-                      messageId: message.id, label: 'safe');
-                  if (context.mounted) {
                     onDismiss();
                     Navigator.of(context).pop();
                   }
@@ -171,31 +160,27 @@ class _HighRiskWarningContent extends ConsumerWidget {
               ),
               const SizedBox(height: 12),
               _ActionButton(
-                label: 'Delete message',
-                icon: Icons.delete_outline,
+                label: 'This is Safe',
+                icon: Icons.check_circle,
                 onPressed: () async {
-                  await repo.deleteMessage(message.id);
+                  await repo.saveFeedback(
+                      messageId: message.id, label: 'safe');
                   if (context.mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text(
-                          'Removed from Elder Shield. Opening messaging app so you can delete it from your phone.',
-                        ),
-                      ),
-                    );
                     onDismiss();
                     Navigator.of(context).pop();
-                    final number = message.sender
-                        .replaceAll(RegExp(r'[^\d+]'), '');
-                    if (number.isNotEmpty) {
-                      final uri = Uri.parse('sms:$number');
-                      if (await canLaunchUrl(uri)) {
-                        await launchUrl(uri,
-                            mode: LaunchMode.externalApplication);
-                      }
-                    }
                   }
                 },
+              ),
+              const SizedBox(height: 12),
+              _ActionButton(
+                label: 'Delete message',
+                icon: Icons.delete_outline,
+                onPressed: () => confirmDeleteMessage(
+                  context,
+                  message: message,
+                  repo: repo,
+                  onDismiss: onDismiss,
+                ),
               ),
               const SizedBox(height: 16),
               TextButton(

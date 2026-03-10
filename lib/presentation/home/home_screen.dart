@@ -28,6 +28,37 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     _ensurePermissionsAndStart();
     _loadTrustedContact();
     _loadTodayCount();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _maybeShowPostOnboardingDialog());
+  }
+
+  Future<void> _maybeShowPostOnboardingDialog() async {
+    final settings = ref.read(settingsServiceProvider);
+    if (await settings.isPostOnboardingDialogShown()) return;
+    if (!mounted) return;
+    await _loadTrustedContact();
+    if (!mounted) return;
+    await settings.setPostOnboardingDialogShown(true);
+    if (!mounted) return;
+    final name = _trustedContactName?.isNotEmpty == true
+        ? _trustedContactName!
+        : 'your trusted contact';
+    if (!mounted) return;
+    await showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (ctx) => AlertDialog(
+        title: const Text("You're protected"),
+        content: Text(
+          'From Home you can call $name anytime.',
+        ),
+        actions: [
+          FilledButton(
+            onPressed: () => Navigator.of(ctx).pop(),
+            child: const Text('Got it'),
+          ),
+        ],
+      ),
+    );
   }
 
   Future<void> _loadTrustedContact() async {
@@ -166,15 +197,55 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     borderRadius: BorderRadius.circular(12),
                     child: Padding(
                       padding: EdgeInsets.all(padding * 0.75),
-                      child: Text(
-                        _todayRiskCount > 0
-                            ? '$_todayRiskCount suspicious message${_todayRiskCount == 1 ? '' : 's'} detected today.'
-                            : 'No suspicious activity today.',
-                        style: theme.textTheme.bodyLarge,
-                        textAlign: TextAlign.center,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  _todayRiskCount > 0
+                                      ? '$_todayRiskCount suspicious message${_todayRiskCount == 1 ? '' : 's'} detected today.'
+                                      : 'No suspicious activity today.',
+                                  style: theme.textTheme.bodyLarge,
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  'Tap to see messages',
+                                  style: theme.textTheme.bodySmall?.copyWith(
+                                    color: theme.colorScheme.onSurfaceVariant,
+                                    fontStyle: FontStyle.italic,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Icon(
+                            Icons.chevron_right,
+                            size: 28,
+                            color: theme.colorScheme.onSurfaceVariant,
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            'View',
+                            style: theme.textTheme.labelLarge?.copyWith(
+                              color: theme.colorScheme.primary,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  'Elder Shield checks new messages automatically.',
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
                 SizedBox(height: verticalPadding(context) * 1.5),
                 // Large Call trusted contact button (min 56 dp)

@@ -22,6 +22,55 @@ void showRiskDetailSheet(
   );
 }
 
+/// Shows "Are you sure?" confirmation for delete message; on confirm deletes and opens messaging app.
+Future<void> confirmDeleteMessage(
+  BuildContext context, {
+  required AnalyzedMessage message,
+  required MessageRepository repo,
+  required VoidCallback onDismiss,
+}) async {
+  final ok = await showDialog<bool>(
+    context: context,
+    builder: (ctx) => AlertDialog(
+      title: const Text('Delete message?'),
+      content: const Text(
+        'Are you sure? This will remove it from Elder Shield and open your messaging app so you can delete it from your phone.',
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(ctx).pop(false),
+          child: const Text('Cancel'),
+        ),
+        FilledButton(
+          onPressed: () => Navigator.of(ctx).pop(true),
+          style: FilledButton.styleFrom(backgroundColor: Colors.red),
+          child: const Text('Delete'),
+        ),
+      ],
+    ),
+  );
+  if (ok != true || !context.mounted) return;
+  await repo.deleteMessage(message.id);
+  if (context.mounted) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text(
+          'Removed from Elder Shield. Opening messaging app so you can delete it from your phone.',
+        ),
+      ),
+    );
+    onDismiss();
+    Navigator.of(context).pop();
+    final number = message.sender.replaceAll(RegExp(r'[^\d+]'), '');
+    if (number.isNotEmpty) {
+      final uri = Uri.parse('sms:$number');
+      if (await canLaunchUrl(uri)) {
+        await launchUrl(uri, mode: LaunchMode.externalApplication);
+      }
+    }
+  }
+}
+
 class _RiskDetailSheetContent extends ConsumerWidget {
   const _RiskDetailSheetContent({
     required this.message,
@@ -84,6 +133,7 @@ class _RiskDetailSheetContent extends ConsumerWidget {
                     )),
               ],
               const SizedBox(height: 24),
+              // Primary safety actions first: Scam, then Call Trusted Contact
               _ActionButton(
                 label: 'This is a Scam',
                 icon: Icons.report,
@@ -93,18 +143,6 @@ class _RiskDetailSheetContent extends ConsumerWidget {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Marked as scam. Thank you.')),
                     );
-                    onDismiss();
-                    Navigator.of(context).pop();
-                  }
-                },
-              ),
-              const SizedBox(height: 12),
-              _ActionButton(
-                label: 'This is Safe',
-                icon: Icons.check_circle,
-                onPressed: () async {
-                  await repo.saveFeedback(messageId: message.id, label: 'safe');
-                  if (context.mounted) {
                     onDismiss();
                     Navigator.of(context).pop();
                   }
@@ -135,31 +173,26 @@ class _RiskDetailSheetContent extends ConsumerWidget {
               ),
               const SizedBox(height: 12),
               _ActionButton(
-                label: 'Delete message',
-                icon: Icons.delete_outline,
+                label: 'This is Safe',
+                icon: Icons.check_circle,
                 onPressed: () async {
-                  await repo.deleteMessage(message.id);
+                  await repo.saveFeedback(messageId: message.id, label: 'safe');
                   if (context.mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text(
-                          'Removed from Elder Shield. Opening messaging app so you can delete it from your phone.',
-                        ),
-                      ),
-                    );
                     onDismiss();
                     Navigator.of(context).pop();
-                    final number = message.sender
-                        .replaceAll(RegExp(r'[^\d+]'), '');
-                    if (number.isNotEmpty) {
-                      final uri = Uri.parse('sms:$number');
-                      if (await canLaunchUrl(uri)) {
-                        await launchUrl(uri,
-                            mode: LaunchMode.externalApplication);
-                      }
-                    }
                   }
                 },
+              ),
+              const SizedBox(height: 12),
+              _ActionButton(
+                label: 'Delete message',
+                icon: Icons.delete_outline,
+                onPressed: () => confirmDeleteMessage(
+                  context,
+                  message: message,
+                  repo: repo,
+                  onDismiss: onDismiss,
+                ),
               ),
               const SizedBox(height: 16),
               TextButton(

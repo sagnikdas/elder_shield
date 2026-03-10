@@ -21,6 +21,7 @@ class TrustedContact {
 /// Keys used in secure storage.
 class SettingsKeys {
   static const onboardingComplete = 'onboarding_complete';
+  static const postOnboardingDialogShown = 'post_onboarding_dialog_shown';
   static const sensitivityMode = 'sensitivity_mode'; // e.g. 'conservative', 'balanced', 'sensitive'
   static const trustedContacts = 'trusted_contacts'; // JSON array of {name, number}
   static const fontScale = 'font_scale'; // double as string, e.g. '1.0'. 1.0 = 100%.
@@ -41,6 +42,18 @@ class SettingsService {
   Future<void> setOnboardingComplete(bool value) async {
     await _storage.write(
       key: SettingsKeys.onboardingComplete,
+      value: value.toString(),
+    );
+  }
+
+  Future<bool> isPostOnboardingDialogShown() async {
+    final value = await _storage.read(key: SettingsKeys.postOnboardingDialogShown);
+    return value == 'true';
+  }
+
+  Future<void> setPostOnboardingDialogShown(bool value) async {
+    await _storage.write(
+      key: SettingsKeys.postOnboardingDialogShown,
       value: value.toString(),
     );
   }
