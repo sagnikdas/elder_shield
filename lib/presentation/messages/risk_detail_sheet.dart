@@ -23,7 +23,7 @@ void showRiskDetailSheet(
   );
 }
 
-/// Shows "Are you sure?" confirmation for delete message; on confirm deletes and opens messaging app.
+/// Shows "Are you sure?" confirmation for delete message; on confirm deletes it from Elder Shield only.
 Future<void> confirmDeleteMessage(
   BuildContext context, {
   required AnalyzedMessage message,
@@ -35,7 +35,7 @@ Future<void> confirmDeleteMessage(
     builder: (ctx) => AlertDialog(
       title: const Text('Delete message?'),
       content: const Text(
-        'Are you sure? This will remove it from Elder Shield and open your messaging app so you can delete it from your phone.',
+        'Are you sure? This will remove the message from Elder Shield.',
       ),
       actions: [
         TextButton(
@@ -55,18 +55,11 @@ Future<void> confirmDeleteMessage(
   if (context.mounted) {
     ScaffoldMessenger.of(context).showSnackBar(
       elderSnackBar(
-        'Removed from Elder Shield. Opening messaging app so you can delete it from your phone.',
+        'Removed from Elder Shield.',
       ),
     );
     onDismiss();
     Navigator.of(context).pop();
-    final number = message.sender.replaceAll(RegExp(r'[^\d+]'), '');
-    if (number.isNotEmpty) {
-      final uri = Uri.parse('sms:$number');
-      if (await canLaunchUrl(uri)) {
-        await launchUrl(uri, mode: LaunchMode.externalApplication);
-      }
-    }
   }
 }
 
@@ -97,12 +90,30 @@ class _RiskDetailSheetContent extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
-                message.sender,
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Text(
+                      message.sender,
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
                     ),
+                  ),
+                  IconButton(
+                    tooltip: 'Delete message',
+                    color: Colors.red,
+                    icon: const Icon(Icons.delete_outline),
+                    onPressed: () => confirmDeleteMessage(
+                      context,
+                      message: message,
+                      repo: repo,
+                      onDismiss: onDismiss,
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: 8),
               Text(
@@ -136,6 +147,7 @@ class _RiskDetailSheetContent extends ConsumerWidget {
               _ActionButton(
                 label: 'This is a Scam',
                 icon: Icons.report,
+                color: Colors.red,
                 onPressed: () async {
                   try {
                     await repo.saveFeedback(messageId: message.id, label: 'scam');
@@ -156,32 +168,10 @@ class _RiskDetailSheetContent extends ConsumerWidget {
                 },
               ),
               const SizedBox(height: 12),
-              FutureBuilder(
-                future: settings.getTrustedContacts(),
-                builder: (context, snap) {
-                  final contacts = snap.data ?? [];
-                  final first = contacts.isNotEmpty ? contacts.first : null;
-                  if (first == null) {
-                    return const SizedBox.shrink();
-                  }
-                  return _ActionButton(
-                    label: 'Call ${first.name.isNotEmpty ? first.name : "Trusted Contact"}',
-                    icon: Icons.phone,
-                    onPressed: () async {
-                      final uri = Uri.parse(
-                        'tel:${first.number.replaceAll(RegExp(r'\s'), '')}',
-                      );
-                      if (await canLaunchUrl(uri)) {
-                        await launchUrl(uri, mode: LaunchMode.externalApplication);
-                      }
-                    },
-                  );
-                },
-              ),
-              const SizedBox(height: 12),
               _ActionButton(
                 label: 'This is Safe',
                 icon: Icons.check_circle,
+                color: Colors.green,
                 onPressed: () async {
                   try {
                     await repo.saveFeedback(messageId: message.id, label: 'safe');
@@ -197,29 +187,6 @@ class _RiskDetailSheetContent extends ConsumerWidget {
                     Navigator.of(context).pop();
                   }
                 },
-              ),
-              const SizedBox(height: 12),
-              _ActionButton(
-                label: 'Delete message',
-                icon: Icons.delete_outline,
-                onPressed: () => confirmDeleteMessage(
-                  context,
-                  message: message,
-                  repo: repo,
-                  onDismiss: onDismiss,
-                ),
-              ),
-              const SizedBox(height: 16),
-              TextButton(
-                onPressed: () async {
-                  final number = message.sender.replaceAll(RegExp(r'[^\d+]'), '');
-                  if (number.isEmpty) return;
-                  final uri = Uri.parse('sms:$number');
-                  if (await canLaunchUrl(uri)) {
-                    await launchUrl(uri, mode: LaunchMode.externalApplication);
-                  }
-                },
-                child: const Text('Block this sender (opens messaging app)'),
               ),
             ],
           ),
@@ -278,11 +245,13 @@ class _ActionButton extends StatelessWidget {
     required this.label,
     required this.icon,
     required this.onPressed,
+    this.color,
   });
 
   final String label;
   final IconData icon;
   final VoidCallback onPressed;
+   final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -293,7 +262,7 @@ class _ActionButton extends StatelessWidget {
         icon: Icon(icon),
         label: Text(label, style: const TextStyle(fontSize: 16)),
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF1565C0),
+          backgroundColor: color ?? const Color(0xFF1565C0),
           foregroundColor: Colors.white,
         ),
       ),
