@@ -38,6 +38,8 @@ app.*.symbols
 
 # Obfuscation related
 app.*.map.json
+# Release symbol files (never commit — needed only to decode obfuscated crash stack traces)
+build/symbols/
 
 # Android Studio will place build artifacts here
 /android/app/debug

@@ -33,8 +33,14 @@ android {
 
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
+            // Shrink and obfuscate Java/Kotlin code (R8); keeps app logic harder to reverse.
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+            // TODO: Use a release keystore for production. For now, debug key allows `flutter run --release`.
             signingConfig = signingConfigs.getByName("debug")
         }
     }
