@@ -156,6 +156,12 @@ class AppLocalizationsBn extends AppLocalizations {
   String get languageKannadaName => 'কন্নড়';
 
   @override
+  String get languageHindiName => 'হিন্দি';
+
+  @override
+  String get languageUrduName => 'উর্দু';
+
+  @override
   String languageSectionSubtitle(String languageName) {
     return 'বর্তমান ভাষা: $languageName';
   }

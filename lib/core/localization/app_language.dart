@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 /// Supported app languages.
-enum AppLanguage { english, bengali, kannada }
+enum AppLanguage { english, bengali, kannada, hindi, urdu }
 
 extension AppLanguageX on AppLanguage {
   String get code {
@@ -12,6 +12,10 @@ extension AppLanguageX on AppLanguage {
         return 'bn';
       case AppLanguage.kannada:
         return 'kn';
+      case AppLanguage.hindi:
+        return 'hi';
+      case AppLanguage.urdu:
+        return 'ur';
     }
   }
 

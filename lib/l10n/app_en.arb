@@ -89,6 +89,9 @@
   "languageEnglishName": "English",
   "languageBengaliName": "Bengali",
   "languageKannadaName": "Kannada",
+  "languageHindiName": "Hindi",
+  "languageUrduName": "Urdu",
+  "languageHindiName": "Hindi",
   "languageSectionSubtitle": "Current: {languageName}",
   "@languageSectionSubtitle": {
     "description": "Subtitle showing currently selected language.",

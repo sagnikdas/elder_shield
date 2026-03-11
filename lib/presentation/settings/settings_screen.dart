@@ -233,6 +233,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   switch (_languageCode) {
                     'bn' => l10n.languageBengaliName,
                     'kn' => l10n.languageKannadaName,
+                    'hi' => l10n.languageHindiName,
+                    'ur' => l10n.languageUrduName,
                     _ => l10n.languageEnglishName,
                   },
                 ),
@@ -262,6 +264,18 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       RadioListTile<String>(
                         title: Text(l10n.languageKannadaName),
                         value: 'kn',
+                        groupValue: _languageCode,
+                        onChanged: (v) => v != null ? _setLanguage(v) : null,
+                      ),
+                      RadioListTile<String>(
+                        title: Text(l10n.languageHindiName),
+                        value: 'hi',
+                        groupValue: _languageCode,
+                        onChanged: (v) => v != null ? _setLanguage(v) : null,
+                      ),
+                      RadioListTile<String>(
+                        title: Text(l10n.languageUrduName),
+                        value: 'ur',
                         groupValue: _languageCode,
                         onChanged: (v) => v != null ? _setLanguage(v) : null,
                       ),

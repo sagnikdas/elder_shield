@@ -1,0 +1,336 @@
+{
+  "@@locale": "hi",
+
+  "appTitle": "एल्डर शील्ड",
+
+  "settingsTitle": "सेटिंग्स",
+
+  "homeAppBarTitle": "एल्डर शील्ड",
+  "homePostOnboardingTitle": "अब आप सुरक्षित हैं",
+  "homePostOnboardingBody": "होम स्क्रीन से आप किसी भी समय {contactName} को कॉल कर सकते हैं।",
+  "@homePostOnboardingBody": {
+    "description": "ऑनबोर्डिंग के बाद दिखाया जाने वाला संदेश; contactName या तो भरोसेमंद संपर्क का नाम होता है या एक सामान्य वाक्यांश।",
+    "placeholders": {
+      "contactName": {
+        "type": "String"
+      }
+    }
+  },
+  "commonGotIt": "ठीक है",
+
+  "homeTrustedContactFallbackName": "आपका भरोसेमंद संपर्क",
+
+  "permissionsDialogTitle": "सेटिंग्स में सुरक्षा सक्षम करें",
+  "permissionsDialogBody": "एल्डर शील्ड को आपके संदेशों में स्कैम जाँचने के लिए एसएमएस और फोन की अनुमति चाहिए।\n\nक्या आप ऐप सेटिंग्स खोलकर ये अनुमतियाँ चालू करना चाहेंगे?",
+  "commonCancel": "रद्द करें",
+  "permissionsDialogOpenSettings": "सेटिंग्स खोलें",
+
+  "homeProtectionStatusLabel": "सुरक्षा स्थिति",
+  "homeProtectionStatusProtected": "सुरक्षित",
+  "homeProtectionStatusPermissionsNeeded": "अनुमतियाँ चाहिए",
+  "homeEnableProtectionButton": "सुरक्षा चालू करें",
+
+  "homeTodayRiskSummaryWithCount": "आज {count} संदिग्ध संदेश पाए गए।",
+  "@homeTodayRiskSummaryWithCount": {
+    "description": "आज के संदिग्ध संदेशों का सारांश, गिनती के साथ।",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeTodayRiskSummaryNoRisk": "आज कोई संदिग्ध गतिविधि नहीं।",
+  "homeTodayRiskTapToSeeMessages": "संदेश देखने के लिए टैप करें",
+  "commonView": "देखें",
+
+  "homeAutoCheckInfo": "एल्डर शील्ड आपके नए संदेशों की ऑटोमैटिक जाँच करता है।",
+
+  "homeCallTrustedButtonLabel": "{name} को कॉल करें",
+  "@homeCallTrustedButtonLabel": {
+    "description": "मुख्य 'कॉल भरोसेमंद संपर्क' बटन का लेबल।",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "homeCallTooltipText": "जब भी कोई परेशान करने वाला संदेश आए, यहाँ टैप करें।",
+
+  "homeAddTrustedIntro": "ऐसा भरोसेमंद संपर्क जोड़ें जिसे डरावना संदेश आने पर आप तुरंत कॉल कर सकें।",
+  "homeAddTrustedButton": "भरोसेमंद संपर्क जोड़ें",
+  "homeWhyAddTrustedShow": "भरोसेमंद संपर्क क्यों जोड़ें?",
+  "homeWhyAddTrustedHide": "कारण छुपाएँ",
+  "homeWhyAddTrustedExplanation": "अगर कभी कोई चिंता बढ़ाने वाला संदेश आए, तो आप अकेले अंदाज़ा लगाने की बजाय एक बड़े बटन पर टैप करके किसी भरोसेमंद व्यक्ति को कॉल कर सकें, इसके लिए।",
+  "homeTrustedContactsHeader": "आपके भरोसेमंद संपर्क",
+
+  "highRiskHeaderTitle": "सावधान: यह स्कैम संदेश हो सकता है",
+  "highRiskHeaderBody": "इस संदेश के किसी भी लिंक पर टैप न करें और कोई भी कोड साझा न करें।",
+  "highRiskWhyFlaggedTitle": "यह क्यों चिन्हित किया गया:",
+
+  "actionScam": "यह स्कैम है",
+  "actionSafe": "यह सुरक्षित है",
+
+  "snackbarGenericError": "कुछ गलत हो गया। दोबारा कोशिश करें।",
+  "snackbarMarkedScam": "स्कैम के रूप में चिन्हित किया गया। धन्यवाद।",
+
+  "highRiskSwipeUpForDetails": "अधिक विवरण देखने के लिए ऊपर की ओर स्वाइप करें",
+
+  "riskLowLabel": "कम जोखिम",
+  "riskMediumLabel": "मध्यम जोखिम — जाँचें",
+  "riskHighLabel": "उच्च जोखिम — संभव स्कैम",
+
+  "deleteMessageTitle": "संदेश मिटाएँ?",
+  "deleteMessageBody": "क्या आप निश्चित हैं? इससे यह संदेश केवल एल्डर शील्ड से हटेगा।",
+  "deleteMessageConfirm": "मिटाएँ",
+  "deleteMessageDeletedSnackbar": "एल्डर शील्ड से हटाया गया।",
+
+  "languageSectionTitle": "भाषा",
+  "languageEnglishName": "अंग्रेजी",
+  "languageBengaliName": "बांग्ला",
+  "languageKannadaName": "कन्नड़",
+  "languageHindiName": "हिन्दी",
+  "languageUrduName": "उर्दू",
+  "languageSectionSubtitle": "वर्तमान: {languageName}",
+  "@languageSectionSubtitle": {
+    "description": "वर्तमान चुनी हुई भाषा दिखाने वाला सबटाइटल।",
+    "placeholders": {
+      "languageName": {
+        "type": "String"
+      }
+    }
+  },
+
+  "snackbarUpdated": "अपडेट हो गया",
+
+  "settingsAppearanceTitle": "रूप-रंग",
+  "settingsThemeSystem": "सिस्टम",
+  "settingsThemeLight": "लाइट",
+  "settingsThemeDark": "डार्क",
+
+  "settingsTextSizeTitle": "टेक्स्ट का आकार",
+  "settingsTextSizeDescription": "टेक्स्ट को बड़ा या छोटा देखने के लिए समायोजित करें। बदलाव तुरंत लागू होंगे।",
+  "settingsTextSizeSample": "एल्डर शील्ड आपको स्कैम संदेशों से सुरक्षित रखता है।",
+
+  "settingsLegalTitle": "कानूनी व जानकारी",
+  "settingsPrivacyPolicyTitle": "गोपनीयता नीति",
+  "settingsPrivacyPolicySubtitle": "हम आपका डेटा कैसे उपयोग करते हैं",
+  "settingsPermissionsExplainedTitle": "अनुमतियों का विवरण",
+  "settingsPermissionsExplainedSubtitle": "हमें हर अनुमति क्यों चाहिए",
+
+  "settingsSensitivityTitle": "संवेदनशीलता",
+  "settingsSensitivityLabelConservative": "कम अलर्ट",
+  "settingsSensitivityLabelBalanced": "संतुलित",
+  "settingsSensitivityLabelSensitive": "ज़्यादा अलर्ट",
+  "settingsSensitivityDescConservative": "केवल बहुत साफ़-साफ़ दिखने वाले स्कैम। यदि आप कम अलर्ट पसंद करते हैं तो यह अच्छा है।",
+  "settingsSensitivityDescBalanced": "अधिकतर लोगों के लिए अच्छा विकल्प। पकड़े गए स्कैम और शोर के बीच संतुलन।",
+  "settingsSensitivityDescSensitive": "और अधिक स्कैम पकड़ता है लेकिन कभी-कभी सुरक्षित संदेशों को भी फ़्लैग कर सकता है।",
+
+  "settingsTrustedContactsTitle": "भरोसेमंद संपर्क",
+  "settingsTrustedContactsNone": "कोई नहीं",
+  "settingsTrustedContactsCount": "{count} संपर्क",
+  "@settingsTrustedContactsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsTrustedContactsExplanation": "आप होम स्क्रीन या स्कैम चेतावनी दिखने पर एक टैप से इन्हें कॉल कर सकते हैं। सूची में सबसे पहला संपर्क मुख्य \"कॉल\" बटन में उपयोग होता है।",
+  "settingsTrustedContactsAddContactTitle": "संपर्क जोड़ें",
+  "settingsTrustedContactsAddContactSubtitle": "नाम और फोन नंबर टाइप करें",
+  "settingsTrustedContactsChooseFromContactsTitle": "संपर्कों से चुनें",
+  "settingsTrustedContactsChooseFromContactsSubtitle": "अपने फोन से कोई नंबर चुनें",
+  "settingsTrustedContactsPickerUnavailable": "इस प्रीव्यू बिल्ड में डिवाइस कॉन्टैक्ट पिकर अभी उपलब्ध नहीं है।",
+
+  "settingsTrustedContactsRemoveDialogTitle": "भरोसेमंद संपर्क हटाएँ?",
+  "settingsTrustedContactsRemoveDialogBody": "यह व्यक्ति अब भरोसेमंद संपर्कों की सूची या होम स्क्रीन पर नहीं दिखेगा।",
+  "settingsTrustedContactsRemoveDialogRemove": "हटाएँ",
+
+  "settingsAdvancedSectionTitle": "एडवांस्ड",
+  "settingsDeleteAllHistoryButton": "सभी हिस्ट्री मिटाएँ",
+  "settingsRerunPermissionsButton": "अनुमतियों की फिर से जाँच करें",
+
+  "settingsDeleteAllHistoryDialogTitle": "सभी हिस्ट्री मिटाएँ?",
+  "settingsDeleteAllHistoryDialogBody": "इस डिवाइस से सभी विश्लेषित संदेश और कारण स्थायी रूप से मिट जाएँगे। इसे वापस नहीं लाया जा सकता।",
+  "settingsDeleteAllHistoryDialogConfirm": "सब मिटाएँ",
+  "settingsHistoryDeletedSnackbar": "हिस्ट्री मिटा दी गई",
+
+  "settingsRerunPermissionsSnackbar": "अनुमतियों की जाँच पूरी हुई। यदि आपने अभी-अभी अनुमति दी है तो ऐप को रीस्टार्ट करें।",
+
+  "settingsOverlayTitle": "अन्य ऐप्स के ऊपर आपात चेतावनी",
+  "settingsOverlaySubtitleEnabled": "चालू: उच्च जोखिम वाली चेतावनियाँ अन्य ऐप्स के ऊपर दिख सकती हैं। यह इसीलिए अनुशंसित है ताकि हम आपको तब भी सचेत कर सकें जब आप किसी और ऐप में हों।",
+  "settingsOverlaySubtitleDisabled": "बंद: एंड्रॉयड ओवरले अनुमति चालू करने के लिए यहाँ टैप करें। हम आपको अन्य ऐप में रहने पर भी चेतावनी दे सकें, इसके लिए इसे चालू रखना अच्छा है।",
+
+  "settingsHowItWorksTitle": "एल्डर शील्ड कैसे काम करता है",
+  "settingsHowItWorksSubtitle": "हम क्या जाँचते हैं, कब चेतावनी देते हैं, और आपको क्या करना है",
+  "settingsAboutTitle": "एल्डर शील्ड के बारे में",
+
+  "settingsAddTrustedDialogTitle": "भरोसेमंद संपर्क जोड़ें",
+  "settingsAddTrustedDialogConsent": "उन्हें होम स्क्रीन या स्कैम चेतावनी स्क्रीन से एक टैप में कॉल किया जा सकता है।",
+  "settingsAddTrustedDialogConfirm": "जोड़ें",
+  "settingsEditTrustedDialogTitle": "भरोसेमंद संपर्क संपादित करें",
+  "settingsEditTrustedDialogConfirm": "सहेजें",
+  "settingsContactNameLabel": "नाम",
+  "settingsContactNameHint": "जैसे: मेरा बेटा",
+  "settingsContactNumberLabel": "फोन नंबर",
+  "settingsContactNumberHint": "जैसे: +91 98765 43210",
+  "settingsContactDialogCancel": "रद्द करें",
+  "settingsContactInvalidNumber": "कृपया एक मान्य फोन नंबर दर्ज करें",
+
+  "howItWorksBulletWhatWeCheck": "हम क्या जाँचते हैं: हम आपके एसएमएस पढ़ते हैं और स्कैम के संकेत ढूँढते हैं — संदिग्ध लिंक, बहुत तात्कालिक / धमकी भरी भाषा, ओटीपी या बैंक विवरण माँगने वाले संदेश, और ऐसे संदेश जो आपके बैंक या किसी जानी-पहचानी सेवा की नकल करते हैं।",
+  "howItWorksBulletWhenWeAlert": "हम कब चेतावनी देते हैं: यदि कोई संदेश जोखिम भरा लगे तो हम आपको सूचित करते हैं। बहुत अधिक जोखिम वाले संदेशों के लिए हम ऐप बैकग्राउंड में होने पर भी पॉप-अप दिखा सकते हैं और संदेशों की सूची में उसे हाईलाइट कर सकते हैं।",
+  "howItWorksBulletWhatToDo": "चेतावनी दिखने पर क्या करें: संदेश में किसी भी लिंक पर टैप न करें। आप \"यह स्कैम है\" या \"यह सुरक्षित है\" चुनकर हमें सीखने में मदद कर सकते हैं। सबसे अच्छा कदम: चेतावनी स्क्रीन या होम से अपने भरोसेमंद संपर्क को कॉल करें।",
+  "howItWorksBulletCallTrusted": "भरोसेमंद संपर्क को कैसे कॉल करें: होम स्क्रीन पर बड़े \"कॉल [नाम]\" बटन पर कभी भी टैप करें — खासकर जब कोई चिंताजनक संदेश आए। जब हम संभव स्कैम दिखाएँ, तब भी आप चेतावनी स्क्रीन से कॉल कर सकते हैं।",
+  "howItWorksSeeWarningCta": "देखें चेतावनी कैसी दिखती है",
+
+  "permissionsIntro": "एल्डर शील्ड अनुमतियों का उपयोग केवल स्कैम से सुरक्षा के लिए करता है। आप कोई भी अनुमति न देने का विकल्प चुन सकते हैं; सुरक्षा कुछ कम हो जाएगी, लेकिन ऐप फिर भी काम करेगा।",
+  "permissionsSmsTitle": "संदेश (एसएमएस)",
+  "permissionsSmsBody": "हम इनकमिंग एसएमएस प्राप्त कर उन्हें स्कैम के संकेतों (जैसे संदिग्ध लिंक, ओटीपी फ़िशिंग, बैंक-संबंधी शब्द) के लिए विश्लेषित करते हैं और ज़रूरत पड़ने पर आपको चेतावनी दिखाते हैं। कोई भी संदेश सामग्री आपके डिवाइस के बाहर नहीं भेजी जाती। आप सेटिंग्स से सभी विश्लेषित हिस्ट्री मिटा सकते हैं।",
+  "permissionsPhoneStateTitle": "फोन (स्थिति पढ़ना)",
+  "permissionsPhoneStateBody": "हमें यह जानना होता है कि आप कब कॉल पर हैं, ताकि कॉल के दौरान ओटीपी आने पर हम जोखिम स्तर बढ़ा सकें (यह एक सामान्य स्कैम पैटर्न है)। हम कॉल रिकॉर्ड नहीं करते, ऑडियो नहीं सुनते और न ही आपका कॉल लॉग पढ़ते हैं।",
+  "permissionsPhoneCallTitle": "फोन (कॉल करना)",
+  "permissionsPhoneCallBody": "ताकि आप होम या चेतावनी स्क्रीन से \"भरोसेमंद संपर्क को कॉल करें\" बटन पर टैप कर सकें। ऐप केवल तब ही कॉल शुरू करता है जब आप बटन दबाते हैं, और केवल उन्हीं नंबरों पर जिन्हें आपने भरोसेमंद संपर्क के रूप में जोड़ा है।",
+  "permissionsNotificationsTitle": "नोटिफिकेशन",
+  "permissionsNotificationsBody": "जब हम कोई संदिग्ध या उच्च जोखिम वाला संदेश पाते हैं, तो आपको तुरंत सूचित करने के लिए। आप सिस्टम सेटिंग्स में नोटिफिकेशन बंद कर सकते हैं; फिर भी आप ऐप का उपयोग कर सकेंगे।",
+  "permissionsOverlayTitle": "अन्य ऐप्स के ऊपर दिखाना (वैकल्पिक)",
+  "permissionsOverlayBody": "यदि आप सेटिंग्स में एंड्रॉयड ओवरले अनुमति सक्षम करते हैं, तो उच्च जोखिम वाला संदेश आने पर एल्डर शील्ड अन्य ऐप्स के ऊपर भी आपात चेतावनी दिखा सकता है। यह पूरी तरह वैकल्पिक है और व्यक्तिगत सुरक्षा के लिए है।",
+
+  "privacyTitle": "गोपनीयता नीति",
+  "privacySection1Title": "1. हम कौन हैं",
+  "privacySection1Body": "एल्डर शील्ड एक एंड्रॉयड ऐप है जो डिवाइस पर ही संदेशों का विश्लेषण करके और संदिग्ध लगने पर चेतावनी देकर, वरिष्ठ नागरिकों को एसएमएस और कॉल से जुड़े स्कैम से बचाने में मदद करता है।",
+  "privacySection2Title": "2. हम कौन-सा डेटा संसाधित करते हैं",
+  "privacySection2Paragraphs": "सारा संसाधन आपके डिवाइस पर ही होता है। हम आपके संदेश, कॉल की स्थिति या किसी भी व्यक्तिगत डेटा को अपने सर्वर या किसी तीसरे पक्ष को नहीं भेजते।\n\nसंदेश डेटा: जब आपको एसएमएस मिलता है, तो ऐप प्रेषक, संदेश का मुख्यपाठ और समय पढ़ता है। यह डेटा केवल हमारे ऑन-डिवाइस स्कैम डिटेक्शन के लिए उपयोग होता है। नतीजे केवल आपके डिवाइस पर ही संग्रहीत रहते हैं। आप कभी भी सेटिंग्स → सभी हिस्ट्री मिटाएँ से इन्हें हटा सकते हैं।\n\nकॉल स्थिति: ऐप जाँचता है कि आप कॉल पर हैं या नहीं। हम कॉल रिकॉर्ड नहीं करते, ऑडियो नहीं सुनते और न ही कॉल लॉग तक पहुँचते हैं। कॉल की स्थिति केवल डिटेक्शन सुधारने (जैसे कॉल के दौरान ओटीपी आने पर चेतावनी देने) के लिए उपयोग होती है।\n\nसेटिंग्स और भरोसेमंद संपर्क: इन्हें केवल आपके डिवाइस के सुरक्षित संग्रहण में रखा जाता है। भरोसेमंद संपर्क केवल इसलिए उपयोग होते हैं कि आप \"भरोसेमंद संपर्क को कॉल करें\" बटन पर टैप कर सकें। हम उन्हें स्वतः कॉल या संदेश नहीं भेजते।",
+  "privacySection3Title": "3. हम क्या नहीं करते",
+  "privacySection3Paragraphs": "हम आपके एसएमएस की सामग्री, कॉल की स्थिति या संपर्क सूची को इंटरनेट पर नहीं भेजते।\n\nहम आपका डेटा विज्ञापनदाताओं या डेटा ब्रोकरों को नहीं बेचते, किराए पर नहीं देते और साझा नहीं करते।\n\nहम आपको खाता बनाने या साइन-इन करने के लिए बाध्य नहीं करते। आवश्यक अनुमतियाँ मिलने के बाद ऐप पूर्णतः ऑफ़लाइन काम कर सकता है।\n\nहम RCS/चैट संदेश नहीं पढ़ते या विश्लेषित करते; केवल सामान्य एसएमएस समर्थित है।",
+  "privacySection4Title": "4. अनुमतियाँ और वे क्यों ज़रूरी हैं",
+  "privacySection4Paragraphs": "एसएमएस (रिसीव/रीड): इनकमिंग एसएमएस पढ़ने के लिए ताकि हम स्कैम पैटर्न पहचान सकें और आपको चेतावनी दिखा सकें।\n\nफोन (कॉल की स्थिति पढ़ना): यह जानने के लिए कि आप कब कॉल पर हैं, ताकि कॉल के दौरान ओटीपी आने पर हम उच्च जोखिम दिखा सकें। हम कॉल रिकॉर्ड या सुनते नहीं हैं।\n\nफोन (कॉल करना): ताकि आप \"भरोसेमंद संपर्क को कॉल करें\" बटन पर टैप कर सकें। हम केवल उन्हीं नंबरों पर कॉल करते हैं जिन्हें आपने भरोसेमंद संपर्क के रूप में जोड़ा है और केवल तब जब आप बटन दबाते हैं।\n\nनोटिफिकेशन: जब हम कोई संदिग्ध या उच्च जोखिम वाला संदेश पाते हैं तो आपको सूचित करने के लिए।\n\nजब आप \"इस प्रेषक को ब्लॉक करें\" चुनते हैं, तो ऐप आपके डिवाइस का मैसेजिंग ऐप खोल सकता है; ऐप स्वयं एसएमएस नहीं भेजता।",
+  "privacySection5Title": "5. डेटा कितने समय तक रखा जाता है और आपके विकल्प",
+  "privacySection5Paragraphs": "विश्लेषित संदेश और कारण: ये केवल आपके डिवाइस पर तब तक रहते हैं जब तक आप सेटिंग्स → सभी हिस्ट्री मिटाएँ नहीं चुनते।\n\nसेटिंग्स और भरोसेमंद संपर्क: जब तक आप उन्हें बदलते या हटाते नहीं, या ऐप अनइंस्टॉल नहीं करते, तब तक आपके डिवाइस पर रहते हैं।\n\nहम आपके किसी भी डेटा की प्रति अपने सर्वर पर नहीं रखते, क्योंकि हम इसे एकत्र ही नहीं करते।",
+  "privacySection6Title": "6. बच्चे और संवेदनशील उपयोगकर्ता",
+  "privacySection6Paragraphs": "यह ऐप मुख्य रूप से वरिष्ठ नागरिकों और अन्य संवेदनशील उपयोगकर्ताओं को स्कैम से बचाने में सहायता के लिए बनाया गया है। हम बच्चों का डेटा इस तरह से एकत्र नहीं करते कि जिसके लिए माता-पिता की अनुमति की कानूनी आवश्यकता हो; ऐप कोई भी डेटा डिवाइस के बाहर नहीं भेजता।\n\nयदि आप किसी और (जैसे किसी बुज़ुर्ग परिवार सदस्य) के लिए यह ऐप सेट कर रहे हैं, तो हम सुझाव देते हैं कि आप उन्हें सरल भाषा में अनुमतियों और इस नीति के बारे में बताएँ।",
+  "privacySection7Title": "7. इस नीति में बदलाव",
+  "privacySection7Paragraphs": "यदि हम इस नीति में बदलाव करते हैं (उदाहरण के लिए, भविष्य के संस्करण में वैकल्पिक क्लाउड फ़ीचर जोड़ें), तो हम इस दस्तावेज़ को अपडेट करेंगे और ज़रूरत पड़ने पर क़ानून या स्टोर नीति के अनुसार आपको सूचित करेंगे या आपकी सहमति माँगेंगे।",
+  "privacySection8Title": "8. संपर्क",
+  "privacySection8Body": "एल्डर शील्ड से संबंधित गोपनीयता के प्रश्नों या अनुरोधों के लिए कृपया यहाँ संपर्क करें: [यहाँ अपना संपर्क ईमेल या सपोर्ट URL डालें]।",
+  "privacyLastUpdatedNote": "अंतिम अपडेट: ब्लॉक 10। रिलीज़ से पहले इन प्लेसहोल्डर को वास्तविक जानकारी से बदलें।",
+
+  "aboutTagline": "वरिष्ठ उपयोगकर्ताओं के लिए डिवाइस पर ही स्कैम सुरक्षा।",
+
+  "messagesAppBarTitle": "संदेश",
+  "messagesFilterAll": "सभी",
+  "messagesFilterHighRisk": "उच्च जोखिम",
+  "messagesFilterAllSemanticsLabel": "सभी संदेश दिखाएँ",
+  "messagesFilterAllSemanticsHint": "सभी विश्लेषित संदेश देखने के लिए डबल टैप करें।",
+  "messagesFilterHighRiskSemanticsLabel": "केवल उच्च जोखिम वाले संदेश दिखाएँ",
+  "messagesFilterHighRiskSemanticsHint": "सबसे गंभीर चेतावनियाँ देखने के लिए डबल टैप करें।",
+  "messagesErrorTitle": "संदेश लोड करते समय कुछ ग़लत हो गया।",
+  "messagesErrorSubtitle": "दोबारा प्रयास करने के लिए नीचे खींचें।",
+  "messagesEmptyTitle": "अभी तक कोई संदेश विश्लेषित नहीं हुआ। एल्डर शील्ड नए संदेशों की अपने आप जाँच करेगा।",
+  "messagesEmptySubtitle": "जब हमें कुछ संदिग्ध मिलेगा, हम आपको सूचित करेंगे और आप उसे यहाँ खोलकर देख सकेंगे।",
+  "messagesRefreshSnackbar": "सूची अपडेट हो गई",
+  "messagesLoadingHeader": "संदेश लोड हो रहे हैं…",
+  "messagesDateToday": "आज, {time}",
+  "messagesDateYesterday": "कल, {time}",
+  "messagesDateOther": "{month} {day}, {time}",
+  "@messagesDateToday": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "@messagesDateYesterday": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "@messagesDateOther": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      },
+      "day": {
+        "type": "int"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+
+  "onboardingStepOf": "स्टेप {step} / {total}",
+  "@onboardingStepOf": {
+    "placeholders": {
+      "step": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "onboardingWelcomeBody1": "एल्डर शील्ड आपके संदेशों और कॉल पर नज़र रखता है ताकि स्कैम होने पर आपको पहले से चेतावनी दी जा सके।",
+  "onboardingWelcomeBody2": "यदि आप कभी असमंजस में हों, तो एक टैप से किसी भरोसेमंद व्यक्ति को कॉल कर सकते हैं।",
+  "onboardingGetStarted": "शुरू करें",
+
+  "onboardingPermissionsTitle": "हमें एक्सेस क्यों चाहिए",
+  "onboardingPermissionsBulletMessages": "संदेश: ताकि हम आपके टेक्स्ट पढ़ सकें और कोई स्कैम जैसा लगे तो आपको चेतावनी दे सकें।",
+  "onboardingPermissionsBulletPhone": "फोन: ताकि हमें पता रहे कि आप कब कॉल पर हैं। स्कैमर अक्सर कॉल के दौरान ओटीपी माँगते हैं।",
+  "onboardingPermissionsBody1": "नीचे \"अनुमतियाँ दें\" पर टैप करने पर आपका डिवाइस इन अनुमतियों के लिए पूछेगा: संदेश, फोन और नोटिफिकेशन (ताकि ऐप बंद होने पर भी संभावित स्कैम के बारे में आपको चेतावनी दे सकें)।",
+  "onboardingPermissionsBody2": "हम आपके संदेशों को केवल स्कैम जाँचने के लिए पढ़ते हैं, किसी और काम के लिए नहीं।",
+  "onboardingPermissionsRetryWarning": "कुछ अनुमतियाँ अस्वीकार कर दी गईं। जब तक आप उन्हें अनुमति नहीं देते, सुरक्षा सीमित रहेगी।",
+  "onboardingPermissionsPrimaryAllow": "अनुमतियाँ दें",
+  "onboardingPermissionsPrimaryRetry": "फिर से प्रयास करें",
+  "onboardingSkipForNow": "अभी के लिए छोड़ें",
+
+  "onboardingTrustedTitle": "एक भरोसेमंद संपर्क जोड़ें",
+  "onboardingTrustedBody1": "ऐसे व्यक्ति को चुनें जिसे आप कोई चिंताजनक संदेश मिलने पर कॉल करना चाहेंगे — जैसे कोई परिवार का सदस्य या करीबी दोस्त।",
+  "onboardingTrustedBody2": "उन्हें जोड़ने के बाद, आप होम स्क्रीन या जब हम स्कैम चेतावनी दिखाएँ, तब एक टैप से इस व्यक्ति को कॉल कर सकते हैं।",
+  "onboardingTrustedAddFromContacts": "संपर्कों से जोड़ें",
+  "onboardingTrustedAddFromContactsUnavailable": "इस प्रीव्यू संस्करण में अभी डिवाइस का कॉन्टैक्ट पिकर उपलब्ध नहीं है।",
+  "onboardingTrustedOrEnterManually": "या नंबर मैन्युअली दर्ज करें:",
+  "onboardingTrustedDone": "हो गया",
+  "onboardingTrustedSeeWarningCta": "देखें चेतावनी कैसी दिखती है",
+  "onboardingTrustedMissingFields": "कृपया नाम और नंबर दोनों दर्ज करें",
+
+  "launchGateChecking": "जाँच हो रही है…",
+
+  "exampleWarningBanner": "यह केवल एक उदाहरण है। कोई असली संदेश या कार्रवाई नहीं हो रही।",
+  "exampleWarningSnackbar": "यह सिर्फ उदाहरण था। कोई कार्रवाई नहीं की गई।",
+  "exampleWarningButton": "समझ गया — यह सिर्फ उदाहरण था",
+  "exampleWarningSenderUnknown": "अज्ञात",
+  "exampleWarningBody": "आपका बैंक खाता 24 घंटों के भीतर ब्लॉक कर दिया जाएगा। सत्यापित करने के लिए यहाँ क्लिक करें: http://secure-bank-verify.com. इसे किसी के साथ साझा न करें।",
+  "exampleWarningReasonSuspiciousLink": "संदिग्ध लिंक मौजूद है",
+  "exampleWarningReasonPretendBank": "आपके बैंक का दिखावा कर रहा है",
+  "exampleWarningReasonUrgentLanguage": "बहुत तात्कालिक या धमकी भरी भाषा का उपयोग किया है",
+
+  "reasonShortUrl": "किसी छोटे या संदिग्ध लिंक को शामिल करता है",
+  "reasonOtpMention": "ओटीपी या एक बार उपयोग होने वाला कोड माँगता है या उसका उल्लेख करता है",
+  "reasonUrgentLanguage": "तात्कालिक या धमकी भरी भाषा का उपयोग करता है",
+  "reasonBankKyc": "बैंक खाता, केवाईसी या भुगतान विवरण का उल्लेख करता है",
+  "reasonPaymentRequest": "आपसे पैसा भेजने या भुगतान की स्वीकृति देने को कहता है",
+  "reasonPrizeLottery": "इनाम या लॉटरी स्कैम जैसा दिखता है",
+  "reasonParcelDelivery": "संदिग्ध पार्सल या डिलिवरी समस्या का ज़िक्र करता है",
+  "reasonCryptoInvestment": "जोखिम भरे क्रिप्टो निवेश या पक्के रिटर्न का वादा करता है",
+  "reasonSenderSuspicious": "प्रेषक का नाम असामान्य या संदिग्ध दिखता है",
+  "reasonInCallOtp": "जब आप फ़ोन कॉल पर थे तभी एक ओटीपी आया — यह आम स्कैम पैटर्न है",
+
+  "messageFromLabel": "प्रेषक: {sender}",
+  "@messageFromLabel": {
+    "placeholders": {
+      "sender": {
+        "type": "String"
+      }
+    }
+  },
+
+  "fullScreenWarningTitle": "संभावित स्कैम",
+  "fullScreenWarningClosingNote": "इस स्क्रीन को बंद करने से आपके फोन से संदेश नहीं मिटेगा।",
+  "fullScreenWarningDeleteAction": "संदेश मिटाएँ",
+  "fullScreenWarningDeleteSnackbar": "एल्डर शील्ड से हटाया गया। अब आपके फोन के मैसेजिंग ऐप को खोल रहे हैं ताकि आप वहाँ से भी इसे मिटा सकें।",
+  "fullScreenWarningBlockSender": "इस प्रेषक को ब्लॉक करें (मैसेजिंग ऐप खुलेगा)"
+}
+

@@ -156,6 +156,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get languageKannadaName => 'Kannada';
 
   @override
+  String get languageHindiName => 'Hindi';
+
+  @override
+  String get languageUrduName => 'Urdu';
+
+  @override
   String languageSectionSubtitle(String languageName) {
     return 'Current: $languageName';
   }

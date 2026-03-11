@@ -7,7 +7,9 @@ import 'package:intl/intl.dart' as intl;
 
 import 'app_localizations_bn.dart';
 import 'app_localizations_en.dart';
+import 'app_localizations_hi.dart';
 import 'app_localizations_kn.dart';
+import 'app_localizations_ur.dart';
 
 // ignore_for_file: type=lint
 
@@ -94,7 +96,9 @@ abstract class AppLocalizations {
   static const List<Locale> supportedLocales = <Locale>[
     Locale('bn'),
     Locale('en'),
-    Locale('kn')
+    Locale('hi'),
+    Locale('kn'),
+    Locale('ur')
   ];
 
   /// No description provided for @appTitle.
@@ -378,6 +382,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Kannada'**
   String get languageKannadaName;
+
+  /// No description provided for @languageHindiName.
+  ///
+  /// In en, this message translates to:
+  /// **'Hindi'**
+  String get languageHindiName;
+
+  /// No description provided for @languageUrduName.
+  ///
+  /// In en, this message translates to:
+  /// **'Urdu'**
+  String get languageUrduName;
 
   /// Subtitle showing currently selected language.
   ///
@@ -1325,7 +1341,7 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['bn', 'en', 'kn'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['bn', 'en', 'hi', 'kn', 'ur'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -1338,7 +1354,9 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   switch (locale.languageCode) {
     case 'bn': return AppLocalizationsBn();
     case 'en': return AppLocalizationsEn();
+    case 'hi': return AppLocalizationsHi();
     case 'kn': return AppLocalizationsKn();
+    case 'ur': return AppLocalizationsUr();
   }
 
   throw FlutterError(
