@@ -1,10 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/widgets.dart';
 
 import 'package:elder_shield/application/app_providers.dart';
 import 'package:elder_shield/data/message_repository.dart'; // AnalyzedMessage
 import 'package:elder_shield/domain/detector/heuristic_detector.dart';
+import 'package:elder_shield/l10n/app_localizations.dart';
 import 'package:elder_shield/platform/native_event_stream.dart';
 import 'package:elder_shield/services/notification_service.dart';
 
@@ -106,14 +108,22 @@ class SecurityController {
     final appInForeground = _ref.read(appInForegroundProvider);
 
     if (appInForeground) {
+      // Use current app locale for notification text.
+      final context = WidgetsBinding.instance.platformDispatcher.implicitView == null
+          ? null
+          : WidgetsBinding.instance.renderViewElement;
+      final l10n = context != null ? AppLocalizations.of(context) : null;
       final title = band == RiskBand.high
-          ? 'Warning: Possible scam message'
-          : 'Suspicious message';
+          ? (l10n?.highRiskHeaderTitle ?? 'Warning: Possible scam message')
+          : (l10n?.messagesFilterHighRisk ?? 'Suspicious message');
       final bodyShort = body.length > 80 ? '${body.substring(0, 80)}…' : body;
+      final bodyText = l10n != null
+          ? l10n.messageFromLabel('$sender — $bodyShort')
+          : 'From $sender — $bodyShort';
       await NotificationService.instance.show(
         id: messageId.clamp(0, 0x7FFFFFFF),
         title: title,
-        body: 'From $sender — $bodyShort',
+        body: bodyText,
       );
     }
 

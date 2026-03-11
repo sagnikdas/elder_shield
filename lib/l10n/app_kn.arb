@@ -1,0 +1,102 @@
+{
+  "@@locale": "kn",
+
+  "appTitle": "Elder Shield",
+
+  "settingsTitle": "Settings",
+
+  "homeAppBarTitle": "Elder Shield",
+  "homePostOnboardingTitle": "You're protected",
+  "homePostOnboardingBody": "From Home you can call {contactName} anytime.",
+  "@homePostOnboardingBody": {
+    "description": "Message shown after onboarding; contactName is either the trusted contact's name or a generic phrase.",
+    "placeholders": {
+      "contactName": {
+        "type": "String"
+      }
+    }
+  },
+  "commonGotIt": "Got it",
+
+  "homeTrustedContactFallbackName": "your trusted contact",
+
+  "permissionsDialogTitle": "Enable protection in Settings",
+  "permissionsDialogBody": "Elder Shield needs SMS and Phone access to check your messages for scams.\n\nOpen app settings to turn these permissions on?",
+  "commonCancel": "Cancel",
+  "permissionsDialogOpenSettings": "Open settings",
+
+  "homeProtectionStatusLabel": "Protection status",
+  "homeProtectionStatusProtected": "Protected",
+  "homeProtectionStatusPermissionsNeeded": "Permissions needed",
+  "homeEnableProtectionButton": "Enable protection",
+
+  "homeTodayRiskSummaryWithCount": "{count} suspicious message(s) detected today.",
+  "@homeTodayRiskSummaryWithCount": {
+    "description": "Summary of today's suspicious messages with count.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeTodayRiskSummaryNoRisk": "No suspicious activity today.",
+  "homeTodayRiskTapToSeeMessages": "Tap to see messages",
+  "commonView": "View",
+
+  "homeAutoCheckInfo": "Elder Shield checks new messages automatically.",
+
+  "homeCallTrustedButtonLabel": "Call {name}",
+  "@homeCallTrustedButtonLabel": {
+    "description": "Label for the big call trusted contact button.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "homeCallTooltipText": "Tap here anytime you get a worrying message.",
+
+  "homeAddTrustedIntro": "Add a trusted contact so you can call them quickly if you get a scary message.",
+  "homeAddTrustedButton": "Add a trusted contact",
+  "homeWhyAddTrustedShow": "Why add a trusted contact?",
+  "homeWhyAddTrustedHide": "Hide why",
+  "homeWhyAddTrustedExplanation": "If you ever get a worrying message, you can tap one big button to call someone you trust instead of guessing what to do alone.",
+  "homeTrustedContactsHeader": "Your trusted contacts",
+
+  "highRiskHeaderTitle": "Danger: possible scam message",
+  "highRiskHeaderBody": "Do not tap any links or share codes from this message.",
+  "highRiskWhyFlaggedTitle": "Why this was flagged:",
+
+  "actionScam": "This is a Scam",
+  "actionSafe": "This is Safe",
+
+  "snackbarGenericError": "Something went wrong. Try again.",
+  "snackbarMarkedScam": "Marked as scam. Thank you.",
+
+  "highRiskSwipeUpForDetails": "Swipe up for more details",
+
+  "riskLowLabel": "Low risk",
+  "riskMediumLabel": "Medium risk — review",
+  "riskHighLabel": "High risk — possible scam",
+
+  "deleteMessageTitle": "Delete message?",
+  "deleteMessageBody": "Are you sure? This will remove the message from Elder Shield.",
+  "deleteMessageConfirm": "Delete",
+  "deleteMessageDeletedSnackbar": "Removed from Elder Shield.",
+
+  "languageSectionTitle": "Language",
+  "languageEnglishName": "English",
+  "languageBengaliName": "Bengali",
+  "languageKannadaName": "ಕನ್ನಡ",
+  "languageSectionSubtitle": "Current: {languageName}",
+  "@languageSectionSubtitle": {
+    "description": "Subtitle showing currently selected language.",
+    "placeholders": {
+      "languageName": {
+        "type": "String"
+      }
+    }
+  }
+}
+

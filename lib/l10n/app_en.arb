@@ -1,0 +1,329 @@
+{
+  "@@locale": "en",
+
+  "appTitle": "Elder Shield",
+
+  "settingsTitle": "Settings",
+
+  "homeAppBarTitle": "Elder Shield",
+  "homePostOnboardingTitle": "You're protected",
+  "homePostOnboardingBody": "From Home you can call {contactName} anytime.",
+  "@homePostOnboardingBody": {
+    "description": "Message shown after onboarding; contactName is either the trusted contact's name or a generic phrase.",
+    "placeholders": {
+      "contactName": {
+        "type": "String"
+      }
+    }
+  },
+  "commonGotIt": "Got it",
+
+  "homeTrustedContactFallbackName": "your trusted contact",
+
+  "permissionsDialogTitle": "Enable protection in Settings",
+  "permissionsDialogBody": "Elder Shield needs SMS and Phone access to check your messages for scams.\n\nOpen app settings to turn these permissions on?",
+  "commonCancel": "Cancel",
+  "permissionsDialogOpenSettings": "Open settings",
+
+  "homeProtectionStatusLabel": "Protection status",
+  "homeProtectionStatusProtected": "Protected",
+  "homeProtectionStatusPermissionsNeeded": "Permissions needed",
+  "homeEnableProtectionButton": "Enable protection",
+
+  "homeTodayRiskSummaryWithCount": "{count} suspicious message(s) detected today.",
+  "@homeTodayRiskSummaryWithCount": {
+    "description": "Summary of today's suspicious messages with count.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeTodayRiskSummaryNoRisk": "No suspicious activity today.",
+  "homeTodayRiskTapToSeeMessages": "Tap to see messages",
+  "commonView": "View",
+
+  "homeAutoCheckInfo": "Elder Shield checks new messages automatically.",
+
+  "homeCallTrustedButtonLabel": "Call {name}",
+  "@homeCallTrustedButtonLabel": {
+    "description": "Label for the big call trusted contact button.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "homeCallTooltipText": "Tap here anytime you get a worrying message.",
+
+  "homeAddTrustedIntro": "Add a trusted contact so you can call them quickly if you get a scary message.",
+  "homeAddTrustedButton": "Add a trusted contact",
+  "homeWhyAddTrustedShow": "Why add a trusted contact?",
+  "homeWhyAddTrustedHide": "Hide why",
+  "homeWhyAddTrustedExplanation": "If you ever get a worrying message, you can tap one big button to call someone you trust instead of guessing what to do alone.",
+  "homeTrustedContactsHeader": "Your trusted contacts",
+
+  "highRiskHeaderTitle": "Danger: possible scam message",
+  "highRiskHeaderBody": "Do not tap any links or share codes from this message.",
+  "highRiskWhyFlaggedTitle": "Why this was flagged:",
+
+  "actionScam": "This is a Scam",
+  "actionSafe": "This is Safe",
+
+  "snackbarGenericError": "Something went wrong. Try again.",
+  "snackbarMarkedScam": "Marked as scam. Thank you.",
+
+  "highRiskSwipeUpForDetails": "Swipe up for more details",
+
+  "riskLowLabel": "Low risk",
+  "riskMediumLabel": "Medium risk — review",
+  "riskHighLabel": "High risk — possible scam",
+
+  "deleteMessageTitle": "Delete message?",
+  "deleteMessageBody": "Are you sure? This will remove the message from Elder Shield.",
+  "deleteMessageConfirm": "Delete",
+  "deleteMessageDeletedSnackbar": "Removed from Elder Shield.",
+
+  "languageSectionTitle": "Language",
+  "languageEnglishName": "English",
+  "languageBengaliName": "Bengali",
+  "languageKannadaName": "Kannada",
+  "languageSectionSubtitle": "Current: {languageName}",
+  "@languageSectionSubtitle": {
+    "description": "Subtitle showing currently selected language.",
+    "placeholders": {
+      "languageName": {
+        "type": "String"
+      }
+    }
+  },
+
+  "snackbarUpdated": "Updated",
+
+  "settingsAppearanceTitle": "Appearance",
+  "settingsThemeSystem": "System",
+  "settingsThemeLight": "Light",
+  "settingsThemeDark": "Dark",
+
+  "settingsTextSizeTitle": "Text size",
+  "settingsTextSizeDescription": "Adjust to see text larger or smaller. Changes apply immediately.",
+  "settingsTextSizeSample": "Elder Shield keeps you safe from scam messages.",
+
+  "settingsLegalTitle": "Legal & information",
+  "settingsPrivacyPolicyTitle": "Privacy policy",
+  "settingsPrivacyPolicySubtitle": "How we use your data",
+  "settingsPermissionsExplainedTitle": "Permissions explained",
+  "settingsPermissionsExplainedSubtitle": "Why we need each permission",
+
+  "settingsSensitivityTitle": "Sensitivity",
+  "settingsSensitivityLabelConservative": "Fewer alerts",
+  "settingsSensitivityLabelBalanced": "Balanced",
+  "settingsSensitivityLabelSensitive": "More alerts",
+  "settingsSensitivityDescConservative": "Only very obvious scams. Good if you prefer fewer alerts.",
+  "settingsSensitivityDescBalanced": "Good for most people. A balance of scams caught and noise.",
+  "settingsSensitivityDescSensitive": "Catches more scams but may sometimes flag safe messages.",
+
+  "settingsTrustedContactsTitle": "Trusted contacts",
+  "settingsTrustedContactsNone": "None",
+  "settingsTrustedContactsCount": "{count} contact(s)",
+  "@settingsTrustedContactsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsTrustedContactsExplanation": "You can call them with one tap from Home or when we show a scam warning. First in the list is used for the main \"Call\" button.",
+  "settingsTrustedContactsAddContactTitle": "Add contact",
+  "settingsTrustedContactsAddContactSubtitle": "Type a name and phone number",
+  "settingsTrustedContactsChooseFromContactsTitle": "Choose from contacts",
+  "settingsTrustedContactsChooseFromContactsSubtitle": "Pick a number from your phone",
+  "settingsTrustedContactsPickerUnavailable": "Device contact picker is not available yet on this preview build.",
+
+  "settingsTrustedContactsRemoveDialogTitle": "Remove trusted contact?",
+  "settingsTrustedContactsRemoveDialogBody": "This person will no longer appear in your trusted contacts or on the Home screen.",
+  "settingsTrustedContactsRemoveDialogRemove": "Remove",
+
+  "settingsAdvancedSectionTitle": "Advanced",
+  "settingsDeleteAllHistoryButton": "Delete all history",
+  "settingsRerunPermissionsButton": "Re-run permissions check",
+
+  "settingsDeleteAllHistoryDialogTitle": "Delete all history?",
+  "settingsDeleteAllHistoryDialogBody": "This will permanently delete all analyzed messages and reasons from this device. You cannot undo this.",
+  "settingsDeleteAllHistoryDialogConfirm": "Delete all",
+  "settingsHistoryDeletedSnackbar": "History deleted",
+
+  "settingsRerunPermissionsSnackbar": "Permission check done. Restart the app if you just granted access.",
+
+  "settingsOverlayTitle": "Emergency pop-up over other apps",
+  "settingsOverlaySubtitleEnabled": "Enabled: high-risk warnings can appear above other apps. Recommended so we can warn you even when you’re in another app.",
+  "settingsOverlaySubtitleDisabled": "Off: tap to enable the Android overlay permission. Recommended so we can warn you even when you’re in another app.",
+
+  "settingsHowItWorksTitle": "How Elder Shield works",
+  "settingsHowItWorksSubtitle": "What we check, when we alert, what to do",
+  "settingsAboutTitle": "About Elder Shield",
+
+  "settingsAddTrustedDialogTitle": "Add trusted contact",
+  "settingsAddTrustedDialogConsent": "They can be called with one tap from Home or when we show a scam warning.",
+  "settingsAddTrustedDialogConfirm": "Add",
+  "settingsEditTrustedDialogTitle": "Edit trusted contact",
+  "settingsEditTrustedDialogConfirm": "Save",
+  "settingsContactNameLabel": "Name",
+  "settingsContactNameHint": "e.g. My son",
+  "settingsContactNumberLabel": "Phone number",
+  "settingsContactNumberHint": "e.g. +91 98765 43210",
+  "settingsContactDialogCancel": "Cancel",
+  "settingsContactInvalidNumber": "Enter a valid phone number",
+
+  "howItWorksBulletWhatWeCheck": "What we check: We read your SMS and look for signs of scams — suspicious links, urgent language, requests for OTP or bank details, and messages that pretend to be your bank or a known service.",
+  "howItWorksBulletWhenWeAlert": "When we alert: If a message looks risky, we notify you. For high-risk messages we can show a pop-up even when the app is in the background, and list the message on the Messages tab.",
+  "howItWorksBulletWhatToDo": "What to do when you see a warning: Don’t tap any link in the message. You can mark it as \"This is a Scam\" or \"This is Safe\" to help us learn. Best step: call your trusted contact from the warning screen or from Home.",
+  "howItWorksBulletCallTrusted": "How to call your trusted contact: On the Home screen, tap the big \"Call [Name]\" button anytime — especially if you get a worrying message. You can also call from the warning screen when we show a possible scam.",
+  "howItWorksSeeWarningCta": "See what a warning looks like"
+,
+
+  "permissionsIntro": "Elder Shield only uses permissions for scam protection. You can deny any permission; protection will be limited but the app still works.",
+  "permissionsSmsTitle": "Messages (SMS)",
+  "permissionsSmsBody": "We receive and read incoming SMS so we can analyse them for scam indicators (e.g. suspicious links, OTP phishing, bank-related wording) and show you warnings. No message content is sent off your device. You can delete all analysed history from Settings.",
+  "permissionsPhoneStateTitle": "Phone (read state)",
+  "permissionsPhoneStateBody": "We need to know when you're on a call so we can raise the risk level when an OTP arrives during a call (a common scam pattern). We do not record calls, listen to audio, or access your call log.",
+  "permissionsPhoneCallTitle": "Phone (make calls)",
+  "permissionsPhoneCallBody": "So you can tap \"Call trusted contact\" from Home or a warning. The app only starts a call when you tap the button, and only to numbers you have added as trusted contacts.",
+  "permissionsNotificationsTitle": "Notifications",
+  "permissionsNotificationsBody": "To show you alerts when we detect a suspicious or high-risk message, so you can act quickly. You can turn off notifications in system settings; you will still be able to use the app.",
+  "permissionsOverlayTitle": "Draw over other apps (optional)",
+  "permissionsOverlayBody": "If you enable the Android overlay permission in Settings, Elder Shield can show an emergency warning above other apps when a high-risk message arrives. This is optional and intended for personal-use safety setups."
+
+,
+
+  "privacyTitle": "Privacy Policy",
+  "privacySection1Title": "1. Who we are",
+  "privacySection1Body": "Elder Shield is an Android app that helps protect elderly users from SMS- and call-related scams by analysing messages on the device and warning when something looks suspicious.",
+  "privacySection2Title": "2. Data we process",
+  "privacySection2Paragraphs": "All processing happens on your device. We do not send your messages, call state, or any other personal data to our servers or to any third party.\n\nMessage data: When you receive an SMS, the app reads the sender, message body, and timestamp. This data is used only to run our on-device scam detection. Results are stored only on your device. You can delete all of this at any time from Settings → Delete all history.\n\nCall state: The app checks whether you're on a phone call. We do not record calls, listen to audio, or access your call log. Call state is used only to improve detection (e.g. warning when an OTP arrives during a call).\n\nSettings and trusted contacts: Stored only on your device in secure storage. Trusted contacts are used only so you can tap \"Call trusted contact\". We do not call or message them automatically.",
+  "privacySection3Title": "3. What we do not do",
+  "privacySection3Paragraphs": "We do not send your SMS content, call state, or contact list to the internet.\n\nWe do not sell, rent, or share your data with advertisers or data brokers.\n\nWe do not require an account or sign-in. The app works fully offline after permissions are granted.\n\nWe do not read or analyse RCS/chat messages; only standard SMS is supported.",
+  "privacySection4Title": "4. Permissions and why we need them",
+  "privacySection4Paragraphs": "SMS (receive/read): To receive and read incoming SMS so we can analyse them for scam patterns and show you warnings.\n\nPhone (read phone state): To know when you're on a call, so we can flag higher risk when an OTP arrives during a call. We do not record or listen to calls.\n\nPhone (make calls): So you can tap \"Call trusted contact\". We only call numbers you have added as trusted contacts.\n\nNotifications: To show you alerts when we detect a suspicious or high-risk message.\n\nThe app may open your device's messaging app when you choose \"Block this sender\"; the app does not send SMS itself.",
+  "privacySection5Title": "5. Data retention and your choices",
+  "privacySection5Paragraphs": "Analyzed messages and reasons: Kept only on your device until you choose Settings → Delete all history.\n\nSettings and trusted contacts: Stored on your device until you change or remove them, or uninstall the app.\n\nWe do not retain any copy of your data on our servers because we do not collect it.",
+  "privacySection6Title": "6. Children and sensitive users",
+  "privacySection6Paragraphs": "The app is intended to help elderly and other vulnerable users avoid scams. We do not knowingly collect data from children in a way that would require parental consent; the app does not send data off-device.\n\nIf you are a caregiver setting up the app for someone else, we recommend explaining the permissions and this policy to them.",
+  "privacySection7Title": "7. Changes to this policy",
+  "privacySection7Paragraphs": "If we change this policy (for example, if we add optional cloud features in a future version), we will update this document and, where required by law or store policy, notify you or ask for consent.",
+  "privacySection8Title": "8. Contact",
+  "privacySection8Body": "For privacy-related questions or requests about Elder Shield, please contact [insert your contact email or support URL here].",
+  "privacyLastUpdatedNote": "Last updated: Block 10. Replace placeholders before release."
+,
+
+  "aboutTagline": "On-device scam protection for elderly users."
+
+,
+
+  "messagesAppBarTitle": "Messages",
+  "messagesFilterAll": "All",
+  "messagesFilterHighRisk": "High Risk",
+  "messagesFilterAllSemanticsLabel": "Show all messages",
+  "messagesFilterAllSemanticsHint": "Double tap to see all analyzed messages.",
+  "messagesFilterHighRiskSemanticsLabel": "Show only high-risk messages",
+  "messagesFilterHighRiskSemanticsHint": "Double tap to filter to the most serious warnings.",
+  "messagesErrorTitle": "Something went wrong while loading messages.",
+  "messagesErrorSubtitle": "Pull down to try again.",
+  "messagesEmptyTitle": "No messages analyzed yet. Elder Shield will check new messages automatically.",
+  "messagesEmptySubtitle": "When we find something suspicious, we'll notify you and you can open it here.",
+  "messagesRefreshSnackbar": "List updated",
+  "messagesLoadingHeader": "Loading messages…",
+  "messagesDateToday": "Today, {time}",
+  "messagesDateYesterday": "Yesterday, {time}",
+  "messagesDateOther": "{month} {day}, {time}",
+  "@messagesDateToday": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "@messagesDateYesterday": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "@messagesDateOther": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      },
+      "day": {
+        "type": "int"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+
+  "onboardingStepOf": "Step {step} of {total}",
+  "@onboardingStepOf": {
+    "placeholders": {
+      "step": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "onboardingWelcomeBody1": "Elder Shield watches your messages and calls to warn you about scams.",
+  "onboardingWelcomeBody2": "You can call a trusted person with one tap if you’re ever unsure.",
+  "onboardingGetStarted": "Get Started",
+
+  "onboardingPermissionsTitle": "Why we need access",
+  "onboardingPermissionsBulletMessages": "Messages: so we can read your texts and warn you if one looks like a scam.",
+  "onboardingPermissionsBulletPhone": "Phone: so we know when you are on a call. Scammers often ask for OTPs while you are on the phone.",
+  "onboardingPermissionsBody1": "When you tap \"Allow Permissions\" below, your device will ask for: Messages, Phone, and Notifications (so we can alert you about possible scams even when the app is closed).",
+  "onboardingPermissionsBody2": "We never read your messages for anything except checking for scams.",
+  "onboardingPermissionsRetryWarning": "Some permissions were denied. Protection will be limited until you allow them.",
+  "onboardingPermissionsPrimaryAllow": "Allow Permissions",
+  "onboardingPermissionsPrimaryRetry": "Try Again",
+  "onboardingSkipForNow": "Skip for now",
+
+  "onboardingTrustedTitle": "Add a trusted contact",
+  "onboardingTrustedBody1": "Pick someone you’d call if you got a worrying message — like a family member or close friend.",
+  "onboardingTrustedBody2": "By adding them, you can call this person with one tap from the Home screen or when we show a scam warning.",
+  "onboardingTrustedAddFromContacts": "Add from contacts",
+  "onboardingTrustedAddFromContactsUnavailable": "Device contact picker is not available yet on this preview build.",
+  "onboardingTrustedOrEnterManually": "Or enter manually:",
+  "onboardingTrustedDone": "Done",
+  "onboardingTrustedSeeWarningCta": "See what a warning looks like",
+  "onboardingTrustedMissingFields": "Please enter both name and number",
+
+  "launchGateChecking": "Checking…",
+
+  "exampleWarningBanner": "This is an example. No real message or action.",
+  "exampleWarningSnackbar": "This was an example. No action was taken.",
+  "exampleWarningButton": "Got it — this was an example",
+  "exampleWarningSenderUnknown": "Unknown",
+  "exampleWarningBody": "Your bank account will be blocked within 24 hours. Click here to verify: http://secure-bank-verify.com. Do not share this with anyone.",
+  "exampleWarningReasonSuspiciousLink": "Contains a suspicious link",
+  "exampleWarningReasonPretendBank": "Pretends to be your bank",
+  "exampleWarningReasonUrgentLanguage": "Uses urgent or threatening language",
+
+  "messageFromLabel": "From: {sender}",
+  "@messageFromLabel": {
+    "placeholders": {
+      "sender": {
+        "type": "String"
+      }
+    }
+  },
+
+  "fullScreenWarningTitle": "Possible scam",
+  "fullScreenWarningClosingNote": "Closing this screen does not delete the message from your phone.",
+  "fullScreenWarningDeleteAction": "Delete message",
+  "fullScreenWarningDeleteSnackbar": "Removed from Elder Shield. Opening messaging app so you can delete it from your phone.",
+  "fullScreenWarningBlockSender": "Block this sender (opens messaging app)"
+}
+

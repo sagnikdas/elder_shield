@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:elder_shield/l10n/app_localizations.dart';
 
 /// Block 6 — Onboarding screen 2: explain permissions, then request them.
 class OnboardingPermissionsScreen extends StatefulWidget {
@@ -58,6 +59,7 @@ class _OnboardingPermissionsScreenState
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -67,7 +69,7 @@ class _OnboardingPermissionsScreenState
           onPressed: widget.onBack,
         ),
         title: Text(
-          'Step ${widget.step} of ${widget.totalSteps}',
+          l10n.onboardingStepOf(widget.step, widget.totalSteps),
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
@@ -82,7 +84,7 @@ class _OnboardingPermissionsScreenState
             children: [
               const SizedBox(height: 16),
               Text(
-                'Why we need access',
+                l10n.onboardingPermissionsTitle,
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.bold,
                       fontSize: 24,
@@ -90,15 +92,15 @@ class _OnboardingPermissionsScreenState
               ),
               const SizedBox(height: 24),
               _bullet(
-                'Messages: so we can read your texts and warn you if one looks like a scam.',
+                l10n.onboardingPermissionsBulletMessages,
               ),
               const SizedBox(height: 12),
               _bullet(
-                'Phone: so we know when you are on a call. Scammers often ask for OTPs while you are on the phone.',
+                l10n.onboardingPermissionsBulletPhone,
               ),
               const SizedBox(height: 20),
               Text(
-                'When you tap "Allow Permissions" below, your device will ask for: Messages, Phone, and Notifications (so we can alert you about possible scams even when the app is closed).',
+                l10n.onboardingPermissionsBody1,
                 style: TextStyle(
                   fontSize: 17,
                   height: 1.3,
@@ -107,7 +109,7 @@ class _OnboardingPermissionsScreenState
               ),
               const SizedBox(height: 12),
               Text(
-                'We never read your messages for anything except checking for scams.',
+                l10n.onboardingPermissionsBody2,
                 style: TextStyle(
                   fontSize: 16,
                   height: 1.3,
@@ -117,7 +119,7 @@ class _OnboardingPermissionsScreenState
               const Spacer(),
               if (_showRetry) ...[
                 Text(
-                  'Some permissions were denied. Protection will be limited until you allow them.',
+                  l10n.onboardingPermissionsRetryWarning,
                   style: TextStyle(
                     fontSize: 16,
                     color: Theme.of(context).colorScheme.error,
@@ -144,15 +146,19 @@ class _OnboardingPermissionsScreenState
                             color: Colors.white,
                           ),
                         )
-                      : Text(_showRetry ? 'Try Again' : 'Allow Permissions',
-                          style: const TextStyle(fontSize: 18)),
+                      : Text(
+                          _showRetry
+                              ? l10n.onboardingPermissionsPrimaryRetry
+                              : l10n.onboardingPermissionsPrimaryAllow,
+                          style: const TextStyle(fontSize: 18),
+                        ),
                 ),
               ),
               const SizedBox(height: 12),
               TextButton(
                 onPressed: _allGranted ? null : widget.onSkip,
                 child: Text(
-                  'Skip for now',
+                  l10n.onboardingSkipForNow,
                   style: TextStyle(
                     fontSize: 16,
                     color: _allGranted

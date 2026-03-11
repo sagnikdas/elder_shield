@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:elder_shield/l10n/app_localizations.dart';
 import 'package:elder_shield/application/app_providers.dart';
 import 'package:elder_shield/presentation/messages/example_warning_sheet.dart';
 import 'package:elder_shield/services/settings_service.dart';
@@ -45,7 +46,7 @@ class _OnboardingTrustedContactScreenState
     final number = _numberController.text.trim();
     if (name.isEmpty || number.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        elderSnackBar('Please enter both name and number'),
+        elderSnackBar(AppLocalizations.of(context)!.onboardingTrustedMissingFields),
       );
       return;
     }
@@ -62,6 +63,7 @@ class _OnboardingTrustedContactScreenState
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -71,7 +73,7 @@ class _OnboardingTrustedContactScreenState
           onPressed: widget.onBack,
         ),
         title: Text(
-          'Step ${widget.step} of ${widget.totalSteps}',
+          l10n.onboardingStepOf(widget.step, widget.totalSteps),
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
@@ -92,7 +94,7 @@ class _OnboardingTrustedContactScreenState
               children: [
                 const SizedBox(height: 16),
                 Text(
-                  'Add a trusted contact',
+                  l10n.onboardingTrustedTitle,
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
                         fontWeight: FontWeight.bold,
                         fontSize: 22,
@@ -100,12 +102,12 @@ class _OnboardingTrustedContactScreenState
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'Pick someone you’d call if you got a worrying message — like a family member or close friend.',
+                  l10n.onboardingTrustedBody1,
                   style: const TextStyle(fontSize: 16, height: 1.4),
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'By adding them, you can call this person with one tap from the Home screen or when we show a scam warning.',
+                  l10n.onboardingTrustedBody2,
                   style: TextStyle(
                     fontSize: 14,
                     height: 1.4,
@@ -118,12 +120,12 @@ class _OnboardingTrustedContactScreenState
                     selectionClick();
                     ScaffoldMessenger.of(context).showSnackBar(
                       elderSnackBar(
-                        'Device contact picker is not available yet on this preview build.',
+                        l10n.onboardingTrustedAddFromContactsUnavailable,
                       ),
                     );
                   },
                   icon: const Icon(Icons.contact_phone_outlined),
-                  label: const Text('Add from contacts'),
+                  label: Text(l10n.onboardingTrustedAddFromContacts),
                   style: OutlinedButton.styleFrom(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -131,7 +133,7 @@ class _OnboardingTrustedContactScreenState
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  'Or enter manually:',
+                  l10n.onboardingTrustedOrEnterManually,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         color: Theme.of(context).colorScheme.onSurfaceVariant,
                         fontWeight: FontWeight.w600,
@@ -140,20 +142,20 @@ class _OnboardingTrustedContactScreenState
                 const SizedBox(height: 12),
                 TextField(
                   controller: _nameController,
-                  decoration: const InputDecoration(
-                    labelText: 'Name',
-                    hintText: 'e.g. My son',
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    labelText: l10n.settingsContactNameLabel,
+                    hintText: l10n.settingsContactNameHint,
+                    border: const OutlineInputBorder(),
                   ),
                   textCapitalization: TextCapitalization.words,
                 ),
                 const SizedBox(height: 16),
                 TextField(
                   controller: _numberController,
-                  decoration: const InputDecoration(
-                    labelText: 'Phone number',
-                    hintText: 'e.g. +91 98765 43210',
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    labelText: l10n.settingsContactNumberLabel,
+                    hintText: l10n.settingsContactNumberHint,
+                    border: const OutlineInputBorder(),
                   ),
                   keyboardType: TextInputType.phone,
                 ),
@@ -167,14 +169,14 @@ class _OnboardingTrustedContactScreenState
                       backgroundColor: const Color(0xFF1565C0),
                       foregroundColor: Colors.white,
                     ),
-                    child: const Text('Done', style: TextStyle(fontSize: 18)),
+                    child: Text(l10n.onboardingTrustedDone, style: const TextStyle(fontSize: 18)),
                   ),
                 ),
                 const SizedBox(height: 12),
                 TextButton(
                   onPressed: widget.onSkip,
                   child: Text(
-                    'Skip for now',
+                    l10n.onboardingSkipForNow,
                     style: TextStyle(
                       fontSize: 16,
                       color: Theme.of(context).colorScheme.primary,
@@ -188,7 +190,7 @@ class _OnboardingTrustedContactScreenState
                     showExampleWarningSheet(context);
                   },
                   icon: const Icon(Icons.visibility_outlined, size: 20),
-                  label: const Text('See what a warning looks like'),
+                  label: Text(l10n.onboardingTrustedSeeWarningCta),
                   style: TextButton.styleFrom(
                     foregroundColor: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),

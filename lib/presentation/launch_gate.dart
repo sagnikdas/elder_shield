@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:elder_shield/l10n/app_localizations.dart';
 import 'package:elder_shield/application/app_providers.dart';
 import 'package:elder_shield/data/message_repository.dart';
 import 'package:elder_shield/domain/detector/heuristic_detector.dart';
@@ -83,15 +84,16 @@ class _LaunchGateState extends ConsumerState<LaunchGate> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     if (!_checked) {
-      return const Scaffold(
+      return Scaffold(
         body: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               CircularProgressIndicator(),
               SizedBox(height: 12),
-              Text('Checking…'),
+              Text(l10n.launchGateChecking),
             ],
           ),
         ),

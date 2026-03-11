@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:elder_shield/l10n/app_localizations.dart';
 import 'package:elder_shield/application/app_providers.dart';
 import 'package:elder_shield/data/message_repository.dart';
 import 'package:elder_shield/domain/detector/heuristic_detector.dart';
@@ -32,19 +33,19 @@ Future<void> confirmDeleteMessage(
   final ok = await showDialog<bool>(
     context: context,
     builder: (ctx) => AlertDialog(
-      title: const Text('Delete message?'),
-      content: const Text(
-        'Are you sure? This will remove the message from Elder Shield.',
+      title: Text(AppLocalizations.of(context)!.deleteMessageTitle),
+      content: Text(
+        AppLocalizations.of(context)!.deleteMessageBody,
       ),
       actions: [
         TextButton(
           onPressed: () => Navigator.of(ctx).pop(false),
-          child: const Text('Cancel'),
+          child: Text(AppLocalizations.of(context)!.commonCancel),
         ),
         FilledButton(
           onPressed: () => Navigator.of(ctx).pop(true),
           style: FilledButton.styleFrom(backgroundColor: Colors.red),
-          child: const Text('Delete'),
+          child: Text(AppLocalizations.of(context)!.deleteMessageConfirm),
         ),
       ],
     ),
@@ -54,7 +55,7 @@ Future<void> confirmDeleteMessage(
   if (context.mounted) {
     ScaffoldMessenger.of(context).showSnackBar(
       elderSnackBar(
-        'Removed from Elder Shield.',
+        AppLocalizations.of(context)!.deleteMessageDeletedSnackbar,
       ),
     );
     onDismiss();
@@ -74,6 +75,7 @@ class _RiskDetailSheetContent extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final repo = ref.read(messageRepositoryProvider);
+    final l10n = AppLocalizations.of(context)!;
 
     return DraggableScrollableSheet(
       initialChildSize: 0.7,
@@ -123,7 +125,7 @@ class _RiskDetailSheetContent extends ConsumerWidget {
               if (message.reasons.isNotEmpty) ...[
                 const SizedBox(height: 16),
                 Text(
-                  'Why this was flagged:',
+                  l10n.highRiskWhyFlaggedTitle,
                   style: Theme.of(context).textTheme.titleSmall?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -143,7 +145,7 @@ class _RiskDetailSheetContent extends ConsumerWidget {
               const SizedBox(height: 24),
               // Primary safety actions first: Scam, then Call Trusted Contact
               _ActionButton(
-                label: 'This is a Scam',
+                label: l10n.actionScam,
                 icon: Icons.report,
                 color: Colors.red,
                 onPressed: () async {
@@ -152,13 +154,13 @@ class _RiskDetailSheetContent extends ConsumerWidget {
                   } catch (_) {
                     if (!context.mounted) return;
                     ScaffoldMessenger.of(context).showSnackBar(
-                      elderSnackBar('Something went wrong. Try again.'),
+                      elderSnackBar(l10n.snackbarGenericError),
                     );
                     return;
                   }
                   if (context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      elderSnackBar('Marked as scam. Thank you.'),
+                      elderSnackBar(l10n.snackbarMarkedScam),
                     );
                     onDismiss();
                     Navigator.of(context).pop();
@@ -167,7 +169,7 @@ class _RiskDetailSheetContent extends ConsumerWidget {
               ),
               const SizedBox(height: 12),
               _ActionButton(
-                label: 'This is Safe',
+                label: l10n.actionSafe,
                 icon: Icons.check_circle,
                 color: Colors.green,
                 onPressed: () async {
@@ -176,7 +178,7 @@ class _RiskDetailSheetContent extends ConsumerWidget {
                   } catch (_) {
                     if (!context.mounted) return;
                     ScaffoldMessenger.of(context).showSnackBar(
-                      elderSnackBar('Something went wrong. Try again.'),
+                      elderSnackBar(l10n.snackbarGenericError),
                     );
                     return;
                   }
@@ -203,19 +205,20 @@ class _RiskBandChip extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final l10n = AppLocalizations.of(context)!;
     final (label, Color bg, Color fg) = switch (band) {
       RiskBand.low => (
-          'Low risk',
+          l10n.riskLowLabel,
           colorScheme.surfaceContainerHighest,
           colorScheme.onSurface,
         ),
       RiskBand.medium => (
-          'Medium risk — review',
+          l10n.riskMediumLabel,
           colorScheme.tertiaryContainer,
           colorScheme.onTertiaryContainer,
         ),
       RiskBand.high => (
-          'High risk — possible scam',
+          l10n.riskHighLabel,
           colorScheme.errorContainer,
           colorScheme.onErrorContainer,
         ),

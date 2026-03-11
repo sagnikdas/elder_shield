@@ -27,6 +27,7 @@ class SettingsKeys {
   static const trustedContacts = 'trusted_contacts'; // JSON array of {name, number}
   static const fontScale = 'font_scale'; // double as string, e.g. '1.0'. 1.0 = 100%.
   static const themeMode = 'theme_mode'; // 'light', 'dark', 'system'
+  static const languageCode = 'language_code'; // 'en', 'bn', 'kn', etc.
 }
 
 /// Secure settings stored in [FlutterSecureStorage].
@@ -132,6 +133,18 @@ class SettingsService {
     await _storage.write(
       key: SettingsKeys.themeMode,
       value: mode,
+    );
+  }
+
+  /// App language code: 'en', 'bn', 'kn', etc. Null means "follow system".
+  Future<String?> getLanguageCode() async {
+    return _storage.read(key: SettingsKeys.languageCode);
+  }
+
+  Future<void> setLanguageCode(String code) async {
+    await _storage.write(
+      key: SettingsKeys.languageCode,
+      value: code,
     );
   }
 

@@ -37,3 +37,6 @@ final fontScaleProvider = StateProvider<double>((ref) => 1.0);
 
 /// Theme mode: 'light', 'dark', 'system'. Updated in Settings; applied in app.dart.
 final themeModeProvider = StateProvider<String>((ref) => 'system');
+
+/// Current app language code: 'en', 'bn', 'kn', etc. Null = follow system locale.
+final languageCodeProvider = StateProvider<String?>((ref) => null);

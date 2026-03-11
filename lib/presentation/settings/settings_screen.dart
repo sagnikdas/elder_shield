@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:elder_shield/l10n/app_localizations.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:elder_shield/application/app_providers.dart';
 import 'package:elder_shield/core/design_tokens.dart';
@@ -27,6 +28,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   String _themeMode = 'system';
   bool _overlayEnabled = false;
   List<TrustedContact> _contacts = [];
+  String _languageCode = 'en';
 
   @override
   void initState() {
@@ -40,12 +42,14 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     final theme = await settings.getThemeMode();
     final contacts = await settings.getTrustedContacts();
     final overlayEnabled = await canDrawOverlays();
+    final language = await settings.getLanguageCode();
     if (mounted) {
       setState(() {
         _sensitivityMode = mode;
         _themeMode = theme;
         _overlayEnabled = overlayEnabled;
         _contacts = contacts;
+        _languageCode = language ?? 'en';
       });
     }
   }
@@ -65,6 +69,14 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     setState(() => _sensitivityMode = mode);
   }
 
+  Future<void> _setLanguage(String code) async {
+    selectionClick();
+    final settings = ref.read(settingsServiceProvider);
+    await settings.setLanguageCode(code);
+    ref.read(languageCodeProvider.notifier).state = code;
+    setState(() => _languageCode = code);
+  }
+
   Future<void> _removeContact(int index) async {
     final updated = List<TrustedContact>.from(_contacts)..removeAt(index);
     final settings = ref.read(settingsServiceProvider);
@@ -75,23 +87,26 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   Future<void> _deleteAllHistory() async {
     final ok = await showDialog<bool>(
       context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text('Delete all history?'),
-        content: const Text(
-          'This will permanently delete all analyzed messages and reasons from this device. You cannot undo this.',
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(false),
-            child: const Text('Cancel'),
+      builder: (ctx) {
+        final l10n = AppLocalizations.of(ctx)!;
+        return AlertDialog(
+          title: Text(l10n.settingsDeleteAllHistoryDialogTitle),
+          content: Text(
+            l10n.settingsDeleteAllHistoryDialogBody,
           ),
-          FilledButton(
-            onPressed: () => Navigator.of(ctx).pop(true),
-            style: FilledButton.styleFrom(backgroundColor: Colors.red),
-            child: const Text('Delete all'),
-          ),
-        ],
-      ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(false),
+              child: Text(l10n.commonCancel),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.of(ctx).pop(true),
+              style: FilledButton.styleFrom(backgroundColor: Colors.red),
+              child: Text(l10n.settingsDeleteAllHistoryDialogConfirm),
+            ),
+          ],
+        );
+      },
     );
     if (ok != true || !mounted) return;
     final repo = ref.read(messageRepositoryProvider);
@@ -99,13 +114,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       await repo.clearAll();
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          elderSnackBar('History deleted'),
+          elderSnackBar(AppLocalizations.of(context)!.settingsHistoryDeletedSnackbar),
         );
       }
     } catch (_) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        elderSnackBar('Something went wrong. Try again.'),
+        elderSnackBar(AppLocalizations.of(context)!.snackbarGenericError),
       );
     }
   }
@@ -114,7 +129,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     await [Permission.sms, Permission.phone].request();
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        elderSnackBar('Permission check done. Restart the app if you just granted access.'),
+        elderSnackBar(AppLocalizations.of(context)!.settingsRerunPermissionsSnackbar),
       );
     }
   }
@@ -137,8 +152,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     ScaffoldMessenger.of(context).showSnackBar(
       elderSnackBar(
         enabled
-            ? 'Emergency pop-up over other apps is enabled.'
-            : 'Overlay permission is still off. Turn it on in system settings for emergency pop-ups.',
+            ? AppLocalizations.of(context)!.settingsOverlaySubtitleEnabled
+            : AppLocalizations.of(context)!.settingsOverlaySubtitleDisabled,
       ),
     );
   }
@@ -148,9 +163,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     final fontScale = ref.watch(fontScaleProvider);
     final padding = horizontalPadding(context);
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
-      appBar: ElderShieldAppBar(titleText: 'Settings'),
+      appBar: ElderShieldAppBar(titleText: l10n.settingsTitle),
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: padding, vertical: DesignTokens.s16),
         children: [
@@ -164,9 +180,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             margin: const EdgeInsets.only(bottom: 12),
             child: ExpansionTile(
               leading: Icon(Icons.palette_outlined, color: theme.colorScheme.primary, size: 24),
-              title: Text('Appearance', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600)),
+              title: Text(l10n.settingsAppearanceTitle, style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600)),
               subtitle: Text(
-                _themeMode == 'system' ? 'System' : _themeMode == 'light' ? 'Light' : 'Dark',
+                _themeMode == 'system'
+                    ? l10n.settingsThemeSystem
+                    : _themeMode == 'light'
+                        ? l10n.settingsThemeLight
+                        : l10n.settingsThemeDark,
                 style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.onSurfaceVariant),
               ),
               onExpansionChanged: (_) => lightImpact(),
@@ -176,7 +196,12 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: ['light', 'dark', 'system'].map((mode) {
-                      final label = mode == 'system' ? 'System' : mode == 'light' ? 'Light' : 'Dark';
+                      final label = switch (mode) {
+                        'system' => l10n.settingsThemeSystem,
+                        'light' => l10n.settingsThemeLight,
+                        'dark' => l10n.settingsThemeDark,
+                        _ => mode,
+                      };
                       return RadioListTile<String>(
                         title: Text(label),
                         value: mode,
@@ -184,6 +209,63 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                         onChanged: (v) => v != null ? _setThemeMode(v) : null,
                       );
                     }).toList(),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          // Language
+          Card(
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(DesignTokens.radiusLarge),
+              side: BorderSide(color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5)),
+            ),
+            margin: const EdgeInsets.only(bottom: 12),
+            child: ExpansionTile(
+              leading: Icon(Icons.language_rounded, color: theme.colorScheme.primary, size: 24),
+              title: Text(
+                l10n.languageSectionTitle,
+                style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
+              ),
+              subtitle: Text(
+                l10n.languageSectionSubtitle(
+                  switch (_languageCode) {
+                    'bn' => l10n.languageBengaliName,
+                    'kn' => l10n.languageKannadaName,
+                    _ => l10n.languageEnglishName,
+                  },
+                ),
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
+              ),
+              onExpansionChanged: (_) => lightImpact(),
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      RadioListTile<String>(
+                        title: Text(l10n.languageEnglishName),
+                        value: 'en',
+                        groupValue: _languageCode,
+                        onChanged: (v) => v != null ? _setLanguage(v) : null,
+                      ),
+                      RadioListTile<String>(
+                        title: Text(l10n.languageBengaliName),
+                        value: 'bn',
+                        groupValue: _languageCode,
+                        onChanged: (v) => v != null ? _setLanguage(v) : null,
+                      ),
+                      RadioListTile<String>(
+                        title: Text(l10n.languageKannadaName),
+                        value: 'kn',
+                        groupValue: _languageCode,
+                        onChanged: (v) => v != null ? _setLanguage(v) : null,
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -199,7 +281,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             margin: const EdgeInsets.only(bottom: 12),
             child: ExpansionTile(
               leading: Icon(Icons.text_fields_rounded, color: theme.colorScheme.primary, size: 24),
-              title: Text('Text size', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600)),
+              title: Text(l10n.settingsTextSizeTitle, style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600)),
               subtitle: Text(
                 '${(fontScale.clamp(0.8, 1.5) * 100).round()}%',
                 style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.onSurfaceVariant),
@@ -212,14 +294,14 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Adjust to see text larger or smaller. Changes apply immediately.',
+                        l10n.settingsTextSizeDescription,
                         style: theme.textTheme.bodyMedium?.copyWith(
                           color: theme.colorScheme.onSurfaceVariant,
                         ),
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        'Elder Shield keeps you safe from scam messages.',
+                        l10n.settingsTextSizeSample,
                         style: theme.textTheme.bodyLarge,
                       ),
                       const SizedBox(height: 16),
@@ -255,13 +337,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             margin: const EdgeInsets.only(bottom: 12),
             child: ExpansionTile(
               leading: Icon(Icons.gavel_rounded, color: theme.colorScheme.primary, size: 24),
-              title: Text('Legal & information', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600)),
+              title: Text(l10n.settingsLegalTitle, style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600)),
               onExpansionChanged: (_) => lightImpact(),
               children: [
                 ListTile(
                   leading: const Icon(Icons.privacy_tip_outlined),
-                  title: const Text('Privacy policy'),
-                  subtitle: const Text('How we use your data'),
+                  title: Text(l10n.settingsPrivacyPolicyTitle),
+                  subtitle: Text(l10n.settingsPrivacyPolicySubtitle),
                   trailing: const Icon(Icons.chevron_right_rounded, size: 22),
                   onTap: () {
                     selectionClick();
@@ -270,8 +352,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 ),
                 ListTile(
                   leading: const Icon(Icons.info_outline_rounded),
-                  title: const Text('Permissions explained'),
-                  subtitle: const Text('Why we need each permission'),
+                  title: Text(l10n.settingsPermissionsExplainedTitle),
+                  subtitle: Text(l10n.settingsPermissionsExplainedSubtitle),
                   trailing: const Icon(Icons.chevron_right_rounded, size: 22),
                   onTap: () {
                     selectionClick();
@@ -291,12 +373,12 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             margin: const EdgeInsets.only(bottom: 12),
             child: ExpansionTile(
               leading: Icon(Icons.tune_rounded, color: theme.colorScheme.primary, size: 24),
-              title: Text('Sensitivity', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600)),
+              title: Text(l10n.settingsSensitivityTitle, style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600)),
               subtitle: Text(
                 switch (_sensitivityMode) {
-                  'conservative' => 'Fewer alerts',
-                  'balanced' => 'Balanced',
-                  'sensitive' => 'More alerts',
+                  'conservative' => l10n.settingsSensitivityLabelConservative,
+                  'balanced' => l10n.settingsSensitivityLabelBalanced,
+                  'sensitive' => l10n.settingsSensitivityLabelSensitive,
                   _ => _sensitivityMode,
                 },
                 style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.onSurfaceVariant),
@@ -308,18 +390,15 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   child: Column(
                     children: ['conservative', 'balanced', 'sensitive'].map((mode) {
                       final desc = switch (mode) {
-                        'conservative' =>
-                            'Only very obvious scams. Good if you prefer fewer alerts.',
-                        'balanced' =>
-                            'Good for most people. A balance of scams caught and noise.',
-                        'sensitive' =>
-                            'Catches more scams but may sometimes flag safe messages.',
+                        'conservative' => l10n.settingsSensitivityDescConservative,
+                        'balanced' => l10n.settingsSensitivityDescBalanced,
+                        'sensitive' => l10n.settingsSensitivityDescSensitive,
                         _ => '',
                       };
                       final label = switch (mode) {
-                        'conservative' => 'Fewer alerts',
-                        'balanced' => 'Balanced',
-                        'sensitive' => 'More alerts',
+                        'conservative' => l10n.settingsSensitivityLabelConservative,
+                        'balanced' => l10n.settingsSensitivityLabelBalanced,
+                        'sensitive' => l10n.settingsSensitivityLabelSensitive,
                         _ => mode[0].toUpperCase() + mode.substring(1),
                       };
                       return RadioListTile<String>(
@@ -345,9 +424,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             margin: const EdgeInsets.only(bottom: 12),
             child: ExpansionTile(
               leading: Icon(Icons.contacts_outlined, color: theme.colorScheme.primary, size: 24),
-              title: Text('Trusted contacts', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600)),
+              title: Text(l10n.settingsTrustedContactsTitle, style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600)),
               subtitle: Text(
-                _contacts.isEmpty ? 'None' : '${_contacts.length} contact${_contacts.length == 1 ? '' : 's'}',
+                _contacts.isEmpty
+                    ? l10n.settingsTrustedContactsNone
+                    : l10n.settingsTrustedContactsCount(_contacts.length),
                 style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.onSurfaceVariant),
               ),
               onExpansionChanged: (_) => lightImpact(),
@@ -358,7 +439,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'You can call them with one tap from Home or when we show a scam warning. First in the list is used for the main "Call" button.',
+                      l10n.settingsTrustedContactsExplanation,
                       style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.onSurfaceVariant),
                     ),
                     const SizedBox(height: 8),
@@ -392,18 +473,18 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                                 final ok = await showDialog<bool>(
                                   context: context,
                                   builder: (ctx) => AlertDialog(
-                                    title: const Text('Remove trusted contact?'),
-                                    content: const Text(
-                                      'This person will no longer appear in your trusted contacts or on the Home screen.',
+                                    title: Text(l10n.settingsTrustedContactsRemoveDialogTitle),
+                                    content: Text(
+                                      l10n.settingsTrustedContactsRemoveDialogBody,
                                     ),
                                     actions: [
                                       TextButton(
                                         onPressed: () => Navigator.of(ctx).pop(false),
-                                        child: const Text('Cancel'),
+                                        child: Text(l10n.commonCancel),
                                       ),
                                       FilledButton(
                                         onPressed: () => Navigator.of(ctx).pop(true),
-                                        child: const Text('Remove'),
+                                        child: Text(l10n.settingsTrustedContactsRemoveDialogRemove),
                                       ),
                                     ],
                                   ),
@@ -424,8 +505,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     if (_contacts.length < 3)
                       ListTile(
                         leading: const Icon(Icons.person_add),
-                        title: const Text('Add contact'),
-                        subtitle: const Text('Type a name and phone number'),
+                        title: Text(l10n.settingsTrustedContactsAddContactTitle),
+                        subtitle: Text(l10n.settingsTrustedContactsAddContactSubtitle),
                         onTap: () {
                           selectionClick();
                           _showAddContactDialog();
@@ -434,13 +515,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     if (_contacts.length < 3)
                       ListTile(
                         leading: const Icon(Icons.contact_phone_outlined),
-                        title: const Text('Choose from contacts'),
-                        subtitle: const Text('Pick a number from your phone'),
+                        title: Text(l10n.settingsTrustedContactsChooseFromContactsTitle),
+                        subtitle: Text(l10n.settingsTrustedContactsChooseFromContactsSubtitle),
                         onTap: () {
                           selectionClick();
                           ScaffoldMessenger.of(context).showSnackBar(
                             elderSnackBar(
-                              'Device contact picker is not available yet on this preview build.',
+                              l10n.settingsTrustedContactsPickerUnavailable,
                             ),
                           );
                         },
@@ -466,7 +547,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
                     child: Text(
-                      'Advanced',
+                      l10n.settingsAdvancedSectionTitle,
                       style: theme.textTheme.labelLarge?.copyWith(
                         color: theme.colorScheme.onSurfaceVariant,
                         fontWeight: FontWeight.w600,
@@ -479,7 +560,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       _deleteAllHistory();
                     },
                     icon: const Icon(Icons.delete_outline_rounded, size: 22),
-                    label: const Text('Delete all history'),
+                    label: Text(l10n.settingsDeleteAllHistoryButton),
                     style: TextButton.styleFrom(
                       foregroundColor: Colors.red,
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -490,22 +571,24 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       lightImpact();
                       _rerunPermissions();
                     },
-                    child: const Text('Re-run permissions check'),
+                    child: Text(l10n.settingsRerunPermissionsButton),
                   ),
                   const Divider(height: 1),
                   ListTile(
                   leading: Icon(Icons.open_in_new_rounded, color: theme.colorScheme.primary, size: 24),
-                  title: const Text('Emergency pop-up over other apps'),
+                  title: Text(l10n.settingsOverlayTitle),
                   subtitle: Text(
-                    '${_overlayEnabled ? 'Enabled: high-risk warnings can appear above other apps.' : 'Off: tap to enable the Android overlay permission.'} Recommended so we can warn you even when you’re in another app.',
+                    _overlayEnabled
+                        ? l10n.settingsOverlaySubtitleEnabled
+                        : l10n.settingsOverlaySubtitleDisabled,
                   ),
                   trailing: const Icon(Icons.chevron_right_rounded, size: 22),
                   onTap: _openOverlayPermissionSettings,
                 ),
                 ListTile(
                   leading: Icon(Icons.help_outline_rounded, color: theme.colorScheme.primary, size: 24),
-                  title: const Text('How Elder Shield works'),
-                  subtitle: const Text('What we check, when we alert, what to do'),
+                  title: Text(l10n.settingsHowItWorksTitle),
+                  subtitle: Text(l10n.settingsHowItWorksSubtitle),
                   trailing: const Icon(Icons.chevron_right_rounded, size: 22),
                   onTap: () {
                     selectionClick();
@@ -516,7 +599,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 ),
                 ListTile(
                   leading: Icon(Icons.info_outline_rounded, color: theme.colorScheme.primary, size: 24),
-                  title: const Text('About Elder Shield'),
+                  title: Text(l10n.settingsAboutTitle),
                   subtitle: Text(AboutScreen.appVersion),
                   trailing: const Icon(Icons.chevron_right_rounded, size: 22),
                   onTap: () {
@@ -539,11 +622,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     final nameController = TextEditingController();
     final numberController = TextEditingController();
     final ok = await _showContactDialog(
-      title: 'Add trusted contact',
-      consent: 'They can be called with one tap from Home or when we show a scam warning.',
+      title: AppLocalizations.of(context)!.settingsAddTrustedDialogTitle,
+      consent: AppLocalizations.of(context)!.settingsAddTrustedDialogConsent,
       nameController: nameController,
       numberController: numberController,
-      confirmLabel: 'Add',
+      confirmLabel: AppLocalizations.of(context)!.settingsAddTrustedDialogConfirm,
     );
     if (ok != true || !mounted) return;
     final name = nameController.text.trim();
@@ -561,11 +644,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     final nameController = TextEditingController(text: c.name);
     final numberController = TextEditingController(text: c.number);
     final ok = await _showContactDialog(
-      title: 'Edit trusted contact',
+      title: AppLocalizations.of(context)!.settingsEditTrustedDialogTitle,
       consent: null,
       nameController: nameController,
       numberController: numberController,
-      confirmLabel: 'Save',
+      confirmLabel: AppLocalizations.of(context)!.settingsEditTrustedDialogConfirm,
     );
     if (ok != true || !mounted) return;
     final name = nameController.text.trim();
@@ -606,20 +689,20 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             ],
             TextField(
               controller: nameController,
-              decoration: const InputDecoration(
-                labelText: 'Name',
-                hintText: 'e.g. My son',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: AppLocalizations.of(ctx)!.settingsContactNameLabel,
+                hintText: AppLocalizations.of(ctx)!.settingsContactNameHint,
+                border: const OutlineInputBorder(),
               ),
               textCapitalization: TextCapitalization.words,
             ),
             const SizedBox(height: 12),
             TextField(
               controller: numberController,
-              decoration: const InputDecoration(
-                labelText: 'Phone number',
-                hintText: 'e.g. +91 98765 43210',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: AppLocalizations.of(ctx)!.settingsContactNumberLabel,
+                hintText: AppLocalizations.of(ctx)!.settingsContactNumberHint,
+                border: const OutlineInputBorder(),
               ),
               keyboardType: TextInputType.phone,
             ),
@@ -628,7 +711,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
-            child: const Text('Cancel'),
+            child: Text(AppLocalizations.of(ctx)!.settingsContactDialogCancel),
           ),
           FilledButton(
             onPressed: () {
@@ -638,7 +721,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               final isValid = RegExp(r'^\+?\d{6,15}$').hasMatch(cleaned);
               if (!isValid) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  elderSnackBar('Enter a valid phone number'),
+                  elderSnackBar(AppLocalizations.of(context)!.settingsContactInvalidNumber),
                 );
                 return;
               }

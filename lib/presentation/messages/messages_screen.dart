@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:elder_shield/l10n/app_localizations.dart';
 import 'package:elder_shield/application/app_providers.dart';
 import 'package:elder_shield/core/design_tokens.dart';
 import 'package:elder_shield/data/message_repository.dart';
@@ -66,8 +67,9 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
   Widget build(BuildContext context) {
     final padding = horizontalPadding(context);
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: ElderShieldAppBar(titleText: 'Messages'),
+      appBar: ElderShieldAppBar(titleText: l10n.messagesAppBarTitle),
       body: Column(
         children: [
           Padding(
@@ -81,11 +83,11 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                   child: Semantics(
                     container: true,
                     button: true,
-                    label: 'Show all messages',
-                    hint: 'Double tap to see all analyzed messages.',
+                    label: l10n.messagesFilterAllSemanticsLabel,
+                    hint: l10n.messagesFilterAllSemanticsHint,
                     child: ExcludeSemantics(
                       child: _FilterSegment(
-                        label: 'All',
+                        label: l10n.messagesFilterAll,
                         selected: !_highRiskOnly,
                         onTap: () {
                           selectionClick();
@@ -100,12 +102,11 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                   child: Semantics(
                     container: true,
                     button: true,
-                    label: 'Show only high-risk messages',
-                    hint:
-                        'Double tap to filter to the most serious warnings.',
+                    label: l10n.messagesFilterHighRiskSemanticsLabel,
+                    hint: l10n.messagesFilterHighRiskSemanticsHint,
                     child: ExcludeSemantics(
                       child: _FilterSegment(
-                        label: 'High Risk',
+                        label: l10n.messagesFilterHighRisk,
                         selected: _highRiskOnly,
                         onTap: () {
                           selectionClick();
@@ -130,13 +131,13 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            'Something went wrong while loading messages.',
+                            l10n.messagesErrorTitle,
                             style: theme.textTheme.bodyLarge,
                             textAlign: TextAlign.center,
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            'Pull down to try again.',
+                            l10n.messagesErrorSubtitle,
                             style: theme.textTheme.bodyMedium?.copyWith(
                               color: theme.colorScheme.onSurfaceVariant,
                             ),
@@ -171,13 +172,13 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            'No messages analyzed yet. Elder Shield will check new messages automatically.',
+                            l10n.messagesEmptyTitle,
                             style: theme.textTheme.bodyLarge,
                             textAlign: TextAlign.center,
                           ),
                           const SizedBox(height: 12),
                           Text(
-                            'When we find something suspicious, we\'ll notify you and you can open it here.',
+                            l10n.messagesEmptySubtitle,
                             style: theme.textTheme.bodyMedium?.copyWith(
                               color: theme.colorScheme.onSurfaceVariant,
                             ),
@@ -204,7 +205,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                       );
                     }
                     ScaffoldMessenger.of(context).showSnackBar(
-                      elderSnackBar('List updated'),
+                      elderSnackBar(l10n.messagesRefreshSnackbar),
                     );
                     return Future<void>.value();
                   },
@@ -388,10 +389,11 @@ class _MessageTile extends StatelessWidget {
     final isYesterday = yesterday.year == date.year &&
         yesterday.month == date.month &&
         yesterday.day == date.day;
+    final l10n = AppLocalizations.of(context)!;
     if (isSameDay) {
-      dateStr = 'Today, ${formatTime(date)}';
+      dateStr = l10n.messagesDateToday(formatTime(date));
     } else if (isYesterday) {
-      dateStr = 'Yesterday, ${formatTime(date)}';
+      dateStr = l10n.messagesDateYesterday(formatTime(date));
     } else {
       const months = [
         'Jan',
@@ -408,22 +410,22 @@ class _MessageTile extends StatelessWidget {
         'Dec',
       ];
       final month = months[date.month - 1];
-      dateStr = '$month ${date.day}, ${formatTime(date)}';
+      dateStr = l10n.messagesDateOther(month, date.day, formatTime(date));
     }
 
     final (badgeLabel, Color badgeBg, Color badgeText) = switch (message.band) {
       RiskBand.low => (
-          'Low risk',
+          l10n.riskLowLabel,
           DesignTokens.riskLow.withValues(alpha: 0.12),
           DesignTokens.riskLow,
         ),
       RiskBand.medium => (
-          'Medium risk — review',
+          l10n.riskMediumLabel,
           DesignTokens.riskMedium.withValues(alpha: 0.12),
           DesignTokens.riskMedium,
         ),
       RiskBand.high => (
-          'High risk — possible scam',
+          l10n.riskHighLabel,
           DesignTokens.riskHigh.withValues(alpha: 0.12),
           DesignTokens.riskHigh,
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:elder_shield/l10n/app_localizations.dart';
 import 'package:elder_shield/presentation/settings/how_it_works_screen.dart';
 import 'package:elder_shield/presentation/settings/permissions_explained_screen.dart';
 import 'package:elder_shield/presentation/settings/privacy_policy_screen.dart';
@@ -13,6 +14,7 @@ class AboutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(
@@ -20,7 +22,7 @@ class AboutScreen extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Image.asset('assets/icon/icon.png', fit: BoxFit.contain),
         ),
-        title: const Text('About Elder Shield'),
+        title: Text(l10n.settingsAboutTitle),
         backgroundColor: theme.colorScheme.primary,
         foregroundColor: Colors.white,
       ),
@@ -34,7 +36,7 @@ class AboutScreen extends StatelessWidget {
                 Image.asset('assets/icon/icon.png', width: 80, height: 80, fit: BoxFit.contain),
                 const SizedBox(height: 16),
                 Text(
-                  'Elder Shield',
+                  l10n.appTitle,
                   style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
@@ -45,7 +47,7 @@ class AboutScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  'On-device scam protection for elderly users.',
+                  l10n.aboutTagline,
                   style: theme.textTheme.bodyLarge?.copyWith(color: theme.colorScheme.onSurfaceVariant),
                   textAlign: TextAlign.center,
                 ),
@@ -55,8 +57,8 @@ class AboutScreen extends StatelessWidget {
           const SizedBox(height: 32),
           ListTile(
             leading: const Icon(Icons.privacy_tip_outlined),
-            title: const Text('Privacy policy'),
-            subtitle: const Text('How we use your data'),
+            title: Text(l10n.settingsPrivacyPolicyTitle),
+            subtitle: Text(l10n.settingsPrivacyPolicySubtitle),
             onTap: () {
               selectionClick();
               Navigator.of(context).push(
@@ -66,8 +68,8 @@ class AboutScreen extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.info_outline),
-            title: const Text('Permissions explained'),
-            subtitle: const Text('Why we need each permission'),
+            title: Text(l10n.settingsPermissionsExplainedTitle),
+            subtitle: Text(l10n.settingsPermissionsExplainedSubtitle),
             onTap: () {
               selectionClick();
               Navigator.of(context).push(
@@ -77,8 +79,8 @@ class AboutScreen extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.help_outline),
-            title: const Text('How Elder Shield works'),
-            subtitle: const Text('What we check, when we alert, what to do'),
+            title: Text(l10n.settingsHowItWorksTitle),
+            subtitle: Text(l10n.settingsHowItWorksSubtitle),
             onTap: () {
               selectionClick();
               Navigator.of(context).push(

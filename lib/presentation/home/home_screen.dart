@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:elder_shield/l10n/app_localizations.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:elder_shield/application/app_providers.dart';
@@ -67,22 +68,23 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     if (!mounted) return;
     await _loadTrustedContact();
     if (!mounted) return;
+    final l10n = AppLocalizations.of(context)!;
     final name = _trustedContactName?.isNotEmpty == true
         ? _trustedContactName!
-        : 'your trusted contact';
+        : l10n.homeTrustedContactFallbackName;
     if (!mounted) return;
     await showDialog<void>(
       context: context,
       barrierDismissible: false,
       builder: (ctx) => AlertDialog(
-        title: const Text("You're protected"),
+        title: Text(l10n.homePostOnboardingTitle),
         content: Text(
-          'From Home you can call $name anytime.',
+          l10n.homePostOnboardingBody(name),
         ),
         actions: [
           FilledButton(
             onPressed: () => Navigator.of(ctx).pop(),
-            child: const Text('Got it'),
+            child: Text(l10n.commonGotIt),
           ),
         ],
       ),
@@ -145,21 +147,23 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           await showDialog<void>(
             context: context,
             builder: (ctx) => AlertDialog(
-              title: const Text('Enable protection in Settings'),
-              content: const Text(
-                'Elder Shield needs SMS and Phone access to check your messages for scams.\n\nOpen app settings to turn these permissions on?',
+              title: Text(AppLocalizations.of(context)!.permissionsDialogTitle),
+              content: Text(
+                AppLocalizations.of(context)!.permissionsDialogBody,
               ),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.of(ctx).pop(),
-                  child: const Text('Cancel'),
+                  child: Text(AppLocalizations.of(context)!.commonCancel),
                 ),
                 FilledButton(
                   onPressed: () {
                     Navigator.of(ctx).pop();
                     openAppSettings();
                   },
-                  child: const Text('Open settings'),
+                  child: Text(
+                    AppLocalizations.of(context)!.permissionsDialogOpenSettings,
+                  ),
                 ),
               ],
             ),
@@ -195,13 +199,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final hasTrusted = _trustedContacts.isNotEmpty;
     final padding = horizontalPadding(context);
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
     final isDark = theme.brightness == Brightness.dark;
     final riskCardColor = _todayRiskCount > 0
         ? (isDark ? Colors.orange.shade900.withValues(alpha: 0.3) : Colors.orange.shade50)
         : (isDark ? theme.colorScheme.surfaceContainerHighest : Colors.grey.shade100);
 
     return Scaffold(
-      appBar: ElderShieldAppBar(titleText: 'Elder Shield'),
+      appBar: ElderShieldAppBar(titleText: l10n.homeAppBarTitle),
       body: RefreshIndicator(
         onRefresh: () async {
           lightImpact();
@@ -209,7 +214,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           await _loadTrustedContact();
           if (!mounted) return;
           ScaffoldMessenger.of(context).showSnackBar(
-            elderSnackBar('Updated'),
+            elderSnackBar(l10n.snackbarUpdated),
           );
         },
         child: SingleChildScrollView(
@@ -223,8 +228,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 Semantics(
                   container: true,
                   label: _permissionsGranted
-                      ? 'Protection status: Protected'
-                      : 'Protection status: Permissions needed',
+                      ? '${l10n.homeProtectionStatusLabel}: ${l10n.homeProtectionStatusProtected}'
+                      : '${l10n.homeProtectionStatusLabel}: ${l10n.homeProtectionStatusPermissionsNeeded}',
                   readOnly: true,
                   child: ExcludeSemantics(
                     child: Container(
@@ -245,7 +250,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       child: Column(
                         children: [
                           Text(
-                            'Protection status',
+                            l10n.homeProtectionStatusLabel,
                             style: theme.textTheme.titleMedium?.copyWith(
                               fontWeight: FontWeight.w600,
                               color: theme.colorScheme.onSurfaceVariant,
@@ -269,8 +274,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                               Flexible(
                                 child: Text(
                                   _permissionsGranted
-                                      ? 'Protected'
-                                      : 'Permissions needed',
+                                      ? l10n.homeProtectionStatusProtected
+                                      : l10n.homeProtectionStatusPermissionsNeeded,
                                   style: theme.textTheme.titleLarge?.copyWith(
                                     fontWeight: FontWeight.bold,
                                     letterSpacing: -0.2,
@@ -293,7 +298,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       lightImpact();
                       _ensurePermissionsAndStart();
                     },
-                    child: const Text('Enable protection'),
+                    child: Text(l10n.homeEnableProtectionButton),
                   ),
                 ],
                 SizedBox(height: verticalPadding(context) * 1.5),
@@ -302,8 +307,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   container: true,
                   button: true,
                   label: _todayRiskCount > 0
-                      ? 'Today’s risk: $_todayRiskCount suspicious message${_todayRiskCount == 1 ? '' : 's'} detected.'
-                      : 'Today’s risk: no suspicious activity.',
+                      ? l10n.homeTodayRiskSummaryWithCount(_todayRiskCount)
+                      : l10n.homeTodayRiskSummaryNoRisk,
                   hint: 'Double tap to open the Messages tab.',
                   child: ExcludeSemantics(
                     child: Material(
@@ -333,8 +338,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                   children: [
                                     Text(
                                       _todayRiskCount > 0
-                                          ? '$_todayRiskCount suspicious message${_todayRiskCount == 1 ? '' : 's'} detected today.'
-                                          : 'No suspicious activity today.',
+                                          ? l10n.homeTodayRiskSummaryWithCount(
+                                              _todayRiskCount,
+                                            )
+                                          : l10n.homeTodayRiskSummaryNoRisk,
                                       style: theme.textTheme.bodyLarge?.copyWith(
                                         fontSize:
                                             _todayRiskCount > 0 ? 20 : null,
@@ -345,7 +352,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                     ),
                                     const SizedBox(height: 4),
                                     Text(
-                                      'Tap to see messages',
+                                      l10n.homeTodayRiskTapToSeeMessages,
                                       style:
                                           theme.textTheme.bodySmall?.copyWith(
                                         color: theme
@@ -363,7 +370,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                               ),
                               const SizedBox(width: 4),
                               Text(
-                                'View',
+                                l10n.commonView,
                                 style: theme.textTheme.labelLarge?.copyWith(
                                   color: theme.colorScheme.primary,
                                   fontWeight: FontWeight.w600,
@@ -378,7 +385,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 ),
                 const SizedBox(height: 6),
                 Text(
-                  'Elder Shield checks new messages automatically.',
+                  l10n.homeAutoCheckInfo,
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
@@ -409,7 +416,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                               },
                               icon: const Icon(Icons.phone_rounded, size: 26),
                               label: Text(
-                                'Call ${_trustedContactName?.isNotEmpty == true ? _trustedContactName! : 'Trusted contact'}',
+                                l10n.homeCallTrustedButtonLabel(
+                                  _trustedContactName?.isNotEmpty == true
+                                      ? _trustedContactName!
+                                      : l10n.homeTrustedContactFallbackName,
+                                ),
                                 style: const TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w600,
@@ -456,7 +467,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                         const SizedBox(width: 12),
                                         Expanded(
                                           child: Text(
-                                            'Tap here anytime you get a worrying message.',
+                                            l10n.homeCallTooltipText,
                                             style: theme.textTheme.bodyMedium,
                                           ),
                                         ),
@@ -480,7 +491,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       child: Column(
                         children: [
                           Text(
-                            'Add a trusted contact so you can call them quickly if you get a scary message.',
+                            l10n.homeAddTrustedIntro,
                             style: theme.textTheme.bodyLarge,
                             textAlign: TextAlign.center,
                           ),
@@ -491,7 +502,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                               ref.read(shellTabIndexProvider.notifier).state = 2;
                             },
                             icon: const Icon(Icons.person_add),
-                            label: const Text('Add a trusted contact'),
+                            label: Text(l10n.homeAddTrustedButton),
                           ),
                           const SizedBox(height: 4),
                           Align(
@@ -504,7 +515,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                 });
                               },
                               child: Text(
-                                _showWhyTrustedContact ? 'Hide why' : 'Why add a trusted contact?',
+                                _showWhyTrustedContact
+                                    ? l10n.homeWhyAddTrustedHide
+                                    : l10n.homeWhyAddTrustedShow,
                                 style: theme.textTheme.bodySmall?.copyWith(
                                   color: theme.colorScheme.onSurfaceVariant,
                                   decoration: TextDecoration.underline,
@@ -515,7 +528,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                           if (_showWhyTrustedContact) ...[
                             const SizedBox(height: 4),
                             Text(
-                              'If you ever get a worrying message, you can tap one big button to call someone you trust instead of guessing what to do alone.',
+                              l10n.homeWhyAddTrustedExplanation,
                               style: theme.textTheme.bodySmall?.copyWith(
                                 color: theme.colorScheme.onSurfaceVariant,
                                 height: 1.4,
@@ -530,7 +543,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 if (_trustedContacts.isNotEmpty) ...[
                   SizedBox(height: verticalPadding(context)),
                   Text(
-                    'Your trusted contacts',
+                    l10n.homeTrustedContactsHeader,
                     style: theme.textTheme.titleMedium
                         ?.copyWith(fontWeight: FontWeight.w600),
                   ),

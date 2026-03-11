@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:elder_shield/l10n/app_localizations.dart';
 import 'package:elder_shield/application/app_providers.dart';
 import 'package:elder_shield/data/message_repository.dart';
 
@@ -26,22 +27,24 @@ class FullScreenWarningScreen extends ConsumerWidget {
     final errorIcon = theme.colorScheme.error;
     final errorText = theme.colorScheme.onErrorContainer;
 
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
         leading: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Image.asset('assets/icon/icon.png', fit: BoxFit.contain),
         ),
-        title: const Text('Possible scam'),
+        title: Text(l10n.fullScreenWarningTitle),
         centerTitle: true,
         backgroundColor: errorIcon,
         foregroundColor: Colors.white,
         actions: [
           TextButton(
             onPressed: onDismiss,
-            child: const Text(
-              'I’ll check later',
-              style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+            child: Text(
+              l10n.commonCancel,
+              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
             ),
           ),
         ],
@@ -82,14 +85,14 @@ class FullScreenWarningScreen extends ConsumerWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                'Closing this screen does not delete the message from your phone.',
+                l10n.fullScreenWarningClosingNote,
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,
                 ),
               ),
               const SizedBox(height: 20),
               Text(
-                'From: ${message.sender}',
+                l10n.messageFromLabel(message.sender),
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
@@ -130,7 +133,7 @@ class FullScreenWarningScreen extends ConsumerWidget {
               ],
               const SizedBox(height: 24),
               _ActionButton(
-                label: 'This is a Scam',
+                label: l10n.actionScam,
                 icon: Icons.report,
                 onPressed: () async {
                   try {
@@ -139,8 +142,8 @@ class FullScreenWarningScreen extends ConsumerWidget {
                   } catch (_) {
                     if (!context.mounted) return;
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Something went wrong. Try again.'),
+                      SnackBar(
+                        content: Text(l10n.snackbarGenericError),
                       ),
                     );
                     return;
@@ -153,7 +156,7 @@ class FullScreenWarningScreen extends ConsumerWidget {
               ),
               const SizedBox(height: 12),
               _ActionButton(
-                label: 'This is Safe',
+                label: l10n.actionSafe,
                 icon: Icons.check_circle,
                 onPressed: () async {
                   try {
@@ -162,8 +165,8 @@ class FullScreenWarningScreen extends ConsumerWidget {
                   } catch (_) {
                     if (!context.mounted) return;
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Something went wrong. Try again.'),
+                      SnackBar(
+                        content: Text(l10n.snackbarGenericError),
                       ),
                     );
                     return;
@@ -180,8 +183,11 @@ class FullScreenWarningScreen extends ConsumerWidget {
                       contacts.isNotEmpty ? contacts.first : null;
                   if (first == null) return const SizedBox.shrink();
                   return _ActionButton(
-                    label:
-                        'Call ${first.name.isNotEmpty ? first.name : "Trusted Contact"}',
+                    label: l10n.homeCallTrustedButtonLabel(
+                      first.name.isNotEmpty
+                          ? first.name
+                          : l10n.homeTrustedContactFallbackName,
+                    ),
                     icon: Icons.phone,
                     onPressed: () async {
                       final uri = Uri.parse(
@@ -196,15 +202,15 @@ class FullScreenWarningScreen extends ConsumerWidget {
               ),
               const SizedBox(height: 12),
               _ActionButton(
-                label: 'Delete message',
+                label: l10n.fullScreenWarningDeleteAction,
                 icon: Icons.delete_outline,
                 onPressed: () async {
                   await repo.deleteMessage(message.id);
                   if (context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
+                      SnackBar(
                         content: Text(
-                          'Removed from Elder Shield. Opening messaging app so you can delete it from your phone.',
+                          l10n.fullScreenWarningDeleteSnackbar,
                         ),
                       ),
                     );
@@ -233,8 +239,9 @@ class FullScreenWarningScreen extends ConsumerWidget {
                         mode: LaunchMode.externalApplication);
                   }
                 },
-                child: const Text(
-                    'Block this sender (opens messaging app)'),
+                child: Text(
+                  l10n.fullScreenWarningBlockSender,
+                ),
               ),
             ],
           ),

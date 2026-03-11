@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:elder_shield/l10n/app_localizations.dart';
 import 'package:elder_shield/application/app_providers.dart';
 import 'package:elder_shield/data/message_repository.dart';
 import 'package:elder_shield/domain/detector/heuristic_detector.dart';
@@ -40,6 +41,7 @@ class _HighRiskWarningContent extends ConsumerWidget {
     final theme = Theme.of(context);
     final errorBg = theme.colorScheme.error;
     final errorText = theme.colorScheme.onError;
+    final l10n = AppLocalizations.of(context)!;
 
     return DraggableScrollableSheet(
       initialChildSize: 0.85,
@@ -74,7 +76,7 @@ class _HighRiskWarningContent extends ConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Danger: possible scam message',
+                            l10n.highRiskHeaderTitle,
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -83,7 +85,7 @@ class _HighRiskWarningContent extends ConsumerWidget {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            'Do not tap any links or share codes from this message.',
+                            l10n.highRiskHeaderBody,
                             style: TextStyle(
                               fontSize: 14,
                               height: 1.3,
@@ -115,7 +117,7 @@ class _HighRiskWarningContent extends ConsumerWidget {
               if (message.reasons.isNotEmpty) ...[
                 const SizedBox(height: 16),
                 Text(
-                  'Why this was flagged:',
+                  l10n.highRiskWhyFlaggedTitle,
                   style: theme.textTheme.titleSmall?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -142,7 +144,7 @@ class _HighRiskWarningContent extends ConsumerWidget {
               const SizedBox(height: 24),
               // Primary safety actions: Scam (red) and Safe (green)
               _ActionButton(
-                label: 'This is a Scam',
+                label: l10n.actionScam,
                 icon: Icons.report,
                 color: Colors.red,
                 onPressed: () async {
@@ -154,13 +156,13 @@ class _HighRiskWarningContent extends ConsumerWidget {
                   } catch (_) {
                     if (!context.mounted) return;
                     ScaffoldMessenger.of(context).showSnackBar(
-                      elderSnackBar('Something went wrong. Try again.'),
+                      elderSnackBar(l10n.snackbarGenericError),
                     );
                     return;
                   }
                   if (context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      elderSnackBar('Marked as scam. Thank you.'),
+                      elderSnackBar(l10n.snackbarMarkedScam),
                     );
                     onDismiss();
                     Navigator.of(context).pop();
@@ -169,7 +171,7 @@ class _HighRiskWarningContent extends ConsumerWidget {
               ),
               const SizedBox(height: 12),
               _ActionButton(
-                label: 'This is Safe',
+                label: l10n.actionSafe,
                 icon: Icons.check_circle,
                 color: Colors.green,
                 onPressed: () async {
@@ -181,7 +183,7 @@ class _HighRiskWarningContent extends ConsumerWidget {
                   } catch (_) {
                     if (!context.mounted) return;
                     ScaffoldMessenger.of(context).showSnackBar(
-                      elderSnackBar('Something went wrong. Try again.'),
+                      elderSnackBar(l10n.snackbarGenericError),
                     );
                     return;
                   }
@@ -194,7 +196,7 @@ class _HighRiskWarningContent extends ConsumerWidget {
               const SizedBox(height: 12),
               Center(
                 child: Text(
-                  'Swipe up for more details',
+                  l10n.highRiskSwipeUpForDetails,
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
@@ -217,19 +219,20 @@ class _RiskBandChip extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final l10n = AppLocalizations.of(context)!;
     final (label, Color bg, Color fg) = switch (band) {
       RiskBand.low => (
-          'Low risk',
+          l10n.riskLowLabel,
           colorScheme.surfaceContainerHighest,
           colorScheme.onSurface,
         ),
       RiskBand.medium => (
-          'Medium risk — review',
+          l10n.riskMediumLabel,
           colorScheme.tertiaryContainer,
           colorScheme.onTertiaryContainer,
         ),
       RiskBand.high => (
-          'High risk — possible scam',
+          l10n.riskHighLabel,
           colorScheme.errorContainer,
           colorScheme.onErrorContainer,
         ),

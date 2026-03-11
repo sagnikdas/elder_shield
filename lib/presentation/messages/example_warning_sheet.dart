@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:elder_shield/l10n/app_localizations.dart';
 import 'package:elder_shield/data/message_repository.dart';
 import 'package:elder_shield/domain/detector/heuristic_detector.dart';
 
 /// Demo message for "See what a warning looks like" — not saved to repo.
-AnalyzedMessage get _demoMessage => AnalyzedMessage(
-      id: -1,
-      sender: 'Unknown',
-      body:
-          'Your bank account will be blocked within 24 hours. Click here to verify: http://secure-bank-verify.com. Do not share this with anyone.',
-      timestamp: 0,
-      score: 0.9,
-      band: RiskBand.high,
-      reasons: [
-        'Contains a suspicious link',
-        'Pretends to be your bank',
-        'Uses urgent or threatening language',
-      ],
-      feedbackLabel: null,
-    );
+AnalyzedMessage demoMessage(BuildContext context) {
+  final l10n = AppLocalizations.of(context)!;
+  return AnalyzedMessage(
+    id: -1,
+    sender: l10n.exampleWarningSenderUnknown,
+    body: l10n.exampleWarningBody,
+    timestamp: 0,
+    score: 0.9,
+    band: RiskBand.high,
+    reasons: [
+      l10n.exampleWarningReasonSuspiciousLink,
+      l10n.exampleWarningReasonPretendBank,
+      l10n.exampleWarningReasonUrgentLanguage,
+    ],
+    feedbackLabel: null,
+  );
+}
 
 /// Shows a sample high-risk warning sheet (demo only). No data is saved.
 void showExampleWarningSheet(BuildContext context) {
@@ -27,7 +30,7 @@ void showExampleWarningSheet(BuildContext context) {
     useSafeArea: true,
     isDismissible: true,
     enableDrag: true,
-    builder: (ctx) => _ExampleWarningContent(message: _demoMessage),
+    builder: (ctx) => _ExampleWarningContent(message: demoMessage(ctx)),
   );
 }
 
@@ -38,6 +41,7 @@ class _ExampleWarningContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return DraggableScrollableSheet(
       initialChildSize: 0.7,
       minChildSize: 0.5,
@@ -61,10 +65,10 @@ class _ExampleWarningContent extends StatelessWidget {
                   children: [
                     Icon(Icons.info_outline, size: 28, color: Colors.amber.shade800),
                     const SizedBox(width: 12),
-                    const Expanded(
+                    Expanded(
                       child: Text(
-                        'This is an example. No real message or action.',
-                        style: TextStyle(
+                        l10n.exampleWarningBanner,
+                        style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
                           color: Colors.black87,
@@ -86,10 +90,10 @@ class _ExampleWarningContent extends StatelessWidget {
                     Icon(Icons.warning_amber_rounded,
                         size: 40, color: Colors.red.shade700),
                     const SizedBox(width: 12),
-                    const Expanded(
+                    Expanded(
                       child: Text(
-                        'Warning: Possible scam message',
-                        style: TextStyle(
+                        l10n.highRiskHeaderTitle,
+                        style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: Colors.black87,
@@ -101,7 +105,7 @@ class _ExampleWarningContent extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               Text(
-                'From: ${message.sender}',
+                l10n.messageFromLabel(message.sender),
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
@@ -147,14 +151,16 @@ class _ExampleWarningContent extends StatelessWidget {
                   onPressed: () {
                     Navigator.of(context).pop();
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('This was an example. No action was taken.'),
+                      SnackBar(
+                        content: Text(l10n.exampleWarningSnackbar),
                         behavior: SnackBarBehavior.floating,
                       ),
                     );
                   },
-                  child: const Text('Got it — this was an example',
-                      style: TextStyle(fontSize: 16)),
+                  child: Text(
+                    l10n.exampleWarningButton,
+                    style: const TextStyle(fontSize: 16),
+                  ),
                 ),
               ),
             ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:elder_shield/l10n/app_localizations.dart';
 import 'package:elder_shield/application/app_providers.dart';
 import 'package:elder_shield/core/design_tokens.dart';
 import 'package:elder_shield/presentation/launch_gate.dart';
@@ -22,6 +23,7 @@ class _ElderShieldAppState extends ConsumerState<ElderShieldApp> {
       _checkOnboarding();
       _loadFontScale();
       _loadThemeMode();
+      _loadLanguage();
     });
   }
 
@@ -41,6 +43,12 @@ class _ElderShieldAppState extends ConsumerState<ElderShieldApp> {
     final settings = ref.read(settingsServiceProvider);
     final mode = await settings.getThemeMode();
     if (mounted) ref.read(themeModeProvider.notifier).state = mode;
+  }
+
+  Future<void> _loadLanguage() async {
+    final settings = ref.read(settingsServiceProvider);
+    final code = await settings.getLanguageCode();
+    if (mounted) ref.read(languageCodeProvider.notifier).state = code;
   }
 
   static ThemeData _buildLightTheme() {
@@ -174,12 +182,20 @@ class _ElderShieldAppState extends ConsumerState<ElderShieldApp> {
   Widget build(BuildContext context) {
     final fontScale = ref.watch(fontScaleProvider);
     final themeModeKey = ref.watch(themeModeProvider);
+    final languageCode = ref.watch(languageCodeProvider);
     final systemScaler = MediaQuery.of(context).textScaler;
     final combinedScaler = TextScaler.linear(systemScaler.scale(1.0) * fontScale);
 
+    final locale =
+        languageCode == null || languageCode.isEmpty ? null : Locale(languageCode);
+
     return MaterialApp(
+      onGenerateTitle: (ctx) => AppLocalizations.of(ctx)!.appTitle,
       title: 'Elder Shield',
       debugShowCheckedModeBanner: false,
+      locale: locale,
+      supportedLocales: AppLocalizations.supportedLocales,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
       theme: _buildLightTheme(),
       darkTheme: _buildDarkTheme(),
       themeMode: _themeModeFrom(themeModeKey),

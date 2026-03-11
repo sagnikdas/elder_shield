@@ -1,0 +1,328 @@
+{
+  "@@locale": "bn",
+
+  "appTitle": "এল্ডার শিল্ড",
+
+  "settingsTitle": "সেটিংস",
+
+  "homeAppBarTitle": "এল্ডার শিল্ড",
+  "homePostOnboardingTitle": "আপনি এখন সুরক্ষিত",
+  "homePostOnboardingBody": "হোম থেকে আপনি যখন খুশি {contactName}-কে ফোন করতে পারবেন।",
+  "@homePostOnboardingBody": {
+    "description": "Message shown after onboarding; contactName is either the trusted contact's name or a generic phrase.",
+    "placeholders": {
+      "contactName": {
+        "type": "String"
+      }
+    }
+  },
+  "commonGotIt": "ঠিক আছে",
+
+  "homeTrustedContactFallbackName": "আপনার ভরসার মানুষ",
+
+  "permissionsDialogTitle": "সুরক্ষা চালু করতে সেটিংসে যান",
+  "permissionsDialogBody": "স্ক্যাম মেসেজ ধরতে এল্ডার শিল্ড‑এর এসএমএস এবং ফোন অ্যাক্সেস দরকার।\n\nএই অনুমতিগুলো চালু করতে কি অ্যাপ সেটিংস খুলবেন?",
+  "commonCancel": "বাতিল",
+  "permissionsDialogOpenSettings": "সেটিংস খুলুন",
+
+  "homeProtectionStatusLabel": "সুরক্ষার অবস্থা",
+  "homeProtectionStatusProtected": "সুরক্ষিত",
+  "homeProtectionStatusPermissionsNeeded": "অনুমতি প্রয়োজন",
+  "homeEnableProtectionButton": "সুরক্ষা চালু করুন",
+
+  "homeTodayRiskSummaryWithCount": "আজ {count}‑টি সন্দেহজনক মেসেজ ধরা হয়েছে।",
+  "@homeTodayRiskSummaryWithCount": {
+    "description": "Summary of today's suspicious messages with count.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeTodayRiskSummaryNoRisk": "আজ কোনো সন্দেহজনক কার্যকলাপ নেই।",
+  "homeTodayRiskTapToSeeMessages": "মেসেজগুলো দেখতে ট্যাপ করুন",
+  "commonView": "দেখুন",
+
+  "homeAutoCheckInfo": "এল্ডার শিল্ড নতুন মেসেজ নিজে থেকেই পরীক্ষা করে।",
+
+  "homeCallTrustedButtonLabel": "{name}-কে ফোন করুন",
+  "@homeCallTrustedButtonLabel": {
+    "description": "Label for the big call trusted contact button.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+
+  "homeCallTooltipText": "কোনো চিন্তার মেসেজ এলে এখানেই ট্যাপ করুন।",
+
+  "homeAddTrustedIntro": "একজন ভরসার মানুষ যোগ করুন যাতে ভয়ানক মেসেজ এলে এক ট্যাপে তাকে ফোন করতে পারেন।",
+  "homeAddTrustedButton": "ভরসার মানুষ যোগ করুন",
+  "homeWhyAddTrustedShow": "ভরসার মানুষ কেন যোগ করব?",
+  "homeWhyAddTrustedHide": "কারণ লুকোন",
+  "homeWhyAddTrustedExplanation": "কখনও যদি কোনো উদ্বেগজনক মেসেজ আসে, তখন একা সিদ্ধান্ত না নিয়ে আপনি একটা বড় বোতাম ট্যাপ করে ভরসার কারও সঙ্গে কথা বলতে পারবেন।",
+  "homeTrustedContactsHeader": "আপনার ভরসার মানুষ",
+
+  "highRiskHeaderTitle": "সতর্কতা: এটা স্ক্যাম মেসেজ হতে পারে",
+  "highRiskHeaderBody": "এই মেসেজের কোনো লিঙ্কে ট্যাপ করবেন না, আর কোনো কোড শেয়ার করবেন না।",
+  "highRiskWhyFlaggedTitle": "এটা কেন ধরা হয়েছে:",
+
+  "actionScam": "এটা স্ক্যাম",
+  "actionSafe": "এটা নিরাপদ",
+
+  "snackbarGenericError": "কিছু ভুল হয়েছে। আবার চেষ্টা করুন।",
+  "snackbarMarkedScam": "স্ক্যাম হিসেবে চিহ্নিত করা হয়েছে। ধন্যবাদ।",
+
+  "highRiskSwipeUpForDetails": "আরো বিস্তারিত দেখতে উপরে সোয়াইপ করুন",
+
+  "riskLowLabel": "কম ঝুঁকি",
+  "riskMediumLabel": "মাঝারি ঝুঁকি — দেখে নিন",
+  "riskHighLabel": "উচ্চ ঝুঁকি — স্ক্যাম হতে পারে",
+
+  "deleteMessageTitle": "মেসেজ মুছবেন?",
+  "deleteMessageBody": "আপনি কি নিশ্চিত? এতে মেসেজটি এল্ডার শিল্ড থেকে মুছে যাবে।",
+  "deleteMessageConfirm": "মুছুন",
+  "deleteMessageDeletedSnackbar": "এল্ডার শিল্ড থেকে মুছে দেওয়া হয়েছে।",
+
+  "languageSectionTitle": "ভাষা",
+  "languageEnglishName": "ইংরেজি",
+  "languageBengaliName": "বাংলা",
+   "languageKannadaName": "কন্নড়",
+  "languageSectionSubtitle": "বর্তমান ভাষা: {languageName}",
+  "@languageSectionSubtitle": {
+    "description": "Subtitle showing currently selected language.",
+    "placeholders": {
+      "languageName": {
+        "type": "String"
+      }
+    }
+  },
+
+  "snackbarUpdated": "আপডেট হয়েছে",
+
+  "settingsAppearanceTitle": "দেখতে কেমন",
+  "settingsThemeSystem": "সিস্টেম",
+  "settingsThemeLight": "লাইট",
+  "settingsThemeDark": "ডার্ক",
+
+  "settingsTextSizeTitle": "হরফের আকার",
+  "settingsTextSizeDescription": "বড় বা ছোট করে আরামদায়ক আকারে লেখাগুলো দেখুন। পরিবর্তন সঙ্গে সঙ্গে প্রযোজ্য হবে।",
+  "settingsTextSizeSample": "এল্ডার শিল্ড আপনাকে স্ক্যাম মেসেজ থেকে সুরক্ষিত রাখে।",
+
+  "settingsLegalTitle": "আইনগত ও তথ্য",
+  "settingsPrivacyPolicyTitle": "গোপনীয়তার নীতি",
+  "settingsPrivacyPolicySubtitle": "আপনার ডেটা আমরা কীভাবে ব্যবহার করি",
+  "settingsPermissionsExplainedTitle": "পারমিশন নিয়ে তথ্য",
+  "settingsPermissionsExplainedSubtitle": "প্রতিটি অনুমতি কেন দরকার",
+
+  "settingsSensitivityTitle": "সংবেদনশীলতা",
+  "settingsSensitivityLabelConservative": "কম সতর্কবার্তা",
+  "settingsSensitivityLabelBalanced": "সামঞ্জস্যপূর্ণ",
+  "settingsSensitivityLabelSensitive": "বেশি সতর্কবার্তা",
+  "settingsSensitivityDescConservative": "শুধু খুব স্পষ্ট স্ক্যামগুলো ধরা হবে। যদি আপনি কম সতর্কবার্তা পছন্দ করেন, এটা ভালো।",
+  "settingsSensitivityDescBalanced": "বেশিরভাগ মানুষের জন্য ভালো। স্ক্যাম ধরা আর অপ্রয়োজনীয় সতর্কবার্তার মধ্যে ভারসাম্য রাখে।",
+  "settingsSensitivityDescSensitive": "আরও বেশি স্ক্যাম ধরবে, তবে কখনও কখনও নিরাপদ মেসেজকেও ভুল করে চিহ্নিত করতে পারে।",
+
+  "settingsTrustedContactsTitle": "ভরসার মানুষ",
+  "settingsTrustedContactsNone": "কেউ নেই",
+  "settingsTrustedContactsCount": "{count} জন",
+  "@settingsTrustedContactsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsTrustedContactsExplanation": "হোম স্ক্রিন বা স্ক্যাম সতর্কবার্তার সময় এক ট্যাপে তাদের ফোন করতে পারবেন। তালিকার প্রথম জনকে মূল \"কল\" বোতামে দেখানো হবে।",
+  "settingsTrustedContactsAddContactTitle": "নাম্বার যোগ করুন",
+  "settingsTrustedContactsAddContactSubtitle": "একটি নাম ও ফোন নম্বর লিখুন",
+  "settingsTrustedContactsChooseFromContactsTitle": "কনট্যাক্ট থেকে বাছুন",
+  "settingsTrustedContactsChooseFromContactsSubtitle": "আপনার ফোনের কনট্যাক্ট থেকে একটি নম্বর নিন",
+  "settingsTrustedContactsPickerUnavailable": "এই প্রিভিউ সংস্করণে ডিভাইস কনট্যাক্ট পিকার এখনো চালু হয়নি।",
+
+  "settingsTrustedContactsRemoveDialogTitle": "ভরসার মানুষ মুছবেন?",
+  "settingsTrustedContactsRemoveDialogBody": "এই মানুষটি আর ভরসার মানুষের তালিকা বা হোম স্ক্রিনে দেখানো হবে না।",
+  "settingsTrustedContactsRemoveDialogRemove": "মুছে দিন",
+
+  "settingsAdvancedSectionTitle": "অ্যাডভান্সড",
+  "settingsDeleteAllHistoryButton": "সব হিস্ট্রি মুছে দিন",
+  "settingsRerunPermissionsButton": "পারমিশন আবার পরীক্ষা করুন",
+
+  "settingsDeleteAllHistoryDialogTitle": "সব হিস্ট্রি মুছে ফেলবেন?",
+  "settingsDeleteAllHistoryDialogBody": "এতে এই ডিভাইস থেকে সব স্ক্যান করা মেসেজ এবং কারণ স্থায়ীভাবে মুছে যাবে। এটা আর ফিরিয়ে আনা যাবে না।",
+  "settingsDeleteAllHistoryDialogConfirm": "সব মুছে দিন",
+  "settingsHistoryDeletedSnackbar": "হিস্ট্রি মুছে ফেলা হয়েছে",
+
+  "settingsRerunPermissionsSnackbar": "পারমিশন পরীক্ষা শেষ। এখনই অনুমতি দিলে অ্যাপটি একবার রিস্টার্ট করে নিন।",
+
+  "settingsOverlayTitle": "অন্যান্য অ্যাপের উপর জরুরি সতর্কবার্তা",
+  "settingsOverlaySubtitleEnabled": "চালু আছে: উচ্চ ঝুঁকির সতর্কবার্তা অন্য অ্যাপের ওপরে ভেসে উঠতে পারবে। আপনি অন্য অ্যাপে থাকলেও সতর্ক করার জন্য এটা প্রয়োজনীয়।",
+  "settingsOverlaySubtitleDisabled": "বন্ধ আছে: অ্যান্ড্রয়েডে ওভারলে পারমিশনটি চালু করতে এখানে ট্যাপ করুন। আপনি অন্য অ্যাপে থাকলেও সতর্ক করার জন্য এটা প্রয়োজনীয়।",
+
+  "settingsHowItWorksTitle": "এল্ডার শিল্ড কীভাবে কাজ করে",
+  "settingsHowItWorksSubtitle": "আমরা কী দেখি, কখন সতর্ক করি, তখন কী করবেন",
+  "settingsAboutTitle": "এল্ডার শিল্ড সম্পর্কে",
+
+  "settingsAddTrustedDialogTitle": "ভরসার মানুষ যোগ করুন",
+  "settingsAddTrustedDialogConsent": "হোম স্ক্রিন বা স্ক্যাম সতর্কবার্তার সময় এক ট্যাপে তাদের ফোন করতে পারবেন।",
+  "settingsAddTrustedDialogConfirm": "যোগ করুন",
+  "settingsEditTrustedDialogTitle": "ভরসার মানুষ সম্পাদনা করুন",
+  "settingsEditTrustedDialogConfirm": "সেভ করুন",
+  "settingsContactNameLabel": "নাম",
+  "settingsContactNameHint": "যেমনঃ আমার ছেলে",
+  "settingsContactNumberLabel": "ফোন নম্বর",
+  "settingsContactNumberHint": "যেমনঃ +৯১ ৯৮৭৬৫ ৪৩২১০",
+  "settingsContactDialogCancel": "বাতিল",
+  "settingsContactInvalidNumber": "একটি সঠিক ফোন নম্বর লিখুন",
+
+  "howItWorksBulletWhatWeCheck": "আমরা কী দেখি: আমরা আপনার এসএমএস পড়ে স্ক্যামের লক্ষণ খুঁজি — সন্দেহজনক লিঙ্ক, খুব তাড়াহুড়ো বা ভয় দেখানো ভাষা, ওটিপি বা ব্যাংক তথ্য চাওয়া, আর এমন বার্তা যা আপনার ব্যাংক বা কোনো পরিচিত সার্ভিস সেজে আসে।",
+  "howItWorksBulletWhenWeAlert": "কখন সতর্ক করি: কোনো মেসেজ ঝুঁকিপূর্ণ দেখালে আমরা আপনাকে জানাই। খুব বেশি ঝুঁকির মেসেজ এলে আমরা অ্যাপ ব্যাকগ্রাউন্ডে থাকলেও পপ-আপ দেখাতে পারি এবং মেসেজটি মেসেজেস ট্যাবে দেখাই।",
+  "howItWorksBulletWhatToDo": "সতর্কবার্তা দেখলে কী করবেন: মেসেজের কোনো লিঙ্কে ট্যাপ করবেন না। \"এটা স্ক্যাম\" বা \"এটা নিরাপদ\" বেছে নিয়ে আমাদের শেখাতে সাহায্য করতে পারেন। সবচেয়ে ভালো পদক্ষেপ: সতর্কবার্তা স্ক্রিন বা হোম থেকে আপনার ভরসার মানুষকে ফোন করুন।",
+  "howItWorksBulletCallTrusted": "ভরসার মানুষকে কীভাবে ফোন করবেন: হোম স্ক্রিনে বড় \"কল [নাম]\" বোতামে ট্যাপ করুন — বিশেষ করে কোনো চিন্তাজনক মেসেজ এলে। আমরা যখন সম্ভাব্য স্ক্যাম দেখাই, তখনও সতর্কবার্তা স্ক্রিন থেকে ফোন করতে পারেন।",
+  "howItWorksSeeWarningCta": "সতর্কবার্তা দেখতে কেমন হয়, দেখুন",
+
+  "permissionsIntro": "এল্ডার শিল্ড শুধু স্ক্যাম থেকে বাঁচানোর জন্যই পারমিশন ব্যবহার করে। আপনি চাইলে কোনো পারমিশন না-ও দিতে পারেন; তাতে সুরক্ষা কিছুটা কমবে, কিন্তু অ্যাপ কাজ করবে।",
+  "permissionsSmsTitle": "মেসেজ (এসএমএস)",
+  "permissionsSmsBody": "স্ক্যামের লক্ষণ খুঁজতে আমরা ইনকামিং এসএমএস পড়ি — যেমন সন্দেহজনক লিঙ্ক, ওটিপি চাওয়া, ব্যাংক সংক্রান্ত লেখা ইত্যাদি — এবং প্রয়োজনে আপনাকে সতর্ক করি। কোনো মেসেজের লেখা আপনার ডিভাইসের বাইরে পাঠানো হয় না। সেটিংস থেকে চাইলে সব বিশ্লেষিত হিস্ট্রি মুছে দিতে পারেন।",
+  "permissionsPhoneStateTitle": "ফোন (অবস্থা পড়া)",
+  "permissionsPhoneStateBody": "আপনি কখন ফোনে কথা বলছেন তা জানা দরকার, যাতে কলের মধ্যেই কোনো ওটিপি এলে আমরা ঝুঁকি বাড়াতে পারি (এটা খুব সাধারণ স্ক্যাম প্যাটার্ন)। আমরা কল রেকর্ড করি না, অডিও শুনি না, বা কল লগ দেখি না।",
+  "permissionsPhoneCallTitle": "ফোন (কল করা)",
+  "permissionsPhoneCallBody": "হোম বা সতর্কবার্তা স্ক্রিন থেকে আপনি যেন \"ভরসার মানুষকে কল\" বোতামে ট্যাপ করে দ্রুত ফোন করতে পারেন, তার জন্য এই অনুমতি দরকার। শুধু আপনি ট্যাপ করলে এবং শুধু আপনার যোগ করা ভরসার নাম্বারেই কল করা হয়।",
+  "permissionsNotificationsTitle": "নোটিফিকেশন",
+  "permissionsNotificationsBody": "সন্দেহজনক বা উচ্চ ঝুঁকির মেসেজ ধরা পড়লে যাতে আপনাকে দ্রুত জানাতে পারি, তার জন্য নোটিফিকেশন দরকার। চাইলে সিস্টেম সেটিংস থেকে নোটিফিকেশন বন্ধ করতে পারেন; তবুও অ্যাপ ব্যবহার করতে পারবেন।",
+  "permissionsOverlayTitle": "অন্যান্য অ্যাপের উপর দেখানো (ঐচ্ছিক)",
+  "permissionsOverlayBody": "যদি সেটিংস থেকে অ্যান্ড্রয়েডের ওভারলে পারমিশন চালু করেন, তাহলে কোনো উচ্চ ঝুঁকির মেসেজ এলে এল্ডার শিল্ড অন্য অ্যাপের ওপরেও জরুরি সতর্কবার্তা দেখাতে পারবে। এটা সম্পূর্ণ ঐচ্ছিক এবং ব্যক্তিগত নিরাপত্তার জন্য।"
+
+,
+
+  "privacyTitle": "গোপনীয়তার নীতি",
+  "privacySection1Title": "১. আমরা কারা",
+  "privacySection1Body": "এল্ডার শিল্ড একটি অ্যান্ড্রয়েড অ্যাপ, যা এসএমএস এবং কল-সম্পর্কিত স্ক্যাম থেকে বাঁচতে বয়স্ক ব্যবহারকারীদের সাহায্য করার জন্য বানানো হয়েছে। আমরা ডিভাইসেই মেসেজ বিশ্লেষণ করি এবং সন্দেহজনক কিছু দেখলে আপনাকে সতর্ক করি।",
+  "privacySection2Title": "২. আমরা কোন ডেটা প্রক্রিয়া করি",
+  "privacySection2Paragraphs": "সব প্রক্রিয়াকরণ আপনার ডিভাইসেই হয়। আমরা আপনার মেসেজ, কলের অবস্থা বা অন্য কোনো ব্যক্তিগত তথ্য আমাদের সার্ভার বা তৃতীয় পক্ষের কাছে পাঠাই না।\n\nমেসেজ ডেটা: আপনি কোনো এসএমএস পেলে অ্যাপটি সেই মেসেজের প্রেরক, লেখা এবং সময় দেখে। এই ডেটা শুধু আমাদের অন-ডিভাইস স্ক্যাম ডিটেকশন চালানোর জন্য ব্যবহার হয়। ফলাফল শুধু আপনার ডিভাইসেই থাকে। চাইলে যেকোনো সময় সেটিংস → সব হিস্ট্রি মুছুন থেকে এগুলো মুছে দিতে পারেন।\n\nকল অবস্থা: অ্যাপটি দেখে আপনি বর্তমানে ফোন কল করছেন কি না। আমরা কল রেকর্ড করি না, অডিও শুনি না, কিংবা কল লগ দেখি না। কলের অবস্থা শুধু ডিটেকশন উন্নত করতে ব্যবহার হয় (যেমন কল চলার সময় ওটিপি এলে আপনাকে অতিরিক্ত সতর্ক করা)।\n\nসেটিংস এবং ভরসার মানুষ: এগুলো আপনার ডিভাইসের সিকিওর স্টোরেজে রাখা হয়। ভরসার মানুষ শুধু যেন আপনি \"ভরসার মানুষকে কল\" বোতামে ট্যাপ করে দ্রুত ফোন করতে পারেন, সেই কাজেই ব্যবহৃত হয়। আমরা কখনো তাদের স্বয়ংক্রিয়ভাবে কল বা মেসেজ করি না।",
+  "privacySection3Title": "৩. আমরা কী করি না",
+  "privacySection3Paragraphs": "আমরা আপনার এসএমএসের লেখা, কলের অবস্থা বা কনট্যাক্ট লিস্ট ইন্টারনেটে পাঠাই না।\n\nআমরা আপনার ডেটা বিজ্ঞাপনদাতা বা ডেটা ব্রোকারদের কাছে বিক্রি, ভাড়া বা শেয়ার করি না।\n\nঅ্যাকাউন্ট বা সাইন-ইন ছাড়াই অ্যাপ কাজ করে। প্রয়োজনীয় পারমিশন দেওয়ার পরেও অ্যাপ সম্পূর্ণ অফলাইন-ভাবেই কাজ করতে পারে।\n\nআমরা আরসিএস/চ্যাট মেসেজ পড়ি বা বিশ্লেষণ করি না; শুধু সাধারণ এসএমএস সমর্থিত।",
+  "privacySection4Title": "৪. পারমিশন ও কেন দরকার",
+  "privacySection4Paragraphs": "এসএমএস (রিসিভ/রিড): ইনকামিং এসএমএস পড়ে স্ক্যাম-প্যাটার্ন খুঁজে বের করার জন্য, এবং প্রয়োজনে আপনাকে সতর্ক করার জন্য এই অনুমতি লাগে।\n\nফোন (কলের অবস্থা পড়া): আপনি কখন কল করছেন তা জানার জন্য, যাতে কলের মধ্যেই কোনো ওটিপি এলে সেটিকে বেশি ঝুঁকি হিসেবে দেখাতে পারি। আমরা কোনো কল রেকর্ড বা শুনি না।\n\nফোন (কল করা): আপনি যেন \"ভরসার মানুষকে কল\" বোতামে ট্যাপ করে দ্রুত ফোন করতে পারেন, তার জন্য। আমরা শুধু আপনার যোগ করা ভরসার নাম্বারগুলোতেই এবং শুধু আপনি ট্যাপ করলে কল করি।\n\nনোটিফিকেশন: সন্দেহজনক বা উচ্চ ঝুঁকির মেসেজ ধরা পড়লে দ্রুত আপনাকে জানাতে।\n\nআপনি \"এই প্রেরককে ব্লক করুন\" বেছে নিলে অ্যাপ আপনার ডিফল্ট মেসেজিং অ্যাপ খুলতে পারে; এল্ডার শিল্ড নিজে থেকে এসএমএস পাঠায় না।",
+  "privacySection5Title": "৫. ডেটা কতদিন থাকে এবং আপনার পছন্দ",
+  "privacySection5Paragraphs": "বিশ্লেষিত মেসেজ ও কারণ: শুধু আপনার ডিভাইসেই থাকে, যতদিন না আপনি সেটিংস → সব হিস্ট্রি মুছুন বেছে নেন।\n\nসেটিংস এবং ভরসার মানুষ: আপনি পরিবর্তন করা, মুছে ফেলা, বা অ্যাপ আনইনস্টল করা পর্যন্ত ডিভাইসেই থাকে।\n\nআমরা কোনো ডেটা আমাদের সার্ভারে জমা রাখি না, কারণ আমরা তা সংগ্রহই করি না।",
+  "privacySection6Title": "৬. শিশু ও সংবেদনশীল ব্যবহারকারী",
+  "privacySection6Paragraphs": "অ্যাপটি মূলত বয়স্ক এবং অন্য ঝুঁকিপূর্ণ ব্যবহারকারীদের স্ক্যাম থেকে বাঁচাতে সাহায্য করার জন্য বানানো। আমরা এমনভাবে শিশুদের ডেটা সংগ্রহ করি না যাতে আলাদা প্যারেন্টাল কনসেন্ট লাগে; কারণ অ্যাপ কোনো ডেটা ডিভাইসের বাইরে পাঠায় না।\n\nআপনি যদি কারও (যেমন বাবা-মা বা অভিভাব্য ব্যক্তির) জন্য এই অ্যাপ সেট-আপ করেন, তাহলে তাদের সাথে পারমিশন আর এই নীতি সম্পর্কে সহজ ভাষায় কথা বলার পরামর্শ দিই।",
+  "privacySection7Title": "৭. এই নীতির পরিবর্তন",
+  "privacySection7Paragraphs": "আমরা যদি এই নীতি বদলাই (যেমন ভবিষ্যতে কোনো ঐচ্ছিক ক্লাউড ফিচার যোগ করি), তাহলে এই ডকুমেন্ট আপডেট করব এবং প্রয়োজন হলে আইন বা স্টোর নীতিমালা অনুযায়ী আপনাকে জানাব বা সম্মতি নেব।",
+  "privacySection8Title": "৮. যোগাযোগ",
+  "privacySection8Body": "গোপনীয়তা সংক্রান্ত কোনো প্রশ্ন বা এল্ডার শিল্ড নিয়ে কোনো অনুরোধ থাকলে, দয়া করে আমাদের সাথে যোগাযোগ করুন: [এখানে আপনার ইমেল বা সাপোর্ট URL লিখুন]।",
+  "privacyLastUpdatedNote": "সর্বশেষ আপডেট: ব্লক ১০। রিলিজের আগে প্লেসহোল্ডারগুলো ঠিক করে নিন।"
+,
+
+  "aboutTagline": "বয়স্ক ব্যবহারকারীদের জন্য ডিভাইসে স্ক্যাম থেকে সুরক্ষা।"
+
+,
+
+  "messagesAppBarTitle": "মেসেজ",
+  "messagesFilterAll": "সব",
+  "messagesFilterHighRisk": "উচ্চ ঝুঁকি",
+  "messagesFilterAllSemanticsLabel": "সব মেসেজ দেখান",
+  "messagesFilterAllSemanticsHint": "সব বিশ্লেষিত মেসেজ দেখতে ডাবল ট্যাপ করুন।",
+  "messagesFilterHighRiskSemanticsLabel": "শুধু উচ্চ ঝুঁকির মেসেজ দেখান",
+  "messagesFilterHighRiskSemanticsHint": "সবচেয়ে গুরুতর সতর্কবার্তাগুলো দেখতে ডাবল ট্যাপ করুন।",
+  "messagesErrorTitle": "মেসেজ লোড করতে সমস্যা হয়েছে।",
+  "messagesErrorSubtitle": "আবার চেষ্টা করতে নিচে টেনে ছেড়ে দিন।",
+  "messagesEmptyTitle": "এখনও কোনো মেসেজ বিশ্লেষণ করা হয়নি। এল্ডার শিল্ড নতুন মেসেজ নিজে থেকেই পরীক্ষা করবে।",
+  "messagesEmptySubtitle": "আমরা কিছু সন্দেহজনক পেলে আপনাকে জানাব, আর আপনি এখান থেকে তা খুলে দেখতে পারবেন।",
+  "messagesRefreshSnackbar": "তালিকা আপডেট হয়েছে",
+  "messagesLoadingHeader": "মেসেজ লোড হচ্ছে…",
+  "messagesDateToday": "আজ, {time}",
+  "messagesDateYesterday": "গতকাল, {time}",
+  "messagesDateOther": "{month} {day}, {time}",
+  "@messagesDateToday": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "@messagesDateYesterday": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "@messagesDateOther": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      },
+      "day": {
+        "type": "int"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+
+  "onboardingStepOf": "ধাপ {step} / {total}",
+  "@onboardingStepOf": {
+    "placeholders": {
+      "step": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "onboardingWelcomeBody1": "এল্ডার শিল্ড আপনার মেসেজ আর কলের ওপর নজর রাখে, যেন স্ক্যাম হলে আপনাকে আগে থেকেই সতর্ক করতে পারে।",
+  "onboardingWelcomeBody2": "আপনি কখনও দ্বিধায় পড়লে এক ট্যাপে ভরসার মানুষের সঙ্গে কথা বলতে পারবেন।",
+  "onboardingGetStarted": "শুরু করি",
+
+  "onboardingPermissionsTitle": "কেন এই অনুমতিগুলো দরকার",
+  "onboardingPermissionsBulletMessages": "মেসেজ: যেন আমরা আপনার এসএমএস পড়ে স্ক্যামের মতো কিছু দেখলে আপনাকে সতর্ক করতে পারি।",
+  "onboardingPermissionsBulletPhone": "ফোন: যেন বুঝতে পারি আপনি কখন কল করছেন। স্ক্যামাররা প্রায়ই কল চলার সময় ওটিপি চাইতে পারে।",
+  "onboardingPermissionsBody1": "নিচের \"পারমিশন দিন\" বোতামে ট্যাপ করলে আপনার ডিভাইস মেসেজ, ফোন আর নোটিফিকেশনের অনুমতি চাইবে (যাতে অ্যাপ বন্ধ থাকলেও সম্ভাব্য স্ক্যামের ব্যাপারে আপনাকে জানাতে পারি)।",
+  "onboardingPermissionsBody2": "আমরা কখনোই স্ক্যাম চেক করা ছাড়া অন্য কাজে আপনার মেসেজ পড়ি না।",
+  "onboardingPermissionsRetryWarning": "কিছু পারমিশন দেওয়া হয়নি। আপনি না দেওয়া পর্যন্ত সুরক্ষা সীমিত থাকবে।",
+  "onboardingPermissionsPrimaryAllow": "পারমিশন দিন",
+  "onboardingPermissionsPrimaryRetry": "আবার চেষ্টা করুন",
+  "onboardingSkipForNow": "এখন থাক",
+
+  "onboardingTrustedTitle": "একজন ভরসার মানুষ যোগ করুন",
+  "onboardingTrustedBody1": "এমন কাউকে বেছে নিন, যাকে আপনি কোনো চিন্তার মেসেজ পেলে ফোন করতে চাইবেন — যেমন পরিবারের কেউ বা ঘনিষ্ঠ বন্ধু।",
+  "onboardingTrustedBody2": "তাদের যোগ করলে হোম স্ক্রিন বা স্ক্যাম সতর্কবার্তা থেকে এক ট্যাপে এই মানুষটিকে ফোন করতে পারবেন।",
+  "onboardingTrustedAddFromContacts": "কনট্যাক্ট থেকে যোগ করুন",
+  "onboardingTrustedAddFromContactsUnavailable": "এই প্রিভিউ সংস্করণে ডিভাইস কনট্যাক্ট পিকার এখনো চালু হয়নি।",
+  "onboardingTrustedOrEnterManually": "অথবা নাম্বার লিখে দিন:",
+  "onboardingTrustedDone": "হয়ে গেছে",
+  "onboardingTrustedSeeWarningCta": "সতর্কবার্তা দেখতে কেমন হয়, দেখুন",
+  "onboardingTrustedMissingFields": "অনুগ্রহ করে নাম আর নম্বর দুটোই লিখুন",
+
+  "launchGateChecking": "পরীক্ষা করা হচ্ছে…",
+
+  "exampleWarningBanner": "এটা শুধু একটি উদাহরণ। আসল কোনো মেসেজ বা কাজ হচ্ছে না।",
+  "exampleWarningSnackbar": "এটা শুধু উদাহরণ ছিল। কোনো কাজ করা হয়নি।",
+  "exampleWarningButton": "বুঝেছি — এটা শুধু উদাহরণ",
+  "exampleWarningSenderUnknown": "অজানা",
+  "exampleWarningBody": "আপনার ব্যাঙ্ক অ্যাকাউন্ট ২৪ ঘন্টার মধ্যে ব্লক করা হবে। যাচাই করতে এখানে ক্লিক করুন: http://secure-bank-verify.com. এই তথ্য কারও সঙ্গে শেয়ার করবেন না।",
+  "exampleWarningReasonSuspiciousLink": "সন্দেহজনক একটি লিঙ্ক আছে",
+  "exampleWarningReasonPretendBank": "ব্যাঙ্ক সেজে কথা বলছে",
+  "exampleWarningReasonUrgentLanguage": "খুব তাড়াহুড়ো বা ভয় দেখানো ভাষা ব্যবহার করেছে",
+
+  "messageFromLabel": "প্রেরক: {sender}",
+  "@messageFromLabel": {
+    "placeholders": {
+      "sender": {
+        "type": "String"
+      }
+    }
+  },
+
+  "fullScreenWarningTitle": "সম্ভাব্য স্ক্যাম",
+  "fullScreenWarningClosingNote": "এই স্ক্রিন বন্ধ করলে আপনার ফোন থেকে মেসেজটি মুছে যাবে না।",
+  "fullScreenWarningDeleteAction": "মেসেজ মুছুন",
+  "fullScreenWarningDeleteSnackbar": "এল্ডার শিল্ড থেকে মুছে দেওয়া হয়েছে। এখন আপনার মেসেজিং অ্যাপ খুলছি, সেখান থেকেও চাইলে মুছে দিতে পারবেন।",
+  "fullScreenWarningBlockSender": "এই প্রেরককে ব্লক করুন (মেসেজিং অ্যাপ খুলবে)"
+}
+

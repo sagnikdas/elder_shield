@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:elder_shield/l10n/app_localizations.dart';
 import 'package:elder_shield/presentation/messages/example_warning_sheet.dart';
 import 'package:elder_shield/utils/haptic.dart';
 
@@ -10,6 +11,7 @@ class HowItWorksScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final padding = MediaQuery.of(context).padding;
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(
@@ -20,7 +22,7 @@ class HowItWorksScreen extends StatelessWidget {
             Navigator.of(context).pop();
           },
         ),
-        title: const Text('How Elder Shield works'),
+        title: Text(l10n.settingsHowItWorksTitle),
         backgroundColor: theme.colorScheme.primary,
         foregroundColor: Colors.white,
       ),
@@ -29,22 +31,22 @@ class HowItWorksScreen extends StatelessWidget {
         children: [
           _bullet(
             context,
-            'What we check: We read your SMS and look for signs of scams — suspicious links, urgent language, requests for OTP or bank details, and messages that pretend to be your bank or a known service.',
+            l10n.howItWorksBulletWhatWeCheck,
           ),
           const SizedBox(height: 16),
           _bullet(
             context,
-            'When we alert: If a message looks risky, we notify you. For high-risk messages we can show a pop-up even when the app is in the background, and list the message on the Messages tab.',
+            l10n.howItWorksBulletWhenWeAlert,
           ),
           const SizedBox(height: 16),
           _bullet(
             context,
-            'What to do when you see a warning: Don’t tap any link in the message. You can mark it as "This is a Scam" or "This is Safe" to help us learn. Best step: call your trusted contact from the warning screen or from Home.',
+            l10n.howItWorksBulletWhatToDo,
           ),
           const SizedBox(height: 16),
           _bullet(
             context,
-            'How to call your trusted contact: On the Home screen, tap the big "Call [Name]" button anytime — especially if you get a worrying message. You can also call from the warning screen when we show a possible scam.',
+            l10n.howItWorksBulletCallTrusted,
           ),
           const SizedBox(height: 32),
           OutlinedButton.icon(
@@ -53,7 +55,7 @@ class HowItWorksScreen extends StatelessWidget {
               showExampleWarningSheet(context);
             },
             icon: const Icon(Icons.visibility_outlined),
-            label: const Text('See what a warning looks like'),
+            label: Text(l10n.howItWorksSeeWarningCta),
             style: OutlinedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 14),
             ),
