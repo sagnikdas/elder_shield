@@ -1219,6 +1219,66 @@ abstract class AppLocalizations {
   /// **'Uses urgent or threatening language'**
   String get exampleWarningReasonUrgentLanguage;
 
+  /// No description provided for @reasonShortUrl.
+  ///
+  /// In en, this message translates to:
+  /// **'Contains a shortened or suspicious link'**
+  String get reasonShortUrl;
+
+  /// No description provided for @reasonOtpMention.
+  ///
+  /// In en, this message translates to:
+  /// **'Asks for or mentions a one-time code (OTP)'**
+  String get reasonOtpMention;
+
+  /// No description provided for @reasonUrgentLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Uses urgent or threatening language'**
+  String get reasonUrgentLanguage;
+
+  /// No description provided for @reasonBankKyc.
+  ///
+  /// In en, this message translates to:
+  /// **'Mentions bank account, KYC, or payment details'**
+  String get reasonBankKyc;
+
+  /// No description provided for @reasonPaymentRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Asks you to send or approve a payment'**
+  String get reasonPaymentRequest;
+
+  /// No description provided for @reasonPrizeLottery.
+  ///
+  /// In en, this message translates to:
+  /// **'Looks like a prize or lottery reward scam'**
+  String get reasonPrizeLottery;
+
+  /// No description provided for @reasonParcelDelivery.
+  ///
+  /// In en, this message translates to:
+  /// **'Mentions a suspicious parcel or delivery issue'**
+  String get reasonParcelDelivery;
+
+  /// No description provided for @reasonCryptoInvestment.
+  ///
+  /// In en, this message translates to:
+  /// **'Mentions risky crypto investment or guaranteed returns'**
+  String get reasonCryptoInvestment;
+
+  /// No description provided for @reasonSenderSuspicious.
+  ///
+  /// In en, this message translates to:
+  /// **'Sender name looks unusual or suspicious'**
+  String get reasonSenderSuspicious;
+
+  /// No description provided for @reasonInCallOtp.
+  ///
+  /// In en, this message translates to:
+  /// **'An OTP arrived while you are on a phone call — common scam pattern'**
+  String get reasonInCallOtp;
+
   /// No description provided for @messageFromLabel.
   ///
   /// In en, this message translates to:

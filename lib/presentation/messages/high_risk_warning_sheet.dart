@@ -5,6 +5,7 @@ import 'package:elder_shield/application/app_providers.dart';
 import 'package:elder_shield/data/message_repository.dart';
 import 'package:elder_shield/domain/detector/heuristic_detector.dart';
 import 'package:elder_shield/utils/snackbars.dart';
+import 'package:elder_shield/presentation/messages/reason_localizations.dart';
 
 /// Full-height bottom sheet for real-time high-risk alert (Block 7).
 /// Same actions as Risk Detail: This is a Scam / This is Safe / Call Trusted / Block sender.
@@ -123,23 +124,25 @@ class _HighRiskWarningContent extends ConsumerWidget {
                   ),
                 ),
                 const SizedBox(height: 8),
-                ...message.reasons.map(
-                  (r) => Padding(
-                    padding: const EdgeInsets.only(bottom: 4),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text('• ', style: TextStyle(fontSize: 16)),
-                        Expanded(
-                          child: Text(
-                            r,
-                            style: const TextStyle(fontSize: 15),
-                          ),
+                ...message.reasons
+                    .map((r) => localizeDetectionReason(r, l10n))
+                    .map(
+                      (r) => Padding(
+                        padding: const EdgeInsets.only(bottom: 4),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text('• ', style: TextStyle(fontSize: 16)),
+                            Expanded(
+                              child: Text(
+                                r,
+                                style: const TextStyle(fontSize: 15),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
-                  ),
-                ),
               ],
               const SizedBox(height: 24),
               // Primary safety actions: Scam (red) and Safe (green)

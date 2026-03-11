@@ -588,6 +588,36 @@ class AppLocalizationsEn extends AppLocalizations {
   String get exampleWarningReasonUrgentLanguage => 'Uses urgent or threatening language';
 
   @override
+  String get reasonShortUrl => 'Contains a shortened or suspicious link';
+
+  @override
+  String get reasonOtpMention => 'Asks for or mentions a one-time code (OTP)';
+
+  @override
+  String get reasonUrgentLanguage => 'Uses urgent or threatening language';
+
+  @override
+  String get reasonBankKyc => 'Mentions bank account, KYC, or payment details';
+
+  @override
+  String get reasonPaymentRequest => 'Asks you to send or approve a payment';
+
+  @override
+  String get reasonPrizeLottery => 'Looks like a prize or lottery reward scam';
+
+  @override
+  String get reasonParcelDelivery => 'Mentions a suspicious parcel or delivery issue';
+
+  @override
+  String get reasonCryptoInvestment => 'Mentions risky crypto investment or guaranteed returns';
+
+  @override
+  String get reasonSenderSuspicious => 'Sender name looks unusual or suspicious';
+
+  @override
+  String get reasonInCallOtp => 'An OTP arrived while you are on a phone call — common scam pattern';
+
+  @override
   String messageFromLabel(String sender) {
     return 'From: $sender';
   }

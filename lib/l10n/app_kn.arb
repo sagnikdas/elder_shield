@@ -1,13 +1,13 @@
 {
   "@@locale": "kn",
 
-  "appTitle": "Elder Shield",
+  "appTitle": "ಎಲ್ಡರ್ ಶೀಲ್ಡ್",
 
-  "settingsTitle": "Settings",
+  "settingsTitle": "ಸೆಟ್ಟಿಂಗ್‌ಗಳು",
 
-  "homeAppBarTitle": "Elder Shield",
-  "homePostOnboardingTitle": "You're protected",
-  "homePostOnboardingBody": "From Home you can call {contactName} anytime.",
+  "homeAppBarTitle": "ಎಲ್ಡರ್ ಶೀಲ್ಡ್",
+  "homePostOnboardingTitle": "ನೀವು ಈಗ ಸುರಕ್ಷಿತರಾಗಿದ್ದೀರಿ",
+  "homePostOnboardingBody": "ಹೋಮ್ ಪರದಿಯಿಂದ ನೀವು ಯಾವಾಗ ಬೇಕಾದರೂ {contactName}ರನ್ನು ಕರೆ ಮಾಡಬಹುದು.",
   "@homePostOnboardingBody": {
     "description": "Message shown after onboarding; contactName is either the trusted contact's name or a generic phrase.",
     "placeholders": {
@@ -16,21 +16,21 @@
       }
     }
   },
-  "commonGotIt": "Got it",
+  "commonGotIt": "ಸರಿ",
 
-  "homeTrustedContactFallbackName": "your trusted contact",
+  "homeTrustedContactFallbackName": "ನಿಮ್ಮ ನಂಬಿಕೆಯ ಸಂಪರ್ಕ",
 
   "permissionsDialogTitle": "Enable protection in Settings",
   "permissionsDialogBody": "Elder Shield needs SMS and Phone access to check your messages for scams.\n\nOpen app settings to turn these permissions on?",
   "commonCancel": "Cancel",
   "permissionsDialogOpenSettings": "Open settings",
 
-  "homeProtectionStatusLabel": "Protection status",
-  "homeProtectionStatusProtected": "Protected",
-  "homeProtectionStatusPermissionsNeeded": "Permissions needed",
-  "homeEnableProtectionButton": "Enable protection",
+  "homeProtectionStatusLabel": "ರಕ್ಷಣೆ ಸ್ಥಿತಿ",
+  "homeProtectionStatusProtected": "ರಕ್ಷಿಸಲಾಗಿದೆ",
+  "homeProtectionStatusPermissionsNeeded": "ಅನುಮತಿಗಳು ಬೇಕು",
+  "homeEnableProtectionButton": "ರಕ್ಷಣೆ ಆನ್ ಮಾಡಿ",
 
-  "homeTodayRiskSummaryWithCount": "{count} suspicious message(s) detected today.",
+  "homeTodayRiskSummaryWithCount": "ಇಂದು {count} ಅನುಮಾನಾಸ್ಪದ ಸಂದೇಶ(ಗಳು) ಪತ್ತೆಯಾಗಿದೆ.",
   "@homeTodayRiskSummaryWithCount": {
     "description": "Summary of today's suspicious messages with count.",
     "placeholders": {
@@ -39,13 +39,13 @@
       }
     }
   },
-  "homeTodayRiskSummaryNoRisk": "No suspicious activity today.",
-  "homeTodayRiskTapToSeeMessages": "Tap to see messages",
+  "homeTodayRiskSummaryNoRisk": "ಇಂದು ಯಾವುದೇ ಅನುಮಾನಾಸ್ಪದ ಚಟುವಟಿಕೆ ಇಲ್ಲ.",
+  "homeTodayRiskTapToSeeMessages": "ಸಂದೇಶಗಳನ್ನು ನೋಡಲು ಟ್ಯಾಪ್ ಮಾಡಿ",
   "commonView": "View",
 
-  "homeAutoCheckInfo": "Elder Shield checks new messages automatically.",
+  "homeAutoCheckInfo": "ಎಲ್ಡರ್ ಶೀಲ್ಡ್ ಹೊಸ ಸಂದೇಶಗಳನ್ನು ಸ್ವಯಂ ಪರೀಕ್ಷಿಸುತ್ತದೆ.",
 
-  "homeCallTrustedButtonLabel": "Call {name}",
+  "homeCallTrustedButtonLabel": "{name}ರಿಗೆ ಕರೆ ಮಾಡಿ",
   "@homeCallTrustedButtonLabel": {
     "description": "Label for the big call trusted contact button.",
     "placeholders": {
@@ -55,41 +55,41 @@
     }
   },
 
-  "homeCallTooltipText": "Tap here anytime you get a worrying message.",
+  "homeCallTooltipText": "ಯಾವುದೇ ಕಳವಳದ ಸಂದೇಶ ಬಂದಾಗ ಇಲ್ಲಿ ಟ್ಯಾಪ್ ಮಾಡಿ.",
 
-  "homeAddTrustedIntro": "Add a trusted contact so you can call them quickly if you get a scary message.",
-  "homeAddTrustedButton": "Add a trusted contact",
-  "homeWhyAddTrustedShow": "Why add a trusted contact?",
-  "homeWhyAddTrustedHide": "Hide why",
-  "homeWhyAddTrustedExplanation": "If you ever get a worrying message, you can tap one big button to call someone you trust instead of guessing what to do alone.",
-  "homeTrustedContactsHeader": "Your trusted contacts",
+  "homeAddTrustedIntro": "ಭಯ ಹುಟ್ಟಿಸುವ ಸಂದೇಶ ಬಂದರೆ ತಕ್ಷಣ ಕರೆ ಮಾಡಲು ಒಬ್ಬ ನಂಬಿಕೆಯ ವ್ಯಕ್ತಿಯನ್ನು ಸೇರಿಸಿ.",
+  "homeAddTrustedButton": "ನಂಬಿಕೆಯ ಸಂಪರ್ಕ ಸೇರಿಸಿ",
+  "homeWhyAddTrustedShow": "ನಂಬಿಕೆಯ ಸಂಪರ್ಕವನ್ನು ಏಕೆ ಸೇರಿಸಬೇಕು?",
+  "homeWhyAddTrustedHide": "ಕಾರಣ ಅಡಗಿಸಿ",
+  "homeWhyAddTrustedExplanation": "ಒಂದು ಆತಂಕಕಾರಿ ಸಂದೇಶ ಬಂದಾಗ ನೀವು ಒಬ್ಬರೇ ತೀರ್ಮಾನ ತೆಗೆದುಕೊಳ್ಳಬಾರದೆಂದು, ಒಂದು ದೊಡ್ಡ ಬಟನ್ ಒತ್ತುವುದರಿಂದ ನೀವು ನಂಬಿಕೆಯ ವ್ಯಕ್ತಿಗೆ ಕರೆ ಮಾಡಬಹುದು.",
+  "homeTrustedContactsHeader": "ನಿಮ್ಮ ನಂಬಿಕೆಯ ಸಂಪರ್ಕಗಳು",
 
-  "highRiskHeaderTitle": "Danger: possible scam message",
-  "highRiskHeaderBody": "Do not tap any links or share codes from this message.",
-  "highRiskWhyFlaggedTitle": "Why this was flagged:",
+  "highRiskHeaderTitle": "ಎಚ್ಚರಿಕೆ: ಇದು ಮೋಸ ಸಂದೇಶವಾಗಿರಬಹುದು",
+  "highRiskHeaderBody": "ಈ ಸಂದೇಶದಲ್ಲಿರುವ ಯಾವುದೇ ಲಿಂಕ್‌ಗಳಿಗೆ ಟ್ಯಾಪ್ ಮಾಡಬೇಡಿ, ಯಾವುದೇ ಕೋಡ್‌ಗಳನ್ನು ಹಂಚಿಕೊಳ್ಳಬೇಡಿ.",
+  "highRiskWhyFlaggedTitle": "ಏಕೆ ಇದು ಗುರುತಿಸಲಾಗಿದೆ:",
 
-  "actionScam": "This is a Scam",
-  "actionSafe": "This is Safe",
+  "actionScam": "ಇದು ಮೋಸ",
+  "actionSafe": "ಇದು ಸುರಕ್ಷಿತ",
 
-  "snackbarGenericError": "Something went wrong. Try again.",
-  "snackbarMarkedScam": "Marked as scam. Thank you.",
+  "snackbarGenericError": "ಏನೋ ತಪ್ಪಾಗಿದೆ. ಮತ್ತೊಮ್ಮೆ ಪ್ರಯತ್ನಿಸಿ.",
+  "snackbarMarkedScam": "ಮೋಸವೆಂದು ಗುರುತಿಸಲಾಗಿದೆ. ಧನ್ಯವಾದಗಳು.",
 
-  "highRiskSwipeUpForDetails": "Swipe up for more details",
+  "highRiskSwipeUpForDetails": "ಹೆಚ್ಚು ವಿವರಗಳನ್ನು ನೋಡಲು ಮೇಲೆ ಸ್ವೈಪ್ ಮಾಡಿ",
 
-  "riskLowLabel": "Low risk",
-  "riskMediumLabel": "Medium risk — review",
-  "riskHighLabel": "High risk — possible scam",
+  "riskLowLabel": "ಕಡಿಮೆ ಅಪಾಯ",
+  "riskMediumLabel": "ಮಧ್ಯಮ ಅಪಾಯ — ಗಮನಿಸಿ",
+  "riskHighLabel": "ಹೆಚ್ಚು ಅಪಾಯ — ಸಾಧ್ಯವಾದ ಮೋಸ",
 
   "deleteMessageTitle": "Delete message?",
   "deleteMessageBody": "Are you sure? This will remove the message from Elder Shield.",
   "deleteMessageConfirm": "Delete",
-  "deleteMessageDeletedSnackbar": "Removed from Elder Shield.",
+  "deleteMessageDeletedSnackbar": "ಎಲ್ಡರ್ ಶೀಲ್ಡ್‌ನಿಂದ ಅಳಿಸಲಾಗಿದೆ.",
 
-  "languageSectionTitle": "Language",
-  "languageEnglishName": "English",
-  "languageBengaliName": "Bengali",
+  "languageSectionTitle": "ಭಾಷೆ",
+  "languageEnglishName": "ಇಂಗ್ಲಿಷ್",
+  "languageBengaliName": "ಬೆಂಗಾಲಿ",
   "languageKannadaName": "ಕನ್ನಡ",
-  "languageSectionSubtitle": "Current: {languageName}",
+  "languageSectionSubtitle": "ಪ್ರಸ್ತುತ: {languageName}",
   "@languageSectionSubtitle": {
     "description": "Subtitle showing currently selected language.",
     "placeholders": {
@@ -97,6 +97,138 @@
         "type": "String"
       }
     }
-  }
+  },
+
+  "messagesAppBarTitle": "ಸಂದೇಶಗಳು",
+
+  "settingsAppearanceTitle": "ದೃಶ್ಯರೂಪ",
+
+  "settingsTextSizeTitle": "ಪಠ್ಯದ ಗಾತ್ರ",
+
+  "settingsLegalTitle": "ಕಾನೂನು ಮತ್ತು ಮಾಹಿತಿ",
+
+  "settingsSensitivityTitle": "ಸಂವೇದನಾಶೀಲತೆ",
+
+  "settingsTrustedContactsTitle": "ನಂಬಿಕೆಯ ಸಂಪರ್ಕಗಳು",
+
+  "settingsAdvancedSectionTitle": "ಮುನ್ನಡೆ ಆಯ್ಕೆಗಳು",
+  "settingsDeleteAllHistoryButton": "ಎಲ್ಲಾ ಇತಿಹಾಸವನ್ನು ಅಳಿಸಿ",
+  "settingsRerunPermissionsButton": "ಅನುಮತಿಗಳನ್ನು ಮತ್ತೆ ಪರಿಶೀಲಿಸಿ",
+
+  "snackbarUpdated": "ನವೀಕರಿಸಲಾಗಿದೆ",
+
+  "messagesRefreshSnackbar": "ಪಟ್ಟಿ ನವೀಕರಿಸಲಾಗಿದೆ",
+
+  "fullScreenWarningTitle": "ಸಂಭಾವ್ಯ ಮೋಸ",
+  "fullScreenWarningClosingNote": "ಈ ಪರದೆಯನ್ನು ಮುಚ್ಚಿದರೂ ನಿಮ್ಮ ಫೋನ್‌ನಲ್ಲಿನ ಸಂದೇಶ ಅಳಿಸದು.",
+  "fullScreenWarningDeleteAction": "ಸಂದೇಶ ಅಳಿಸಿ",
+  "fullScreenWarningDeleteSnackbar": "ಎಲ್ಡರ್ ಶೀಲ್ಡ್‌ನಿಂದ ಅಳಿಸಲಾಗಿದೆ. ನಿಮ್ಮ ಫೋನ್‌ನಿಂದ ಅಳಿಸಲು ಮೆಸೇಜಿಂಗ್ ಆ್ಯಪ್ ತೆರೆಯಲಾಗುತ್ತಿದೆ.",
+  "fullScreenWarningBlockSender": "ಈ ಕಳುಹಿಸಿದವರನ್ನು ಬ್ಲಾಕ್ ಮಾಡಿ (ಮೆಸೇಜಿಂಗ್ ಆ್ಯಪ್ ತೆರೆಯುತ್ತದೆ)",
+
+  "messageFromLabel": "ಕಳುಹಿಸಿದವರು: {sender}",
+  "@messageFromLabel": {
+    "placeholders": {
+      "sender": {
+        "type": "String"
+      }
+    }
+  },
+
+  "onboardingStepOf": "ಹಂತ {step} / {total}",
+  "@onboardingStepOf": {
+    "placeholders": {
+      "step": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+
+  "onboardingWelcomeBody1": "ಎಲ್ಡರ್ ಶೀಲ್ಡ್ ನಿಮ್ಮ ಸಂದೇಶಗಳು ಮತ್ತು ಕರೆಗಳನ್ನು ಗಮನಿಸಿ, ಮೋಸವಿರಬಹುದು ಎಂದು ಕಂಡುಬಂದರೆ ಮುಂಚಿತವಾಗಿ ಎಚ್ಚರಿಸುತ್ತದೆ.",
+  "onboardingWelcomeBody2": "ನೀವು ಅನುಮಾನದಲ್ಲಿ ಇದ್ದರೆ, ಒಂದೇ ಟ್ಯಾಪ್‌ನಿಂದ ನಂಬಿಕೆಯ ವ್ಯಕ್ತಿಗೆ ಕರೆ ಮಾಡಬಹುದು.",
+  "onboardingGetStarted": "ಪ್ರಾರಂಭಿಸೋಣ",
+
+  "onboardingPermissionsTitle": "ಈ ಅನುಮತಿಗಳು ಏಕೆ ಬೇಕು",
+  "onboardingPermissionsBulletMessages": "ಮೆಸೇಜುಗಳು: ನಿಮ್ಮ ಎಸ್‌ಎಂಎಸ್ ಓದಿ, ಅವುಗಳಲ್ಲಿ ಮೋಸದ ಲಕ್ಷಣಗಳಿದ್ದರೆ ಎಚ್ಚರಿಸಲು.",
+  "onboardingPermissionsBulletPhone": "ಫೋನ್: ನೀವು ಯಾವಾಗ ಕರೆಗಳಲ್ಲಿ ಇದ್ದೀರಿ ಎಂದು ತಿಳಿದುಕೊಳ್ಳಲು. ಮೋಸಗಾರರು ಹಲವಾರು ಬಾರಿ ಫೋನ್‌ನಲ್ಲಿ ಮಾತನಾಡಿಸುತ್ತಾ ಒಟಿಪಿ ಕೇಳುತ್ತಾರೆ.",
+  "onboardingPermissionsBody1": "ಕೆಳಗಿನ \"ಅನುಮತಿಗಳನ್ನು ನೀಡಿ\" ಮೇಲೆ ಟ್ಯಾಪ್ ಮಾಡಿದಾಗ, ನಿಮ್ಮ ಸಾಧನವು ಮೆಸೇಜುಗಳು, ಫೋನ್ ಮತ್ತು ನೋಟಿಫಿಕೇಶನ್‌ಗಳ ಅನುಮತಿಯನ್ನು ಕೇಳುತ್ತದೆ (ಮೋಸದ ಶಂಕೆಯಿದ್ದರೆ ಆ್ಯಪ್ ಮುಚ್ಚಿದ್ದರೂ ನಾವು ಎಚ್ಚರಿಸಲು).",
+  "onboardingPermissionsBody2": "ಮೋಸ ಪರಿಶೀಲನೆಗೆ ಹೊರತು ಬೇರೆ ಯಾವ ಕಾರಣಕ್ಕೂ ನಾವು ನಿಮ್ಮ ಸಂದೇಶಗಳನ್ನು ಓದುತ್ತಿಲ್ಲ.",
+  "onboardingPermissionsRetryWarning": "ಕೆಲವು ಅನುಮತಿಗಳನ್ನು ನಿರಾಕರಿಸಲಾಗಿದೆ. ನೀವು ಅವನ್ನು ನೀಡುವವರೆಗೂ ರಕ್ಷಣೆ ಸೀಮಿತವಾಗಿರುತ್ತದೆ.",
+  "onboardingPermissionsPrimaryAllow": "ಅನುಮತಿಗಳನ್ನು ನೀಡಿ",
+  "onboardingPermissionsPrimaryRetry": "ಮತ್ತೊಮ್ಮೆ ಪ್ರಯತ್ನಿಸಿ",
+  "onboardingSkipForNow": "ಈಗ ಇರಲಿ",
+
+  "onboardingTrustedTitle": "ನಂಬಿಕೆಯ ಸಂಪರ್ಕವನ್ನು ಸೇರಿಸಿ",
+  "onboardingTrustedBody1": "ಯಾವುದಾದರೂ ಆತಂಕಕಾರಿ ಸಂದೇಶ ಬಂದರೆ ನೀವು ಕರೆ ಮಾಡಲು ಇಚ್ಛಿಸುವ — ಕುಟುಂಬದ ಸದಸ್ಯ ಅಥವಾ ಆಪ್ತ ಸ್ನೇಹಿತನಂತೆ — ಒಬ್ಬರನ್ನು ಆಯ್ಕೆಮಾಡಿ.",
+  "onboardingTrustedBody2": "ಇವರನ್ನು ಸೇರಿಸಿದ ನಂತರ, ಹೋಮ್ ಪರದೆ ಅಥವಾ ನಾವು ಮೋಸ ಎಚ್ಚರಿಕೆ ತೋರಿಸಿದಾಗ ಒಂದೇ ಟ್ಯಾಪ್‌ನಿಂದ ಈ ವ್ಯಕ್ತಿಗೆ ಕರೆ ಮಾಡಬಹುದು.",
+  "onboardingTrustedAddFromContacts": "ಸಂಪರ್ಕಗಳಿಂದ ಸೇರಿಸಿ",
+  "onboardingTrustedAddFromContactsUnavailable": "ಈ ಪೂರ್ವವೀಕ್ಷಣಾ ಆವೃತ್ತಿಯಲ್ಲಿ ಸಾಧನದ ಕಾನ್ಟ್ಯಾಕ್ಟ್ ಪಿಕರ್ ಇನ್ನೂ ಲಭ್ಯವಿಲ್ಲ.",
+  "onboardingTrustedOrEnterManually": "ಅಥವಾ ಸಂಖ್ಯೆಯನ್ನು ಕೈಯಾರೆ ನಮೂದಿಸಿ:",
+  "onboardingTrustedDone": "ಆಯಿತು",
+  "onboardingTrustedSeeWarningCta": "ಎಚ್ಚರಿಕೆ ಹೇಗಿರುತ್ತದೆ ಎಂದು ನೋಡಿ",
+  "onboardingTrustedMissingFields": "ದಯವಿಟ್ಟು ಹೆಸರು ಮತ್ತು ಸಂಖ್ಯೆಯನ್ನು ಎರಡನ್ನೂ ನಮೂದಿಸಿ",
+
+  "howItWorksBulletWhatWeCheck": "ನಾವು ಏನು ನೋಡುತ್ತೇವೆ: ನಿಮ್ಮ ಎಸ್‌ಎಂಎಸ್‌ಗಳನ್ನು ಓದಿ, ಅದರಲ್ಲಿ ಅನುಮಾನಾಸ್ಪದ ಲಿಂಕ್‌ಗಳು, ತುರ್ತುವಾದ ಭಾಷೆ, ಒಟಿಪಿ ಅಥವಾ ಬ್ಯಾಂಕ್ ವಿವರಗಳನ್ನು ಕೇಳುವುದು, ಬ್ಯಾಂಕ್ ಅಥವಾ ಪರಿಚಿತ ಸೇವೆಯಂತೆ ನಟಿಸುವ ಸಂದೇಶಗಳು ಇತ್ಯಾದಿ ಮೋಸದ ಲಕ್ಷಣಗಳಿಗಾಗಿ ಪರಿಶೀಲಿಸುತ್ತೇವೆ.",
+  "howItWorksBulletWhenWeAlert": "ಯಾವಾಗ ಎಚ್ಚರಿಸುತ್ತೇವೆ: ಸಂದೇಶ ಅನುಮಾನಾಸ್ಪದ ಕಾಣಿಸಿದರೆ ನಾವು ನಿಮಗೆ ತಿಳಿಸುತ್ತೇವೆ. ಹೆಚ್ಚು ಅಪಾಯದ ಸಂದೇಶಗಳಿಗೆ, ಆ್ಯಪ್ ಬ್ಯಾಕ್ಗ್ರೌಂಡ್‌ನಲ್ಲಿದ್ದಾಗಲೂ ಪಾಪ್‌ಅಪ್ ತೋರಿಸಿ, ಅದನ್ನು ಸಂದೇಶಗಳ ಪಟ್ಟಿಯಲ್ಲಿ ಹೈಲೈಟ್ ಮಾಡಬಹುದು.",
+  "howItWorksBulletWhatToDo": "ಎಚ್ಚರಿಕೆ ಕಂಡಾಗ ಏನು ಮಾಡಬೇಕು: ಸಂದೇಶದಲ್ಲಿನ ಯಾವುದೇ ಲಿಂಕ್‌ಗೆ ಟ್ಯಾಪ್ ಮಾಡಬೇಡಿ. \"ಇದು ಮೋಸ\" ಅಥವಾ \"ಇದು ಸುರಕ್ಷಿತ\" ಎಂದು ಗುರುತಿಸುವುದರಿಂದ ನಮ್ಮಿಗೆ ಕಲಿಯಲು ಸಹಾಯ ಮಾಡಬಹುದು. ಅತ್ಯುತ್ತಮ ಕ್ರಮ: ಎಚ್ಚರಿಕೆ ಪರದೆ ಅಥವಾ ಹೋಮ್‌ನಿಂದಲೇ ನಿಮ್ಮ ನಂಬಿಕೆಯ ಸಂಪರ್ಕಕ್ಕೆ ಕರೆ ಮಾಡಿ.",
+  "howItWorksBulletCallTrusted": "ನಂಬಿಕೆಯ ಸಂಪರ್ಕಕ್ಕೆ ಹೇಗೆ ಕರೆ ಮಾಡುವುದು: ಹೋಮ್ ಪರದೆಯಲ್ಲಿ ದೊಡ್ಡ \"ಕಾಲ್ [ಹೆಸರು]\" ಬಟನ್ ಮೇಲೆ ಯಾವಾಗ ಬೇಕಾದರೂ — ವಿಶೇಷವಾಗಿ ಚಿಂತೆಯ ಸಂದೇಶ ಬಂದಾಗ — ಟ್ಯಾಪ್ ಮಾಡಿ. ನಾವು ಸಾಧ್ಯವಾದ ಮೋಸ ತೋರಿಸಿದಾಗ, ಎಚ್ಚರಿಕೆ ಪರದೆಯಿಂದಲೂ ಕರೆ ಮಾಡಬಹುದು.",
+  "howItWorksSeeWarningCta": "ಎಚ್ಚರಿಕೆ ಹೇಗಿರುತ್ತದೆ ಎಂದು ನೋಡಿ",
+
+  "settingsPrivacyPolicyTitle": "ಗೌಪ್ಯತಾ ನೀತಿ",
+  "settingsPrivacyPolicySubtitle": "ನಾವು ನಿಮ್ಮ ಡೇಟಾವನ್ನು ಹೇಗೆ ಬಳಸುತ್ತೇವೆ",
+  "settingsPermissionsExplainedTitle": "ಅನುಮತಿಗಳ ವಿವರ",
+  "settingsPermissionsExplainedSubtitle": "ಪ್ರತಿ ಅನುಮತಿ ಏಕೆಬೇಕೆಂದು",
+  "settingsHowItWorksTitle": "ಎಲ್ಡರ್ ಶೀಲ್ಡ್ ಹೇಗೆ ಕೆಲಸ ಮಾಡುತ್ತದೆ",
+  "settingsHowItWorksSubtitle": "ನಾವು ಏನು ಪರಿಶೀಲಿಸುತ್ತೇವೆ, ಯಾವಾಗ ಎಚ್ಚರಿಸುತ್ತೇವೆ, ಏನು ಮಾಡಬೇಕು",
+  "settingsAboutTitle": "ಎಲ್ಡರ್ ಶೀಲ್ಡ್ ಬಗ್ಗೆ",
+
+  "permissionsIntro": "ಎಲ್ಡರ್ ಶೀಲ್ಡ್ ಅನುಮತಿಗಳನ್ನು ಕೇವಲ ಮೋಸಗಳಿಂದ ರಕ್ಷಣೆಗಾಗಿ ಮಾತ್ರ ಬಳಸುತ್ತದೆ. ನೀವು ಯಾವುದನ್ನಾದರೂ ನಿರಾಕರಿಸಬಹುದು; ರಕ್ಷಣೆ ಸೀಮಿತವಾಗುತ್ತದೆಯೇ ಹೊರತು, ಆ್ಯಪ್ ಇನ್ನೂ ಕೆಲಸ ಮಾಡುತ್ತದೆ.",
+  "permissionsSmsTitle": "ಸಂದೇಶಗಳು (SMS)",
+  "permissionsSmsBody": "ನಿಮ್ಮ ಬಳಿ ಹೊಸ SMS ಬಂದಾಗ, ನಾವು ಅದನ್ನು ಓದಿ ಅದರಲ್ಲಿ ಮೋಸದ ಲಕ್ಷಣಗಳಿವೆಯೇ ಎಂದು ಪರಿಶೀಲಿಸುತ್ತೇವೆ (ಉದಾ. ಅನುಮಾನಾಸ್ಪದ ಲಿಂಕ್‌ಗಳು, ಒಟಿಪಿ ಮೋಸ, ಬ್ಯಾಂಕ್ ಸಂಬಂಧಿತ ಪದಗಳು). ಯಾವುದೇ ಸಂದೇಶ ವಿಷಯವನ್ನು ನಿಮ್ಮ ಸಾಧನದ ಹೊರಗೆ ಕಳುಹಿಸಲಾಗುವುದಿಲ್ಲ. ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ನೀವು ವಿಶ್ಲೇಷಿಸಲಾದ ಇತಿಹಾಸವನ್ನು ಎಲ್ಲವನ್ನೂ ಅಳಿಸಬಹುದು.",
+  "permissionsPhoneStateTitle": "ಫೋನ್ (ಸ್ಥಿತಿ ಓದು)",
+  "permissionsPhoneStateBody": "ನೀವು ಯಾವಾಗ ಫೋನ್‌ನಲ್ಲಿ ಮಾತನಾಡುತ್ತಿದ್ದೀರಿ ಎಂಬುದನ್ನು ತಿಳಿದುಕೊಳ್ಳಲು ಇದು ಬೇಕಾಗುತ್ತದೆ, ಹೀಗಾಗಿ ಕರೆ ನಡುವೆಯೇ ಒಟಿಪಿ ಬಂದರೆ ಅಪಾಯದ ಮಟ್ಟ ಹೆಚ್ಚಾಗಿದೆ ಎಂದು ಗುರುತಿಸಬಹುದು (ಸಾಮಾನ್ಯ ಮೋಸ ಮಾದರಿ). ನಾವು ಕರೆಗಳನ್ನು ದಾಖಲೆ ಮಾಡುವುದಿಲ್ಲ, ಆಡಿಯೋ ಕೇಳುವುದಿಲ್ಲ, ಅಥವಾ ನಿಮ್ಮ ಕಾಲ್ ಲಾಗ್‌ಗೆ ಪ್ರವೇಶಿಸುವುದಿಲ್ಲ.",
+  "permissionsPhoneCallTitle": "ಫೋನ್ (ಕರೆಮಾಡುವುದು)",
+  "permissionsPhoneCallBody": "ಹೋಮ್ ಪರದೆಯಿಂದ ಅಥವಾ ಎಚ್ಚರಿಕೆ ಪರದೆಯಿಂದ ನೀವು \"ನಂಬಿಕೆಯ ಸಂಪರ್ಕಕ್ಕೆ ಕರೆಮಾಡಿ\" ಬಟನ್ ಒತ್ತಬಹುದಾಗಿ ಮಾಡಲು. ನೀವು ಬಟನ್ ಒತ್ತಿದಾಗ ಮಾತ್ರ, ಮತ್ತು ನೀವು ನಂಬಿಕೆಯ ಸಂಪರ್ಕವಾಗಿ ಸೇರಿಸಿದ ಸಂಖ್ಯೆಗೆ ಮಾತ್ರ, ಕರೆ ಪ್ರಾರಂಭವಾಗುತ್ತದೆ.",
+  "permissionsNotificationsTitle": "ಅಧಿಸೂಚನೆಗಳು",
+  "permissionsNotificationsBody": "ಅನುಮಾನಾಸ್ಪದ ಅಥವಾ ಹೆಚ್ಚು ಅಪಾಯದ ಸಂದೇಶ ಪತ್ತೆಯಾದಾಗ ನಿಮಗೆ ಶೀಘ್ರವಾಗಿ ತಿಳಿಸಲು. ನೀವು ಸಿಸ್ಟಮ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಅಧಿಸೂಚನೆಗಳನ್ನು ಆಫ್ ಮಾಡಬಹುದು; ಹೀಗೆ ಮಾಡಿದರೂ ಆ್ಯಪ್ ಅನ್ನು ಬಳಸಲು ಸಾಧ್ಯ.",
+  "permissionsOverlayTitle": "ಇತರ ಆ್ಯಪ್‌ಗಳ ಮೇಲೂ ತೋರಿಸುವ ಅನುಮತಿ (ಐಚ್ಛಿಕ)",
+  "permissionsOverlayBody": "ಆಂಡ್ರಾಯ್ಡ್ ಓವರ್‌ಲೇ ಅನುಮತಿಯನ್ನು ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಆನ್ ಮಾಡಿದರೆ, ಅತ್ಯಂತ ಅಪಾಯದ ಸಂದೇಶ ಬಂದಾಗ ಎಲ್ಡರ್ ಶೀಲ್ಡ್ ಇತರ ಆ್ಯಪ್‌ಗಳ ಮೇಲೂ ತುರ್ತು ಎಚ್ಚರಿಕೆ ತೋರಿಸಬಹುದು. ಇದು ಸಂಪೂರ್ಣವಾಗಿ ಐಚ್ಛಿಕ — ವೈಯಕ್ತಿಕ ಸುರಕ್ಷತಾ ಬಳಕೆಗಾಗಿ ಶಿಫಾರಸು ಮಾಡಲಾಗಿದೆ.",
+
+  "settingsOverlayTitle": "ಇತರ ಆ್ಯಪ್‌ಗಳ ಮೇಲಿನ ತುರ್ತು ಪಾಪ್-ಅಪ್",
+  "settingsOverlaySubtitleEnabled": "ಸಕ್ರಿಯ: ಹೆಚ್ಚು ಅಪಾಯದ ಎಚ್ಚರಿಕೆಗಳು ಇತರ ಆ್ಯಪ್‌ಗಳ ಮೇಲೆಯೂ ತೋರಿಸಬಹುದು. ನೀವು ಬೇರೆ ಆ್ಯಪ್‌ನಲ್ಲಿ ಇದ್ದರೂ ಎಚ್ಚರಿಸಲು ಇದು ಶಿಫಾರಸು ಮಾಡಲಾಗಿದೆ.",
+  "settingsOverlaySubtitleDisabled": "ಆಫ್: ಆಂಡ್ರಾಯ್ಡ್ ಓವರ್‌ಲೇ ಅನುಮತಿಯನ್ನು ಆನ್ ಮಾಡಲು ಇಲ್ಲಿ ಟ್ಯಾಪ್ ಮಾಡಿ. ನೀವು ಬೇರೆ ಆ್ಯಪ್‌ನಲ್ಲಿ ಇದ್ದರೂ ಎಚ್ಚರಿಕೆ ಪಡೆಯಲು ಇದನ್ನು ಆನ್ ಮಾಡುವುದು ಉತ್ತಮ.",
+
+  "privacyTitle": "ಗೌಪ್ಯತಾ ನೀತಿ",
+  "privacySection1Title": "1. ನಾವು ಯಾರು",
+  "privacySection1Body": "ಎಲ್ಡರ್ ಶೀಲ್ಡ್ ಒಂದು ಆಂಡ್ರಾಯ್ಡ್ ಆ್ಯಪ್ ಆಗಿದ್ದು, ಸಾಧನದಲ್ಲೇ ಸಂದೇಶಗಳನ್ನು ವಿಶ್ಲೇಷಿಸಿ, ಅನುಮಾನಾಸ್ಪದವಾಗಿ ಕಂಡರೆ ಎಚ್ಚರಿಕೆ ನೀಡಿ, ಹಿರಿಯ ಬಳಕೆದಾರರನ್ನು SMS ಮತ್ತು ಕರೆ ಸಂಬಂಧಿತ ಮೋಸಗಳಿಂದ ರಕ್ಷಿಸಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ.",
+  "privacySection2Title": "2. ನಾವು ಯಾವ ಡೇಟಾವನ್ನು ಸಂಸ್ಕರಿಸುತ್ತೇವೆ",
+  "privacySection2Paragraphs": "ಎಲ್ಲ ಸಂಸ್ಕರಣೆ ನಿಮ್ಮ ಸಾಧನದಲ್ಲೇ ನಡೆಯುತ್ತದೆ. ನಾವು ನಿಮ್ಮ ಸಂದೇಶಗಳು, ಕರೆ ಸ್ಥಿತಿ ಅಥವಾ ಬೇರೆ ಯಾವುದೇ ವ್ಯಕ್ತಿಗತ ಡೇಟಾವನ್ನು ನಮ್ಮ ಸರ್ವರ್‌ಗಳಿಗೆ ಅಥವಾ ತೃತೀಯ ಪಕ್ಷಗಳಿಗೆ ಕಳುಹಿಸುವುದಿಲ್ಲ.\n\nಸಂದೇಶ ಡೇಟಾ: ನೀವು ಎಸ್‌ಎಂಎಸ್ ಸ್ವೀಕರಿಸಿದಾಗ, ಆ್ಯಪ್ ಕಳುಹಿಸಿದವರ ಹೆಸರು/ಸಂಖ್ಯೆ, ಸಂದೇಶದ ಮೂಲಪಾಠ ಮತ್ತು ಸಮಯವನ್ನು ಓದುತ್ತದೆ. ಈ ಮಾಹಿತಿಯನ್ನು ಕೇವಲ ಸಾಧನದ ಒಳಗಿನ ಮೋಸ ಪತ್ತೆಗೆ ಮಾತ್ರ ಬಳಸಲಾಗುತ್ತದೆ. ಫಲಿತಾಂಶಗಳನ್ನು ನಿಮ್ಮ ಸಾಧನದಲ್ಲೇ ಉಳಿಸಲಾಗುತ್ತದೆ. ಸೆಟ್ಟಿಂಗ್‌ಗಳು → \"ಇತಿಹಾಸವನ್ನು ಎಲ್ಲವನ್ನೂ ಅಳಿಸಿ\" ಮುಖಾಂತರ ನೀವು ಯಾವಾಗ ಬೇಕಾದರೂ ಇದನ್ನು ಅಳಿಸಬಹುದು.\n\nಕರೆ ಸ್ಥಿತಿ: ನೀವು ಫೋನ್‌ನಲ್ಲಿ ಮಾತನಾಡುತ್ತಿದ್ದೀರಾ ಎಂಬುದನ್ನು ಆ್ಯಪ್ ಪರಿಶೀಲಿಸುತ್ತದೆ. ನಾವು ಕರೆಗಳನ್ನು ದಾಖಲೆ ಮಾಡುವುದಿಲ್ಲ, ಆಡಿಯೋ ಕೇಳುವುದಿಲ್ಲ, ಅಥವಾ ಕಾಲ್ ಲಾಗ್ ಅನ್ನು ಓದುತ್ತಿಲ್ಲ. ಇದು ಕೇವಲ ಪತ್ತೆಯ ಸುಧಾರಣೆಗಾಗಿ (ಉದಾ. ಕರೆ ನಡುವೆಯೇ ಒಟಿಪಿ ಬಂದಾಗ ಎಚ್ಚರಿಸಲು) ಬಳಸಲ್ಪಡುತ್ತದೆ.\n\nಸೆಟ್ಟಿಂಗ್‌ಗಳು ಮತ್ತು ನಂಬಿಕೆಯ ಸಂಪರ್ಕಗಳು: ನಿಮ್ಮ ಸಾಧನದಲ್ಲಿನ ಭದ್ರ ಸಂಗ್ರಹಣೆಯಲ್ಲಿ ಮಾತ್ರ ಉಳಿಯುತ್ತವೆ. \"ನಂಬಿಕೆಯ ಸಂಪರ್ಕಕ್ಕೆ ಕರೆಮಾಡಿ\" ಬಟನ್‌ಗೆ ಈ ಸಂಖ್ಯೆಗಳು ಮಾತ್ರ ಬಳಸಲ್ಪಡುತ್ತವೆ. ನಾವು ಅವರಿಗೆ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಕರೆ ಮಾಡೋಲ್ಲ ಅಥವಾ ಸಂದೇಶ ಕಳುಹಿಸೋಲ್ಲ.",
+  "privacySection3Title": "3. ನಾವು ಏನು ಮಾಡುವುದಿಲ್ಲ",
+  "privacySection3Paragraphs": "ನಾವು ನಿಮ್ಮ SMS ವಿಷಯ, ಕರೆ ಸ್ಥಿತಿ, ಅಥವಾ ಸಂಪರ್ಕ ಪಟ್ಟಿ ಯಾವುದನ್ನೂ ಇಂಟರ್‌ನೆಟ್‌ಗೆ ಕಳುಹಿಸುವುದಿಲ್ಲ.\n\nನಾವು ನಿಮ್ಮ ಡೇಟಾವನ್ನು ಜಾಹೀರಾತುದಾರರಿಗೆ ಅಥವಾ ಡೇಟಾ ವಹಿವಾಟುದಾರರಿಗೆ ಮಾರಾಟ, ಬಾಡಿಗೆ, ಅಥವಾ ಹಂಚಿಕೆ ಮಾಡುವುದಿಲ್ಲ.\n\nಆ್ಯಪ್ ಬಳಸಲು ನೀವು ಖಾತೆ ಸೃಷ್ಟಿಸಬೇಕಾಗಿಲ್ಲ ಅಥವಾ ಲಾಗಿನ್ ಆಗಬೇಕಾಗಿಲ್ಲ. ಅಗತ್ಯ ಅನುಮತಿಗಳನ್ನು ನೀಡಿದ ಬಳಿಕ ಆ್ಯಪ್ ಸಂಪೂರ್ಣವಾಗಿ ಆಫ್‌ಲೈನ್‌ನಲ್ಲಿ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತದೆ.\n\nನಾವು RCS/ಚಾಟ್ ಸಂದೇಶಗಳನ್ನು ಓದುತ್ತಿಲ್ಲ ಅಥವಾ ವಿಶ್ಲೇಷಿಸುವುದಿಲ್ಲ; ಕೇವಲ ಸಾಮಾನ್ಯ SMS ಗೆ ಮಾತ್ರ ಬೆಂಬಲವಿದೆ.",
+  "privacySection4Title": "4. ಅನುಮತಿಗಳು ಮತ್ತು ಅವು ಏಕೆ ಬೇಕು",
+  "privacySection4Paragraphs": "SMS (ಸ್ವೀಕರಿಸಿ/ಓದುವಿಕೆ): ಮೋಸ ಮಾದರಿಗಳಿಗಾಗಿ ವಿಶ್ಲೇಷಿಸಿ, ಎಚ್ಚರಿಕೆ ತೋರಿಸಲು ಒಳಬರುವ SMS ಗಳನ್ನು ಓದಲು.\n\nಫೋನ್ (ಸ್ಥಿತಿ ಓದು): ನೀವು ಕರೆದಲ್ಲಿದ್ದೀರಾ ಎಂಬುದನ್ನು ತಿಳಿದುಕೊಳ್ಳಲು, ಕರೆ ಮಧ್ಯೆ ಒಟಿಪಿ ಬಂದರೆ ಹೆಚ್ಚು ಅಪಾಯ ಎಂದು ಗುರುತಿಸಲು. ನಾವು ಕರೆಗಳನ್ನು ದಾಖಲೆ ಮಾಡುವುದಿಲ್ಲ ಅಥವಾ ಕೇಳುವುದಿಲ್ಲ.\n\nಫೋನ್ (ಕರೆಮಾಡುವುದು): ನೀವು \"ನಂಬಿಕೆಯ ಸಂಪರ್ಕಕ್ಕೆ ಕರೆಮಾಡಿ\" ಬಟನ್ ಒತ್ತಬಹುದು. ನಾವು ನೀವು ನಂಬಿಕೆಯ ಸಂಪರ್ಕವಾಗಿ ಸೇರಿಸಿದ ಸಂಖ್ಯೆಗಳಿಗೂ ಹಾಗೂ ನೀವು ಬಟನ್ ಒತ್ತಿದಾಗ ಮಾತ್ರ ಕರೆ ಮಾಡುತ್ತೇವೆ.\n\nಅಧಿಸೂಚನೆಗಳು: ಅನುಮಾನಾಸ್ಪದ ಅಥವಾ ಹೆಚ್ಚು ಅಪಾಯದ ಸಂದೇಶ ಪತ್ತೆಯಾದಾಗ ನಿಮ್ಮನ್ನು ಎಚ್ಚರಿಸಲು.\n\n\"ಈ ಕಳುಹಿಸಿದವರನ್ನು ಬ್ಲಾಕ್ ಮಾಡಿ\" ಆಯ್ಕೆ ಮಾಡಿದಾಗ, ಆ್ಯಪ್ ನಿಮ್ಮ ಸಾಧನದ ಮೆಸೇಜಿಂಗ್ ಆ್ಯಪ್ ಅನ್ನು ತೆರೆಯಬಹುದು; ನಾವು ಸ್ವತಃ SMS ಕಳುಹಿಸುವುದಿಲ್ಲ.",
+  "privacySection5Title": "5. ಡೇಟಾ ಸಂಗ್ರಹ ಅವಧಿ ಮತ್ತು ನಿಮ್ಮ ಆಯ್ಕೆಗಳು",
+  "privacySection5Paragraphs": "ವಿಶ್ಲೇಷಿಸಲಾದ ಸಂದೇಶಗಳು ಮತ್ತು ಕಾರಣಗಳು: ಇವು ನಿಮ್ಮ ಸಾಧನದಲ್ಲೇ ಉಳಿಯುತ್ತವೆ, ನೀವು ಸೆಟ್ಟಿಂಗ್‌ಗಳು → \"ಇತಿಹಾಸವನ್ನು ಎಲ್ಲವನ್ನೂ ಅಳಿಸಿ\" ಆಯ್ಕೆ ಮಾಡುವವರೆಗೆ.\n\nಸೆಟ್ಟಿಂಗ್‌ಗಳು ಮತ್ತು ನಂಬಿಕೆಯ ಸಂಪರ್ಕಗಳು: ನೀವು ಅವನ್ನು ಬದಲಾಯಿಸುವವರೆಗೆ, ತೆಗೆದುಹಾಕುವವರೆಗೆ, ಅಥವಾ ಆ್ಯಪ್ ಅನ್ನು ಅನ್‌ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡುವವರೆಗೆ, ನಿಮ್ಮ ಸಾಧನದಲ್ಲೇ ಉಳಿಯುತ್ತವೆ.\n\nನಾವು ನಿಮ್ಮ ಡೇಟಾವಿನ ಪ್ರತಿಯನ್ನು ನಮ್ಮ ಸರ್ವರ್‌ಗಳಲ್ಲಿ ಇಡುವುದಿಲ್ಲ, ಏಕೆಂದರೆ ನಾವು ಅದನ್ನು ಸಂಗ್ರಹಿಸುವುದೇ ಇಲ್ಲ.",
+  "privacySection6Title": "6. ಮಕ್ಕಳು ಮತ್ತು ಸಂವೇದನಾಶೀಲ ಬಳಕೆದಾರರು",
+  "privacySection6Paragraphs": "ಈ ಆ್ಯಪ್ ಮೋಸಗಳಿಂದ ದೂರವಿರಲು ಹಿರಿಯರು ಮತ್ತು ಇತರ ಸಂವೇದನಾಶೀಲ ಬಳಕೆದಾರರಿಗೆ ಸಹಾಯ ಮಾಡಲು ವಿನ್ಯಾಸಗೊಳಿಸಲಾಗಿದೆ. ನಾವು ಮಕ್ಕಳಿಂದ ಪೋಷಕರ ಅನುಮತಿ ಅಗತ್ಯವಾಗುವ ರೀತಿಯಲ್ಲಿ ಡೇಟಾವನ್ನು ಸಂಗ್ರಹಿಸುವುದಿಲ್ಲ; ಆ್ಯಪ್ ಯಾವುದೇ ಡೇಟಾವನ್ನೂ ಸಾಧನದ ಹೊರಗೆ ಕಳುಹಿಸುವುದಿಲ್ಲ.\n\nನೀವು ಯಾರಿಗೋ ಪರವಾಗಿ (ಉದಾ. ಹಿರಿಯ ಕುಟುಂಬ ಸದಸ್ಯ) ಆ್ಯಪ್ ಅನ್ನು ಸೆಟ್‌ಅಪ್ ಮಾಡುತ್ತಿದ್ದರೆ, ಅನುಮತಿಗಳು ಮತ್ತು ಈ ನೀತಿಯನ್ನು ಸಣ್ಣವಾಗಿ ಅವರಿಗೆ ವಿವರಿಸಲು ನಾವು ಶಿಫಾರಸು ಮಾಡುತ್ತೇವೆ.",
+  "privacySection7Title": "7. ಈ ನೀತಿಯಲ್ಲಿ ಬದಲಾವಣೆಗಳು",
+  "privacySection7Paragraphs": "ನಾವು ಈ ನೀತಿಯನ್ನು ಬದಲಾಯಿಸಿದರೆ (ಉದಾಹರಣೆಗೆ, ಭವಿಷ್ಯದ ಆವೃತ್ತಿಯಲ್ಲಿ ಐಚ್ಛಿಕ ಕ್ಲೌಡ್ ವೈಶಿಷ್ಟ್ಯಗಳನ್ನು ಸೇರಿಸಿದರೆ), ನಾವು ಈ ಡಾಕ್ಯುಮೆಂಟನ್ನು ನವೀಕರಿಸುತ್ತೇವೆ ಮತ್ತು ಕಾನೂನು ಅಥವಾ ಸ್ಟೋರ್ ನೀತಿಗಳ ಪ್ರಕಾರ ಅಗತ್ಯವಿದ್ದರೆ, ನಿಮಗೆ ತಿಳಿಸಬಹುದು ಅಥವಾ ಒಪ್ಪಿಗೆ ಕೇಳಬಹುದು.",
+  "privacySection8Title": "8. ಸಂಪರ್ಕ",
+  "privacySection8Body": "ಎಲ್ಡರ್ ಶೀಲ್ಡ್ ಸಂಬಂಧಿತ ಗೌಪ್ಯತಾ ಪ್ರಶ್ನೆಗಳು ಅಥವಾ ವಿನಂತಿಗಳಿಗೆ, ದಯವಿಟ್ಟು ಇಲ್ಲಿ ಸಂಪರ್ಕಿಸಿ: [ನಿಮ್ಮ ಸಹಾಯ ಇಮೇಲ್ ಅಥವಾ ಬೆಂಬಲ URL ಅನ್ನು ಇಲ್ಲಿ ಸೇರಿಸಿ].",
+  "privacyLastUpdatedNote": "ಕೊನೆಯ ಅಪ್‌ಡೇಟ್: ಬ್ಲಾಕ್ 10. ರಿಲೀಸ್ ಮಾಡುವ ಮೊದಲು ಈ ಸ್ಥಾನದ ಪಠ್ಯಗಳನ್ನು (ಪ್ಲೇಸ್‌ಹೋಲ್ಡರ್) ಬದಲಾಯಿಸಿ.",
+  "aboutTagline": "ಹಿರಿಯ ಬಳಕೆದಾರರಿಗೆ ಸಾಧನಗಳಲ್ಲೇ ಮೋಸದಿಂದ ರಕ್ಷಣೆ.",
+
+  "reasonShortUrl": "ಸಂಕ್ಷಿಪ್ತ ಅಥವಾ ಅನುಮಾನಾಸ್ಪದ ಲಿಂಕ್ ಹೊಂದಿದೆ",
+  "reasonOtpMention": "ಒಟಿಪಿ ಅಥವಾ ಒಮ್ಮೆ ಬಳಕೆಯ ಕೋಡನ್ನು ಕೇಳುತ್ತದೆ ಅಥವಾ ಉಲ್ಲೇಖಿಸುತ್ತದೆ",
+  "reasonUrgentLanguage": "ತೀವ್ರ ತುರ್ತು ಅಥವಾ ಬೆದರಿಕೆ ನೀಡುವ ಭಾಷೆಯನ್ನು ಬಳಸುತ್ತದೆ",
+  "reasonBankKyc": "ಬ್ಯಾಂಕ್ ಖಾತೆ, KYC ಅಥವಾ ಪಾವತಿ ವಿವರಗಳ ಬಗ್ಗೆ ಹೇಳುತ್ತದೆ",
+  "reasonPaymentRequest": "ನೀವು ಹಣ ಕಳುಹಿಸಲು ಅಥವಾ ಪಾವತಿ ಅಂಗೀಕರಿಸಲು ಕೇಳುತ್ತದೆ",
+  "reasonPrizeLottery": "ಲಾಟರಿ/ಬಹುಮಾನ ಗೆದ್ದಿದ್ದೀರಿ ಎಂಬಂತೆ ಪ್ರಲೋಭನ ತೋರಿಸುತ್ತದೆ",
+  "reasonParcelDelivery": "ಸಂದೇಹಾಸ್ಪದ ಪಾರ್ಸೆಲ್ ಅಥವಾ ಡೆಲಿವರಿ ಸಮಸ್ಯೆಯ ಬಗ್ಗೆ ಹೇಳುತ್ತದೆ",
+  "reasonCryptoInvestment": "ಹೆಚ್ಚು ಅಪಾಯದ ಕ್ರಿಪ್ಟೋ ಹೂಡಿಕೆ ಅಥವಾ ಖಚಿತ ಲಾಭದ ಭರವಸೆ ನೀಡುತ್ತದೆ",
+  "reasonSenderSuspicious": "ಕಳುಹಿಸಿದವರ ಹೆಸರು ಅಸಹಜ ಅಥವಾ ಅನುಮಾನಾಸ್ಪದವಾಗಿ ಕಾಣುತ್ತದೆ",
+  "reasonInCallOtp": "ನೀವು ಫೋನ್‌ನಲ್ಲಿ ಮಾತನಾಡುತ್ತಿರುವಾಗಲೇ ಒಟಿಪಿ ಬಂದಿದೆ — ಇದು ಸಾಮಾನ್ಯ ಮೋಸ ಪ್ಯಾಟರ್ನ್"
 }
 

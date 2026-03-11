@@ -588,6 +588,36 @@ class AppLocalizationsBn extends AppLocalizations {
   String get exampleWarningReasonUrgentLanguage => 'খুব তাড়াহুড়ো বা ভয় দেখানো ভাষা ব্যবহার করেছে';
 
   @override
+  String get reasonShortUrl => 'একটি সংক্ষিপ্ত বা সন্দেহজনক লিঙ্ক রয়েছে';
+
+  @override
+  String get reasonOtpMention => 'ওটিপি বা একবার-ব্যবহারের কোড চাইছে বা উল্লেখ করেছে';
+
+  @override
+  String get reasonUrgentLanguage => 'খুব তাড়াহুড়ো বা ভয় দেখানো ভাষা ব্যবহার করেছে';
+
+  @override
+  String get reasonBankKyc => 'ব্যাঙ্ক অ্যাকাউন্ট, কে ওয়াই সি (KYC) বা পেমেন্টের বিবরণ নিয়ে কথা বলছে';
+
+  @override
+  String get reasonPaymentRequest => 'আপনাকে টাকা পাঠাতে বা পেমেন্ট অনুমোদন করতে বলছে';
+
+  @override
+  String get reasonPrizeLottery => 'লটারি/পুরস্কার জেতার মতো প্রলোভন দেখাচ্ছে';
+
+  @override
+  String get reasonParcelDelivery => 'সন্দেহজনক পার্সেল বা ডেলিভারি সমস্যার কথা বলছে';
+
+  @override
+  String get reasonCryptoInvestment => 'ঝুঁকিপূর্ণ ক্রিপ্টো বিনিয়োগ বা নিশ্চিত লাভের প্রতিশ্রুতি দিচ্ছে';
+
+  @override
+  String get reasonSenderSuspicious => 'প্রেরকের নাম অস্বাভাবিক বা সন্দেহজনক দেখাচ্ছে';
+
+  @override
+  String get reasonInCallOtp => 'আপনি ফোনে কথা বলার সময়ই একটি ওটিপি এসেছে — এটি খুব সাধারণ স্ক্যাম প্যাটার্ন';
+
+  @override
   String messageFromLabel(String sender) {
     return 'প্রেরক: $sender';
   }

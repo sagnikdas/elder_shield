@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:elder_shield/l10n/app_localizations.dart';
 import 'package:elder_shield/application/app_providers.dart';
 import 'package:elder_shield/data/message_repository.dart';
+import 'package:elder_shield/presentation/messages/reason_localizations.dart';
 
 /// Full-screen warning shown when the app is opened from the "possible scam"
 /// notification (app was killed). Same actions as the sheet; [onDismiss] closes
@@ -72,7 +73,7 @@ class FullScreenWarningScreen extends ConsumerWidget {
                     const SizedBox(width: 12),
                     Expanded(
                       child: Text(
-                        'Warning: Possible scam message',
+                        l10n.highRiskHeaderTitle,
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -108,7 +109,7 @@ class FullScreenWarningScreen extends ConsumerWidget {
               if (message.reasons.isNotEmpty) ...[
                 const SizedBox(height: 16),
                 Text(
-                  message.reasons.first,
+                  localizeDetectionReason(message.reasons.first, l10n),
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -117,18 +118,23 @@ class FullScreenWarningScreen extends ConsumerWidget {
                 ),
                 if (message.reasons.length > 1) ...[
                   const SizedBox(height: 8),
-                  ...message.reasons.skip(1).map((r) => Padding(
-                        padding: const EdgeInsets.only(bottom: 4),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text('• ', style: TextStyle(fontSize: 16)),
-                            Expanded(
-                                child: Text(r,
-                                    style: const TextStyle(fontSize: 15))),
-                          ],
+                  ...message.reasons.skip(1).map(
+                        (r) => Padding(
+                          padding: const EdgeInsets.only(bottom: 4),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text('• ', style: TextStyle(fontSize: 16)),
+                              Expanded(
+                                child: Text(
+                                  localizeDetectionReason(r, l10n),
+                                  style: const TextStyle(fontSize: 15),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      )),
+                      ),
                 ],
               ],
               const SizedBox(height: 24),

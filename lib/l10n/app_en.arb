@@ -311,6 +311,17 @@
   "exampleWarningReasonPretendBank": "Pretends to be your bank",
   "exampleWarningReasonUrgentLanguage": "Uses urgent or threatening language",
 
+  "reasonShortUrl": "Contains a shortened or suspicious link",
+  "reasonOtpMention": "Asks for or mentions a one-time code (OTP)",
+  "reasonUrgentLanguage": "Uses urgent or threatening language",
+  "reasonBankKyc": "Mentions bank account, KYC, or payment details",
+  "reasonPaymentRequest": "Asks you to send or approve a payment",
+  "reasonPrizeLottery": "Looks like a prize or lottery reward scam",
+  "reasonParcelDelivery": "Mentions a suspicious parcel or delivery issue",
+  "reasonCryptoInvestment": "Mentions risky crypto investment or guaranteed returns",
+  "reasonSenderSuspicious": "Sender name looks unusual or suspicious",
+  "reasonInCallOtp": "An OTP arrived while you are on a phone call — common scam pattern",
+
   "messageFromLabel": "From: {sender}",
   "@messageFromLabel": {
     "placeholders": {
