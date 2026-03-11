@@ -266,13 +266,17 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                     : Colors.amber.shade700,
                               ),
                               const SizedBox(width: DesignTokens.s12),
-                              Text(
-                                _permissionsGranted
-                                    ? 'Protected'
-                                    : 'Permissions needed',
-                                style: theme.textTheme.titleLarge?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  letterSpacing: -0.2,
+                              Flexible(
+                                child: Text(
+                                  _permissionsGranted
+                                      ? 'Protected'
+                                      : 'Permissions needed',
+                                  style: theme.textTheme.titleLarge?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: -0.2,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
                                 ),
                               ),
                             ],
