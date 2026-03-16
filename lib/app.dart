@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:elder_shield/l10n/app_localizations.dart';
 import 'package:elder_shield/application/app_providers.dart';
+import 'package:elder_shield/core/navigation/app_routes.dart';
 import 'package:elder_shield/core/theme/app_theme.dart';
 import 'package:elder_shield/presentation/launch_gate.dart';
 import 'package:elder_shield/presentation/onboarding/onboarding_flow.dart';
+import 'package:elder_shield/presentation/shell/main_shell.dart';
 
 class ElderShieldApp extends ConsumerStatefulWidget {
   const ElderShieldApp({super.key});
@@ -92,23 +94,49 @@ class _ElderShieldAppState extends ConsumerState<ElderShieldApp> {
           child: child!,
         );
       },
-      home: _buildHome(),
+      initialRoute: AppRoutes.root,
+      onGenerateRoute: _onGenerateRoute,
     );
   }
 
-  Widget _buildHome() {
-    if (_onboardingComplete == null) {
-      return const Scaffold(
-        body: Center(
-          child: CircularProgressIndicator(),
-        ),
-      );
+  Route<dynamic> _onGenerateRoute(RouteSettings settings) {
+    Widget builder(BuildContext context) {
+      switch (settings.name) {
+        case AppRoutes.root:
+          if (_onboardingComplete == null) {
+            return const Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          }
+          if (_onboardingComplete == false) {
+            return OnboardingFlow(
+              onComplete: () {
+                setState(() => _onboardingComplete = true);
+                Navigator.of(context).pushReplacementNamed(AppRoutes.shell);
+              },
+            );
+          }
+          return const LaunchGate();
+        case AppRoutes.shell:
+          return const MainShell();
+        case AppRoutes.messages:
+          return const MainShell(initialIndex: 1);
+        case AppRoutes.settings:
+          return const MainShell(initialIndex: 2);
+        default:
+          return const Scaffold(
+            body: Center(
+              child: Text('Page not found'),
+            ),
+          );
+      }
     }
-    if (_onboardingComplete == false) {
-      return OnboardingFlow(onComplete: () {
-        setState(() => _onboardingComplete = true);
-      });
-    }
-    return const LaunchGate();
+
+    return MaterialPageRoute(
+      builder: builder,
+      settings: settings,
+    );
   }
 }

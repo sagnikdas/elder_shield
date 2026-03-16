@@ -78,26 +78,56 @@ Deliverable: A small, reusable component library with 2 major screens using it, 
 
 ---
 
-## Phase 3 – Navigation Modernization (go_router)
+## Phase 3 – Navigation & Flow Modernization (fresh)
 
-Goal: Introduce a modern, declarative navigation graph with route names and deep-link–ready structure, without breaking flows.
+Goal: Clarify all major flows, then modernize navigation in a way that is **simple, explicit, and testable**, without over-complicating the app or breaking existing behavior.
 
-- **3.1 Add go_router**
-  - Add `go_router` to `pubspec.yaml`.
-  - Create `lib/core/constants/app_routes.dart` with named paths (root, onboarding, shell, messages, settings, message detail).
-- **3.2 Router configuration**
-  - Configure a `GoRouter` instance in `ElderShieldApp`:
-    - Use a `ShellRoute` for `MainShell` (bottom nav).
-    - Define child `GoRoute`s for Home, Messages, Settings.
-    - Add route for onboarding flow and for message detail (e.g. `/messages/:id`).
-  - Switch from `MaterialApp` with `home:` to `MaterialApp.router` with `routerConfig`.
-- **3.3 Gradual migration**
-  - Replace imperative `Navigator` calls with `context.go` / `context.push` for:
-    - navigating between tabs (where appropriate),
-    - opening message detail / full-screen warning.
-  - Keep older navigation code where necessary temporarily if some flows are complex; migrate incrementally.
+- **3.1 Map the current flows (on paper, then code)**
+  - List the key user journeys with their entry points:
+    - App launch → onboarding (first run) → home.
+    - App launch → home → messages list → message detail / risk sheet.
+    - App launch → home → settings → rerun permissions / change sensitivity / theme / language.
+  - For each journey, write down:
+    - What screen/widget is the entry point?
+    - How is navigation triggered today (buttons, bottom nav, dialogs)?
+    - Which parameters are passed (e.g., message id, risk level)?
 
-Deliverable: Centralized route graph with `go_router`, existing flows working, and the app ready for deep linking in future.
+- **3.2 Decide routing strategy (keep it minimal)**
+  - Choose a **single primary routing mechanism** for app-level navigation:
+    - Option A (simple): stay with `Navigator` + named routes but centralize all route names and arguments.
+    - Option B (modern): introduce `go_router` and define a small, explicit route graph.
+  - Document the choice in this file so the rest of the phases can assume it.
+
+- **3.3 Centralize route definitions**
+  - Create `lib/core/navigation/app_routes.dart`:
+    - Define constants for route names / paths for:
+      - root / launch gate
+      - onboarding
+      - shell (bottom-nav container)
+      - home, messages, settings
+      - message detail / warning sheet (with an `id` parameter)
+    - Add small helper types for route arguments if using `Navigator` (e.g. `MessageDetailArgs`).
+
+- **3.4 Create a single navigation entrypoint**
+  - In `main.dart` / `ElderShieldApp`, expose exactly one configuration:
+    - If using `Navigator`: `MaterialApp` with `onGenerateRoute` and `initialRoute` based on onboarding + permissions state.
+    - If using `go_router`: `MaterialApp.router` with a `GoRouter` configured in a dedicated `app_router.dart`.
+  - Ensure onboarding vs home vs shell are decided in one place, not scattered.
+
+- **3.5 Migrate critical flows first**
+  - Update navigation for:
+    - Launch → onboarding → home.
+    - Home → messages → message detail / risk sheet.
+    - Home → settings → “rerun permissions”.
+  - Remove any duplicate or ad-hoc `Navigator.push` calls that point to the same screens; route them through the centralized mechanism.
+
+- **3.6 Add minimal tests for flows**
+  - Write widget tests for:
+    - First-run launch goes to onboarding, then home after completion.
+    - Tapping a message navigates to the message detail / warning view with the correct id.
+    - Opening Settings and using “rerun permissions” returns to Home as expected.
+
+Deliverable: A **documented, centralized navigation strategy** with the core user journeys wired through a single routing mechanism and covered by a few high-value widget tests.
 
 ---
 
