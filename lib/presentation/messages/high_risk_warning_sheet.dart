@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:elder_shield/l10n/app_localizations.dart';
 import 'package:elder_shield/application/app_providers.dart';
+import 'package:elder_shield/core/design_tokens.dart';
 import 'package:elder_shield/features/messages/data/message_repository.dart';
 import 'package:elder_shield/domain/detector/heuristic_detector.dart';
 import 'package:elder_shield/utils/snackbars.dart';
@@ -278,13 +279,18 @@ class _ActionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 56,
-      child: ElevatedButton.icon(
-        onPressed: onPressed,
-        icon: Icon(icon),
-        label: Text(label, style: const TextStyle(fontSize: 16)),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: color ?? const Color(0xFF1565C0),
-          foregroundColor: Colors.white,
+      child: AnimatedScale(
+        scale: 1.0,
+        duration: DesignTokens.animationFast,
+        curve: DesignTokens.animationEaseOutCubic,
+        child: ElevatedButton.icon(
+          onPressed: onPressed,
+          icon: Icon(icon),
+          label: Text(label, style: const TextStyle(fontSize: 16)),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: color ?? const Color(0xFF1565C0),
+            foregroundColor: Colors.white,
+          ),
         ),
       ),
     );
