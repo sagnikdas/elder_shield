@@ -11,7 +11,8 @@ import 'package:elder_shield/presentation/settings/how_it_works_screen.dart';
 import 'package:elder_shield/presentation/settings/permissions_explained_screen.dart';
 import 'package:elder_shield/presentation/settings/privacy_policy_screen.dart';
 import 'package:elder_shield/presentation/widgets/elder_shield_app_bar.dart';
-import 'package:elder_shield/services/settings_service.dart';
+import 'package:elder_shield/features/settings/application/settings_controller.dart';
+import 'package:elder_shield/features/settings/data/settings_service.dart';
 import 'package:elder_shield/utils/haptic.dart';
 import 'package:elder_shield/utils/responsive.dart';
 import 'package:elder_shield/utils/snackbars.dart';
@@ -28,64 +29,43 @@ class SettingsScreen extends ConsumerStatefulWidget {
 }
 
 class _SettingsScreenState extends ConsumerState<SettingsScreen> {
-  String _sensitivityMode = 'conservative';
-  String _themeMode = 'system';
   bool _overlayEnabled = false;
-  List<TrustedContact> _contacts = [];
-  String _languageCode = 'en';
 
   @override
   void initState() {
     super.initState();
-    _load();
+    _loadOverlayFlag();
   }
 
-  Future<void> _load() async {
-    final settings = ref.read(settingsServiceProvider);
-    final mode = await settings.getSensitivityMode();
-    final theme = await settings.getThemeMode();
-    final contacts = await settings.getTrustedContacts();
+  Future<void> _loadOverlayFlag() async {
     final overlayEnabled = await canDrawOverlays();
-    final language = await settings.getLanguageCode();
-    if (mounted) {
-      setState(() {
-        _sensitivityMode = mode;
-        _themeMode = theme;
-        _overlayEnabled = overlayEnabled;
-        _contacts = contacts;
-        _languageCode = language ?? 'en';
-      });
-    }
+    if (!mounted) return;
+    setState(() => _overlayEnabled = overlayEnabled);
   }
 
   Future<void> _setThemeMode(String mode) async {
     selectionClick();
-    final settings = ref.read(settingsServiceProvider);
-    await settings.setThemeMode(mode);
+    await ref.read(settingsControllerProvider.notifier).setThemeMode(mode);
     ref.read(themeModeProvider.notifier).state = mode;
-    setState(() => _themeMode = mode);
   }
 
   Future<void> _setSensitivity(String mode) async {
     selectionClick();
-    final settings = ref.read(settingsServiceProvider);
-    await settings.setSensitivityMode(mode);
-    setState(() => _sensitivityMode = mode);
+    await ref.read(settingsControllerProvider.notifier).setSensitivity(mode);
   }
 
   Future<void> _setLanguage(String code) async {
     selectionClick();
-    final settings = ref.read(settingsServiceProvider);
-    await settings.setLanguageCode(code);
-    ref.read(languageCodeProvider.notifier).state = code;
-    setState(() => _languageCode = code);
+    await ref.read(settingsControllerProvider.notifier).setLanguageCode(code);
   }
 
   Future<void> _removeContact(int index) async {
-    final updated = List<TrustedContact>.from(_contacts)..removeAt(index);
-    final settings = ref.read(settingsServiceProvider);
-    await settings.setTrustedContacts(updated);
-    setState(() => _contacts = updated);
+    final state = ref.read(settingsControllerProvider).valueOrNull;
+    if (state == null) return;
+    final updated = List<TrustedContact>.from(state.contacts)..removeAt(index);
+    await ref
+        .read(settingsControllerProvider.notifier)
+        .updateContacts(updated);
   }
 
   Future<void> _deleteAllHistory() async {
@@ -165,9 +145,22 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     final fontScale = ref.watch(fontScaleProvider);
+    final settingsAsync = ref.watch(settingsControllerProvider);
+    final state = settingsAsync.value;
     final padding = horizontalPadding(context);
     final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context)!;
+
+    if (state == null) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+
+    final _themeMode = state.themeMode;
+    final _sensitivityMode = state.sensitivityMode;
+    final _contacts = state.contacts;
+    final _languageCode = state.languageCode;
 
     return Scaffold(
       appBar: ElderShieldAppBar(titleText: l10n.settingsTitle),
@@ -630,6 +623,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   }
 
   Future<void> _showAddContactDialog() async {
+    final state = ref.read(settingsControllerProvider).valueOrNull;
+    if (state == null) return;
     final nameController = TextEditingController();
     final numberController = TextEditingController();
     final ok = await _showContactDialog(
@@ -643,15 +638,17 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     final name = nameController.text.trim();
     final number = numberController.text.trim();
     if (number.isEmpty) return;
-    final updated = [..._contacts, TrustedContact(name: name, number: number)];
+    final updated = [...state.contacts, TrustedContact(name: name, number: number)];
     if (updated.length > 3) updated.removeRange(3, updated.length);
-    final settings = ref.read(settingsServiceProvider);
-    await settings.setTrustedContacts(updated);
-    setState(() => _contacts = updated);
+    await ref
+        .read(settingsControllerProvider.notifier)
+        .updateContacts(updated);
   }
 
   Future<void> _showEditContactDialog(int index) async {
-    final c = _contacts[index];
+    final state = ref.read(settingsControllerProvider).valueOrNull;
+    if (state == null) return;
+    final c = state.contacts[index];
     final nameController = TextEditingController(text: c.name);
     final numberController = TextEditingController(text: c.number);
     final ok = await _showContactDialog(
@@ -665,11 +662,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     final name = nameController.text.trim();
     final number = numberController.text.trim();
     if (number.isEmpty) return;
-    final updated = List<TrustedContact>.from(_contacts)
+    final updated = List<TrustedContact>.from(state.contacts)
       ..[index] = TrustedContact(name: name, number: number);
-    final settings = ref.read(settingsServiceProvider);
-    await settings.setTrustedContacts(updated);
-    setState(() => _contacts = updated);
+    await ref
+        .read(settingsControllerProvider.notifier)
+        .updateContacts(updated);
   }
 
   Future<bool?> _showContactDialog({

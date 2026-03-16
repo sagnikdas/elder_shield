@@ -5,8 +5,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:elder_shield/l10n/app_localizations.dart';
 import 'package:elder_shield/application/app_providers.dart';
 import 'package:elder_shield/core/design_tokens.dart';
-import 'package:elder_shield/features/messages/data/message_repository.dart';
 import 'package:elder_shield/domain/detector/heuristic_detector.dart';
+import 'package:elder_shield/features/messages/data/message_repository.dart';
+import 'package:elder_shield/features/messages/application/messages_controller.dart';
 import 'package:elder_shield/presentation/messages/risk_detail_sheet.dart';
 import 'package:elder_shield/presentation/widgets/elder_shield_app_bar.dart';
 import 'package:elder_shield/utils/haptic.dart';
@@ -22,7 +23,6 @@ class MessagesScreen extends ConsumerStatefulWidget {
 }
 
 class _MessagesScreenState extends ConsumerState<MessagesScreen> {
-  bool _highRiskOnly = false;
   final ScrollController _scrollController = ScrollController();
   Timer? _autoRefreshTimer;
 
@@ -46,21 +46,8 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
       // Only refresh when Messages tab is currently visible.
       final currentIndex = ref.read(shellTabIndexProvider);
       if (currentIndex != 1) return;
-      setState(() {});
+      ref.read(messagesControllerProvider.notifier).refresh();
     });
-  }
-
-  Future<List<AnalyzedMessage>> _fetchMessages() async {
-    final repo = ref.read(messageRepositoryProvider);
-    try {
-      if (_highRiskOnly) {
-        return await repo.fetchHighRisk(limit: 50);
-      }
-      return await repo.fetchRecent(limit: 50);
-    } catch (_) {
-      // Let FutureBuilder handle the error via snapshot.hasError
-      rethrow;
-    }
   }
 
   @override
@@ -68,6 +55,9 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
     final padding = horizontalPadding(context);
     final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context)!;
+    final messagesAsync = ref.watch(messagesControllerProvider);
+    final controller = ref.read(messagesControllerProvider.notifier);
+    final highRiskOnly = controller.highRiskOnly;
     return Scaffold(
       appBar: ElderShieldAppBar(titleText: l10n.messagesAppBarTitle),
       body: Column(
@@ -88,10 +78,10 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                     child: ExcludeSemantics(
                       child: _FilterSegment(
                         label: l10n.messagesFilterAll,
-                        selected: !_highRiskOnly,
+                        selected: !highRiskOnly,
                         onTap: () {
                           selectionClick();
-                          setState(() => _highRiskOnly = false);
+                          controller.setHighRiskOnly(false);
                         },
                       ),
                     ),
@@ -107,10 +97,10 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                     child: ExcludeSemantics(
                       child: _FilterSegment(
                         label: l10n.messagesFilterHighRisk,
-                        selected: _highRiskOnly,
+                        selected: highRiskOnly,
                         onTap: () {
                           selectionClick();
-                          setState(() => _highRiskOnly = true);
+                          controller.setHighRiskOnly(true);
                         },
                       ),
                     ),
@@ -120,11 +110,8 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
             ),
           ),
           Expanded(
-            child: FutureBuilder<List<AnalyzedMessage>>(
-              future: _fetchMessages(),
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-              return Center(
+            child: messagesAsync.when(
+              error: (error, _) => Center(
                 child: Padding(
                   padding: EdgeInsets.all(padding * 1.5),
                   child: Column(
@@ -151,24 +138,21 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                     ],
                   ),
                 ),
-              );
-                }
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return ListView(
-                    padding: EdgeInsets.symmetric(horizontal: padding),
-                    children: const [
-                      SizedBox(height: 24),
-                      _MessagesLoadingHeader(),
-                      SizedBox(height: 16),
-                      _MessageSkeletonTile(),
-                      SizedBox(height: 12),
-                      _MessageSkeletonTile(),
-                      SizedBox(height: 12),
-                      _MessageSkeletonTile(),
-                    ],
-                  );
-                }
-                final list = snapshot.data ?? [];
+              ),
+              loading: () => ListView(
+                padding: EdgeInsets.symmetric(horizontal: padding),
+                children: const [
+                  SizedBox(height: 24),
+                  _MessagesLoadingHeader(),
+                  SizedBox(height: 16),
+                  _MessageSkeletonTile(),
+                  SizedBox(height: 12),
+                  _MessageSkeletonTile(),
+                  SizedBox(height: 12),
+                  _MessageSkeletonTile(),
+                ],
+              ),
+              data: (list) {
                 if (list.isEmpty) {
                   return Center(
                     child: Padding(
@@ -195,9 +179,9 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                   );
                 }
                 return RefreshIndicator(
-                  onRefresh: () {
+                  onRefresh: () async {
                     lightImpact();
-                    setState(() {});
+                    await controller.refresh();
                     final disableAnims =
                         MediaQuery.of(context).disableAnimations;
                     if (disableAnims) {
@@ -209,10 +193,10 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                         curve: Curves.easeOut,
                       );
                     }
+                    if (!mounted) return;
                     ScaffoldMessenger.of(context).showSnackBar(
                       elderSnackBar(l10n.messagesRefreshSnackbar),
                     );
-                    return Future<void>.value();
                   },
                   child: ListView.builder(
                     padding: EdgeInsets.symmetric(horizontal: padding * 0.5),
@@ -227,7 +211,7 @@ class _MessagesScreenState extends ConsumerState<MessagesScreen> {
                           showRiskDetailSheet(
                             context,
                             message: msg,
-                            onDismiss: () => setState(() {}),
+                            onDismiss: () => controller.refresh(),
                           );
                         },
                       );

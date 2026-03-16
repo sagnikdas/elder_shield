@@ -12,7 +12,6 @@ import 'package:elder_shield/services/settings_service.dart';
 import 'package:elder_shield/widgets/app_button.dart';
 import 'package:elder_shield/widgets/app_card.dart';
 import 'package:elder_shield/utils/haptic.dart';
-import 'package:elder_shield/utils/responsive.dart';
 import 'package:elder_shield/utils/snackbars.dart';
 
 /// Home: protection status, today risk count, large "Call trusted contact" button.
