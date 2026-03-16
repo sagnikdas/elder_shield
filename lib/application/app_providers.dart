@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:elder_shield/data/database.dart';
-import 'package:elder_shield/data/message_repository.dart';
-import 'package:elder_shield/services/settings_service.dart';
+import 'package:elder_shield/features/messages/data/message_repository.dart';
+import 'package:elder_shield/features/settings/data/settings_service.dart';
 
 /// When non-null, the app shows the high-risk warning sheet (Block 7).
 /// SecurityController sets this; [HighRiskAlertListener] shows the sheet and clears.
