@@ -1,5 +1,4 @@
 import 'package:elder_shield/application/app_providers.dart';
-import 'package:elder_shield/features/messages/data/message_repository.dart';
 import 'package:elder_shield/features/settings/data/settings_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

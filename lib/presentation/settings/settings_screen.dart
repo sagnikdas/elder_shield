@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:elder_shield/l10n/app_localizations.dart';
+import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:elder_shield/application/app_providers.dart';
 import 'package:elder_shield/core/design_tokens.dart';
@@ -528,11 +529,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                         subtitle: Text(l10n.settingsTrustedContactsChooseFromContactsSubtitle),
                         onTap: () {
                           selectionClick();
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            elderSnackBar(
-                              l10n.settingsTrustedContactsPickerUnavailable,
-                            ),
-                          );
+                          _pickContactAndAdd();
                         },
                       ),
                   ],
@@ -740,5 +737,67 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         ],
       ),
     );
+  }
+
+  Future<void> _pickContactAndAdd() async {
+    final l10n = AppLocalizations.of(context)!;
+    final state = ref.read(settingsControllerProvider).valueOrNull;
+    if (state == null) return;
+
+    // Request contacts permission before opening the picker.
+    final status = await Permission.contacts.request();
+    if (!status.isGranted) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        elderSnackBar(l10n.snackbarGenericError),
+      );
+      return;
+    }
+
+    final contacts = await FlutterContacts.getAll();
+    if (!mounted) return;
+
+    final contactsWithPhones =
+        contacts.where((c) => c.phones.isNotEmpty).toList();
+    if (contactsWithPhones.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        elderSnackBar(l10n.snackbarGenericError),
+      );
+      return;
+    }
+
+    final contact = await showModalBottomSheet<Contact?>(
+      context: context,
+      builder: (ctx) => SafeArea(
+        child: ListView.builder(
+          itemCount: contactsWithPhones.length,
+          itemBuilder: (ctx, index) {
+            final c = contactsWithPhones[index];
+            final number =
+                c.phones.isNotEmpty ? c.phones.first.number : '';
+            return ListTile(
+              title: Text(c.displayName ?? ''),
+              subtitle: Text(number),
+              onTap: () => Navigator.of(ctx).pop(c),
+            );
+          },
+        ),
+      ),
+    );
+    if (contact == null) return;
+
+    final number = contact.phones.first.number;
+    final displayName = contact.displayName ?? '';
+
+    final updated = [
+      ...state.contacts,
+      TrustedContact(name: displayName, number: number),
+    ];
+    if (updated.length > 3) {
+      updated.removeRange(3, updated.length);
+    }
+    await ref
+        .read(settingsControllerProvider.notifier)
+        .updateContacts(updated);
   }
 }

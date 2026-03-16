@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_contacts/flutter_contacts.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:elder_shield/l10n/app_localizations.dart';
 import 'package:elder_shield/application/app_providers.dart';
 import 'package:elder_shield/presentation/messages/example_warning_sheet.dart';
@@ -39,6 +41,67 @@ class _OnboardingTrustedContactScreenState
     _nameController.dispose();
     _numberController.dispose();
     super.dispose();
+  }
+
+  Future<void> _pickContact() async {
+    final l10n = AppLocalizations.of(context)!;
+
+    // Request runtime contacts permission using permission_handler.
+    final status = await Permission.contacts.request();
+    if (!status.isGranted) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        elderSnackBar(l10n.snackbarGenericError),
+      );
+      return;
+    }
+
+    // Load contacts with phone numbers and show a simple picker.
+    final contacts = await FlutterContacts.getAll();
+    if (!context.mounted) return;
+
+    final contactsWithPhones =
+        contacts.where((c) => c.phones.isNotEmpty).toList();
+    if (contactsWithPhones.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        elderSnackBar(l10n.snackbarGenericError),
+      );
+      return;
+    }
+
+    final contact = await showModalBottomSheet<Contact?>(
+      context: context,
+      builder: (ctx) => SafeArea(
+        child: ListView.builder(
+          itemCount: contactsWithPhones.length,
+          itemBuilder: (ctx, index) {
+            final c = contactsWithPhones[index];
+            final number = c.phones.isNotEmpty ? c.phones.first.number : '';
+            return ListTile(
+              title: Text(c.displayName ?? ''),
+              subtitle: Text(number),
+              onTap: () => Navigator.of(ctx).pop(c),
+            );
+          },
+        ),
+      ),
+    );
+    if (contact == null) return;
+
+    final phones = contact.phones;
+    if (phones.isEmpty) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        elderSnackBar(l10n.snackbarGenericError),
+      );
+      return;
+    }
+
+    final number = phones.first.number;
+    final displayName = contact.displayName ?? '';
+
+    _nameController.text = displayName;
+    _numberController.text = number;
   }
 
   Future<void> _addAndFinish() async {
@@ -118,11 +181,7 @@ class _OnboardingTrustedContactScreenState
                 OutlinedButton.icon(
                   onPressed: () {
                     selectionClick();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      elderSnackBar(
-                        l10n.onboardingTrustedAddFromContactsUnavailable,
-                      ),
-                    );
+                    _pickContact();
                   },
                   icon: const Icon(Icons.contact_phone_outlined),
                   label: Text(l10n.onboardingTrustedAddFromContacts),
