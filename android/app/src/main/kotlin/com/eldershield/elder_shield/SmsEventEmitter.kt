@@ -1,12 +1,14 @@
 package com.eldershield.elder_shield
 
-import io.flutter.plugin.common.EventChannel
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
+import io.flutter.plugin.common.EventChannel
 
 /**
  * Singleton sink that holds the active EventChannel.EventSink.
  * Both SmsReceiver and CallStateListener write events here.
- * Thread-safe: send() marshals onto the platform thread via Handler if needed.
+ * Thread-safe: emit() always marshals onto the main thread before calling sink.success().
  */
 object SmsEventEmitter {
 
@@ -14,6 +16,8 @@ object SmsEventEmitter {
 
     @Volatile
     var sink: EventChannel.EventSink? = null
+
+    private val mainHandler = Handler(Looper.getMainLooper())
 
     /** Send an SMS event map to Flutter. */
     fun sendSms(sender: String, body: String, timestamp: Long) {
@@ -39,6 +43,12 @@ object SmsEventEmitter {
     }
 
     private fun emit(event: Map<String, Any>) {
-        sink?.success(event) ?: Log.w(TAG, "No active sink — event dropped: $event")
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            sink?.success(event) ?: Log.w(TAG, "No active sink — event dropped: $event")
+        } else {
+            mainHandler.post {
+                sink?.success(event) ?: Log.w(TAG, "No active sink — event dropped: $event")
+            }
+        }
     }
 }

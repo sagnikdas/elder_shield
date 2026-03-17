@@ -1,9 +1,10 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import 'package:elder_shield/domain/detector/detector_config.dart';
 import 'package:elder_shield/domain/detector/heuristic_detector.dart';
@@ -19,25 +20,27 @@ const _detectorConfigUrl =
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await _bootstrapDetectorConfig();
-  // Fire-and-forget background refresh from remote; errors are ignored.
-  _refreshDetectorConfigFromRemote();
-  await NotificationService.instance.init();
-
-  runApp(const ProviderScope(child: ElderShieldApp()));
-}
-
-/// Load detector configuration for scam detection.
-///
-/// Flow:
-/// - Start from baked-in defaults (on-device, offline-safe).
-/// - Try to read a cached JSON config from secure storage and, if valid,
-///   apply it via [HeuristicDetector.updateConfig].
-/// - If anything fails, we continue using the defaults.
-Future<void> _bootstrapDetectorConfig() async {
-  // Always have a safe default in place.
+  // Install a safe default config synchronously so the detector is usable
+  // immediately, without any IO.
   HeuristicDetector.updateConfig(DetectorConfig.defaults());
 
+  // Show UI as soon as possible; avoid blocking on secure storage, networking,
+  // or notification initialization on the startup frame.
+  runApp(const ProviderScope(child: ElderShieldApp()));
+
+  // Fire-and-forget background work that touches plugins / IO. This reduces
+  // the chance of main-thread jank and avoids doing work when the engine is
+  // being torn down.
+  unawaited(_bootstrapDetectorConfigFromStorage());
+  unawaited(_refreshDetectorConfigFromRemote());
+  unawaited(NotificationService.instance.init());
+}
+
+/// Try to load a cached detector configuration from secure storage and, if
+/// valid, apply it via [HeuristicDetector.updateConfig].
+///
+/// If anything fails, we keep using the defaults installed in [main].
+Future<void> _bootstrapDetectorConfigFromStorage() async {
   const storage = FlutterSecureStorage(
     aOptions: AndroidOptions(encryptedSharedPreferences: true),
   );

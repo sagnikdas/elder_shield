@@ -141,10 +141,9 @@ class _ContactPickerSheetState extends State<ContactPickerSheet> {
                             foregroundColor:
                                 theme.colorScheme.onPrimaryContainer,
                             child: Text(
-                              (c.displayName ?? '?')
-                                  .characters
-                                  .first
-                                  .toUpperCase(),
+                              (c.displayName?.characters.firstOrNull
+                                      ?.toUpperCase()) ??
+                                  '?',
                               style: const TextStyle(
                                   fontWeight: FontWeight.w600),
                             ),

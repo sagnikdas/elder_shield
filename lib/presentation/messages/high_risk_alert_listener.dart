@@ -31,7 +31,6 @@ class _HighRiskAlertListenerState extends ConsumerState<HighRiskAlertListener>
 
   @override
   void dispose() {
-    ref.read(appInForegroundProvider.notifier).state = false;
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }

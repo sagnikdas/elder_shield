@@ -57,12 +57,40 @@ class AppDatabase {
       await storage.write(key: _keyAlias, value: key);
     }
 
-    return openDatabase(
-      path,
-      password: key,
-      version: _dbVersion,
-      onCreate: _onCreate,
-    );
+    // Normal open path with SQLCipher. If this fails with "file is not a database"
+    // (e.g. legacy or corrupt file), we reset the DB file and key once, then retry.
+    try {
+      return await openDatabase(
+        path,
+        password: key,
+        version: _dbVersion,
+        onCreate: _onCreate,
+      );
+    } on DatabaseException catch (e) {
+      final msg = e.toString();
+      final isNotDb = msg.contains('file is not a database') ||
+          msg.contains('open_failed') ||
+          msg.contains('file is encrypted or is not a database');
+      if (!isNotDb) rethrow;
+
+      // Best-effort recovery: delete the bad file and rotate the key,
+      // then create a fresh encrypted database. Message history is
+      // analysis-only, so it's safe to drop on corruption.
+      final file = File(path);
+      if (await file.exists()) {
+        await file.delete();
+      }
+      await storage.delete(key: _keyAlias);
+      final newKey = _generateKey();
+      await storage.write(key: _keyAlias, value: newKey);
+
+      return openDatabase(
+        path,
+        password: newKey,
+        version: _dbVersion,
+        onCreate: _onCreate,
+      );
+    }
   }
 
   /// Generates a cryptographically random 256-bit key as a 64-char hex string.
