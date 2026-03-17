@@ -1,8 +1,19 @@
+import 'dart:io';
+import 'dart:math';
+import 'dart:typed_data';
+
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
-import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_sqlcipher/sqflite.dart';
 
 /// SQLite database helper for Elder Shield.
+///
+/// The database is encrypted with SQLCipher using a per-device 256-bit key
+/// stored in the system keystore via [FlutterSecureStorage]. On first launch
+/// after upgrading from an unencrypted build the old database file is deleted
+/// (message history is analysis logs; user-critical data lives in secure
+/// storage).
 class AppDatabase {
   AppDatabase._internal();
 
@@ -11,6 +22,7 @@ class AppDatabase {
 
   static const _dbName = 'elder_shield.db';
   static const _dbVersion = 1;
+  static const _keyAlias = 'elder_shield_db_key';
 
   // Table: analyzed messages
   static const tableMessages = 'analyzed_messages';
@@ -28,11 +40,39 @@ class AppDatabase {
   Future<Database> _open() async {
     final dir = await getApplicationDocumentsDirectory();
     final path = p.join(dir.path, _dbName);
+
+    const storage = FlutterSecureStorage(
+      aOptions: AndroidOptions(encryptedSharedPreferences: true),
+    );
+
+    String? key = await storage.read(key: _keyAlias);
+
+    if (key == null) {
+      // First run with encryption — drop any existing unencrypted database.
+      final file = File(path);
+      if (await file.exists()) {
+        await file.delete();
+      }
+      key = _generateKey();
+      await storage.write(key: _keyAlias, value: key);
+    }
+
     return openDatabase(
       path,
+      password: key,
       version: _dbVersion,
       onCreate: _onCreate,
     );
+  }
+
+  /// Generates a cryptographically random 256-bit key as a 64-char hex string.
+  String _generateKey() {
+    final rng = Random.secure();
+    final bytes = Uint8List(32);
+    for (var i = 0; i < 32; i++) {
+      bytes[i] = rng.nextInt(256);
+    }
+    return bytes.map((b) => b.toRadixString(16).padLeft(2, '0')).join();
   }
 
   Future<void> _onCreate(Database db, int version) async {
