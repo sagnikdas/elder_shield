@@ -35,8 +35,16 @@ object SimpleRiskCheck {
     /**
      * Returns true if the message looks high-risk so we should notify the user
      * when the app is not running (e.g. show notification and open app on tap).
+     *
+     * @param trustedSenders Set of normalized sender strings that bypass all checks.
      */
-    fun looksHighRisk(sender: String, body: String): Boolean {
+    fun looksHighRisk(
+        sender: String,
+        body: String,
+        trustedSenders: Set<String> = emptySet()
+    ): Boolean {
+        if (trustedSenders.contains(normalizeSender(sender))) return false
+
         val lower = body.lowercase()
         var score = 0
 
@@ -47,5 +55,19 @@ object SimpleRiskCheck {
 
         // When app is killed we show notification for any red flag (score >= 1)
         return score >= 1
+    }
+
+    /**
+     * Mirrors the Dart normalizeSender() logic in sender_utils.dart.
+     * Phone numbers: keep only digits and leading +.
+     * Alphanumeric sender IDs: lowercase and trim.
+     */
+    private fun normalizeSender(sender: String): String {
+        val trimmed = sender.trim()
+        return if (Regex("""^[\+\d\s\-\(\)]{6,}$""").matches(trimmed)) {
+            trimmed.replace(Regex("""[^\d+]"""), "")
+        } else {
+            trimmed.lowercase()
+        }
     }
 }

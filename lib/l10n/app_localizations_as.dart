@@ -114,10 +114,39 @@ class AppLocalizationsAs extends AppLocalizations {
   String get actionSafe => 'ই সুৰক্ষিত';
 
   @override
+  String get actionTrustSender => 'Trust this sender';
+
+  @override
   String get snackbarGenericError => 'কিছুতো ভুল হ’ল। পুনৰ চেষ্টা কৰক।';
 
   @override
   String get snackbarMarkedScam => 'স্কেম হিচাপে চিহ্নিত কৰা হ’ল। ধন্যবাদ।';
+
+  @override
+  String get snackbarSenderTrusted => 'Sender trusted — no more alerts from them.';
+
+  @override
+  String get settingsTrustedSendersTitle => 'Trusted Senders';
+
+  @override
+  String get settingsTrustedSendersNone => 'No trusted senders';
+
+  @override
+  String settingsTrustedSendersCount(int count) {
+    return '$count trusted sender(s)';
+  }
+
+  @override
+  String get settingsTrustedSendersExplanation => 'These senders will not trigger any alerts. Tap \'Trust this sender\' on a warning to add them here.';
+
+  @override
+  String get settingsTrustedSendersRemoveDialogTitle => 'Remove trusted sender?';
+
+  @override
+  String get settingsTrustedSendersRemoveDialogBody => 'Alerts will be shown again for messages from this sender.';
+
+  @override
+  String get settingsTrustedSendersRemoveDialogRemove => 'Remove';
 
   @override
   String get highRiskSwipeUpForDetails => 'অধিক বিৱৰণ চাবলৈ ওপৰৰ ফালে সুইপ কৰক';

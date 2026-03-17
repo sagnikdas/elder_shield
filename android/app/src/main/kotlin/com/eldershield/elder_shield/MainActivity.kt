@@ -21,6 +21,7 @@ class MainActivity : FlutterActivity() {
         private const val EVENT_CHANNEL = "fraud_guard/events"
         private const val LAUNCH_CHANNEL = "elder_shield/launch"
         private const val SYSTEM_CHANNEL = "elder_shield/system"
+        private const val WHITELIST_CHANNEL = "elder_shield/whitelist"
         private const val TAG = "MainActivity"
 
         @Volatile
@@ -102,6 +103,27 @@ class MainActivity : FlutterActivity() {
                 }
 
                 else -> result.notImplemented()
+            }
+        }
+
+        MethodChannel(
+            flutterEngine.dartExecutor.binaryMessenger,
+            WHITELIST_CHANNEL
+        ).setMethodCallHandler { call, result ->
+            if (call.method == "setWhitelist") {
+                @Suppress("UNCHECKED_CAST")
+                val senders = (call.arguments as? List<*>)
+                    ?.filterIsInstance<String>()
+                    ?.toSet()
+                    ?: emptySet()
+                getSharedPreferences("elder_shield_prefs", MODE_PRIVATE)
+                    .edit()
+                    .putStringSet("trusted_senders", senders)
+                    .apply()
+                Log.d(TAG, "Whitelist updated: ${senders.size} sender(s)")
+                result.success(null)
+            } else {
+                result.notImplemented()
             }
         }
 

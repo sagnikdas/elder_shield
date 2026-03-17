@@ -1,47 +1,97 @@
-# Miscellaneous
-*.class
-*.log
-*.pyc
-*.swp
-.DS_Store
-.atom/
-.build/
-.buildlog/
-.history
-.svn/
-.swiftpm/
-migrate_working_dir/
-
-# IntelliJ related
-*.iml
-*.ipr
-*.iws
-.idea/
-
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
-#.vscode/
-
-# Flutter/Dart/Pub related
-**/doc/api/
-**/ios/Flutter/.last_build_id
+# ─── Dart / Flutter ───────────────────────────────────────────────────────────
 .dart_tool/
+.flutter-plugins
 .flutter-plugins-dependencies
 .pub-cache/
 .pub/
 /build/
 /coverage/
+**/doc/api/
+**/ios/Flutter/.last_build_id
 
-# Symbolication related
+# ─── Signing & secrets ────────────────────────────────────────────────────────
+# Keystore files — never commit; losing these means losing the signing identity
+*.jks
+*.keystore
+*.p12
+*.pem
+
+# Key property files containing passwords
+android/key.properties
+ios/Runner/GoogleService-Info.plist
+
+# Firebase / Google config (contain API keys)
+google-services.json
+GoogleService-Info.plist
+
+# Generic secret / env files
+.env
+.env.*
+*.env
+*.secret
+secrets.dart
+secrets.json
+secrets.yaml
+secrets.yml
+
+# ─── Android ──────────────────────────────────────────────────────────────────
+# Local machine paths (sdk.dir, flutter.sdk) — different on every machine
+android/local.properties
+
+# Android Studio build outputs
+/android/app/debug/
+/android/app/profile/
+/android/app/release/
+/android/.gradle/
+/android/captures/
+/android/gradlew
+/android/gradlew.bat
+
+# ─── iOS ──────────────────────────────────────────────────────────────────────
+**/ios/**/*.mode1v3
+**/ios/**/*.mode2v3
+**/ios/**/*.moved-aside
+**/ios/**/*.pbxuser
+**/ios/**/*.perspectivev3
+**/ios/**/UserInterfaceState.xcuserstate
+**/ios/.generated/
+**/ios/Flutter/App.framework
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/ephemeral/
+**/ios/Flutter/app.flx
+**/ios/Flutter/app.zip
+**/ios/Flutter/flutter_assets/
+**/ios/ServiceDefinitions.json
+**/ios/Runner/GeneratedPluginRegistrant.*
+ios/Pods/
+
+# ─── Obfuscation & crash symbols ──────────────────────────────────────────────
+# Needed only to decode obfuscated stack traces — store separately, not in repo
 app.*.symbols
-
-# Obfuscation related
 app.*.map.json
-# Release symbol files (never commit — needed only to decode obfuscated crash stack traces)
 build/symbols/
 
-# Android Studio will place build artifacts here
-/android/app/debug
-/android/app/profile
-/android/app/release
+# ─── IDEs & editors ───────────────────────────────────────────────────────────
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ─── Logs & temp ──────────────────────────────────────────────────────────────
+*.log
+*.class
+*.pyc
+.history
+.atom/
+.build/
+.buildlog/
+.svn/
+.swiftpm/
+migrate_working_dir/

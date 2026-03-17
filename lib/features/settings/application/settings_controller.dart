@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:elder_shield/application/app_providers.dart';
 import 'package:elder_shield/features/settings/data/settings_service.dart';
+import 'package:elder_shield/platform/whitelist_channel.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Aggregated state for SettingsScreen.
@@ -10,6 +13,7 @@ class SettingsState {
     required this.overlayEnabled,
     required this.contacts,
     required this.languageCode,
+    required this.whitelistedSenders,
   });
 
   final SensitivityMode sensitivityMode;
@@ -17,6 +21,7 @@ class SettingsState {
   final bool overlayEnabled;
   final List<TrustedContact> contacts;
   final String languageCode;
+  final List<String> whitelistedSenders;
 
   SettingsState copyWith({
     SensitivityMode? sensitivityMode,
@@ -24,6 +29,7 @@ class SettingsState {
     bool? overlayEnabled,
     List<TrustedContact>? contacts,
     String? languageCode,
+    List<String>? whitelistedSenders,
   }) {
     return SettingsState(
       sensitivityMode: sensitivityMode ?? this.sensitivityMode,
@@ -31,6 +37,7 @@ class SettingsState {
       overlayEnabled: overlayEnabled ?? this.overlayEnabled,
       contacts: contacts ?? this.contacts,
       languageCode: languageCode ?? this.languageCode,
+      whitelistedSenders: whitelistedSenders ?? this.whitelistedSenders,
     );
   }
 }
@@ -43,6 +50,7 @@ class SettingsController extends AutoDisposeAsyncNotifier<SettingsState> {
     final theme = await settings.getThemeMode();
     final contacts = await settings.getTrustedContacts();
     final language = await settings.getLanguageCode();
+    final senders = await settings.getWhitelistedSenders();
     // Overlay permission is platform-specific; keep false by default.
     return SettingsState(
       sensitivityMode: mode,
@@ -50,6 +58,7 @@ class SettingsController extends AutoDisposeAsyncNotifier<SettingsState> {
       overlayEnabled: false,
       contacts: contacts,
       languageCode: language ?? 'en',
+      whitelistedSenders: senders,
     );
   }
 
@@ -88,6 +97,19 @@ class SettingsController extends AutoDisposeAsyncNotifier<SettingsState> {
     if (current != null) {
       state = AsyncData(current.copyWith(languageCode: code));
     }
+  }
+
+  Future<void> removeFromWhitelist(String normalizedSender) async {
+    final current = state.valueOrNull;
+    if (current == null) return;
+    final updated = current.whitelistedSenders
+        .where((s) => s != normalizedSender)
+        .toList();
+    final settings = ref.read(settingsServiceProvider);
+    await settings.setWhitelistedSenders(updated);
+    state = AsyncData(current.copyWith(whitelistedSenders: updated));
+    ref.read(whitelistedSendersProvider.notifier).state = updated.toSet();
+    unawaited(WhitelistChannel.setWhitelist(updated));
   }
 }
 

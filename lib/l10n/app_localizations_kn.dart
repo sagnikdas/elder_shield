@@ -114,10 +114,39 @@ class AppLocalizationsKn extends AppLocalizations {
   String get actionSafe => 'ಇದು ಸುರಕ್ಷಿತ';
 
   @override
+  String get actionTrustSender => 'Trust this sender';
+
+  @override
   String get snackbarGenericError => 'ಏನೋ ತಪ್ಪಾಗಿದೆ. ಮತ್ತೊಮ್ಮೆ ಪ್ರಯತ್ನಿಸಿ.';
 
   @override
   String get snackbarMarkedScam => 'ಮೋಸವೆಂದು ಗುರುತಿಸಲಾಗಿದೆ. ಧನ್ಯವಾದಗಳು.';
+
+  @override
+  String get snackbarSenderTrusted => 'Sender trusted — no more alerts from them.';
+
+  @override
+  String get settingsTrustedSendersTitle => 'Trusted Senders';
+
+  @override
+  String get settingsTrustedSendersNone => 'No trusted senders';
+
+  @override
+  String settingsTrustedSendersCount(int count) {
+    return '$count trusted sender(s)';
+  }
+
+  @override
+  String get settingsTrustedSendersExplanation => 'These senders will not trigger any alerts. Tap \'Trust this sender\' on a warning to add them here.';
+
+  @override
+  String get settingsTrustedSendersRemoveDialogTitle => 'Remove trusted sender?';
+
+  @override
+  String get settingsTrustedSendersRemoveDialogBody => 'Alerts will be shown again for messages from this sender.';
+
+  @override
+  String get settingsTrustedSendersRemoveDialogRemove => 'Remove';
 
   @override
   String get highRiskSwipeUpForDetails => 'ಹೆಚ್ಚು ವಿವರಗಳನ್ನು ನೋಡಲು ಮೇಲೆ ಸ್ವೈಪ್ ಮಾಡಿ';

@@ -70,9 +70,26 @@
 
   "actionScam": "This is a Scam",
   "actionSafe": "This is Safe",
+  "actionTrustSender": "Trust this sender",
 
   "snackbarGenericError": "Something went wrong. Try again.",
   "snackbarMarkedScam": "Marked as scam. Thank you.",
+  "snackbarSenderTrusted": "Sender trusted — no more alerts from them.",
+
+  "settingsTrustedSendersTitle": "Trusted Senders",
+  "settingsTrustedSendersNone": "No trusted senders",
+  "settingsTrustedSendersCount": "{count} trusted sender(s)",
+  "@settingsTrustedSendersCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsTrustedSendersExplanation": "These senders will not trigger any alerts. Tap 'Trust this sender' on a warning to add them here.",
+  "settingsTrustedSendersRemoveDialogTitle": "Remove trusted sender?",
+  "settingsTrustedSendersRemoveDialogBody": "Alerts will be shown again for messages from this sender.",
+  "settingsTrustedSendersRemoveDialogRemove": "Remove",
 
   "highRiskSwipeUpForDetails": "Swipe up for more details",
 

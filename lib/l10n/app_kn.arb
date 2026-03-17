@@ -70,6 +70,18 @@
 
   "actionScam": "ಇದು ಮೋಸ",
   "actionSafe": "ಇದು ಸುರಕ್ಷಿತ",
+  "actionTrustSender": "Trust this sender",
+
+  "snackbarSenderTrusted": "Sender trusted — no more alerts from them.",
+
+  "settingsTrustedSendersTitle": "Trusted Senders",
+  "settingsTrustedSendersNone": "No trusted senders",
+  "settingsTrustedSendersCount": "{count} trusted sender(s)",
+  "settingsTrustedSendersExplanation": "These senders will not trigger any alerts. Tap 'Trust this sender' on a warning to add them here.",
+  "settingsTrustedSendersRemoveDialogTitle": "Remove trusted sender?",
+  "settingsTrustedSendersRemoveDialogBody": "Alerts will be shown again for messages from this sender.",
+  "settingsTrustedSendersRemoveDialogRemove": "Remove",
+
 
   "snackbarGenericError": "ಏನೋ ತಪ್ಪಾಗಿದೆ. ಮತ್ತೊಮ್ಮೆ ಪ್ರಯತ್ನಿಸಿ.",
   "snackbarMarkedScam": "ಮೋಸವೆಂದು ಗುರುತಿಸಲಾಗಿದೆ. ಧನ್ಯವಾದಗಳು.",

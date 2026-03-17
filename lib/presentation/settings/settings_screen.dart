@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:elder_shield/l10n/app_localizations.dart';
@@ -7,6 +9,7 @@ import 'package:elder_shield/application/app_providers.dart';
 import 'package:elder_shield/core/design_tokens.dart';
 import 'package:elder_shield/widgets/app_card.dart';
 import 'package:elder_shield/platform/overlay_alerts.dart';
+import 'package:elder_shield/platform/whitelist_channel.dart';
 import 'package:elder_shield/presentation/settings/about_screen.dart';
 import 'package:elder_shield/presentation/settings/how_it_works_screen.dart';
 import 'package:elder_shield/presentation/settings/permissions_explained_screen.dart';
@@ -15,6 +18,7 @@ import 'package:elder_shield/presentation/widgets/elder_shield_app_bar.dart';
 import 'package:elder_shield/features/settings/application/settings_controller.dart';
 import 'package:elder_shield/features/settings/data/settings_service.dart';
 import 'package:elder_shield/utils/haptic.dart';
+import 'package:elder_shield/utils/sender_utils.dart';
 import 'package:elder_shield/utils/responsive.dart';
 import 'package:elder_shield/utils/snackbars.dart';
 import 'package:elder_shield/widgets/contact_picker_sheet.dart';
@@ -68,6 +72,12 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     await ref
         .read(settingsControllerProvider.notifier)
         .updateContacts(updated);
+  }
+
+  Future<void> _removeWhitelistedSender(String sender) async {
+    await ref
+        .read(settingsControllerProvider.notifier)
+        .removeFromWhitelist(sender);
   }
 
   Future<void> _deleteAllHistory() async {
@@ -163,6 +173,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     final _sensitivityMode = state.sensitivityMode;
     final _contacts = state.contacts;
     final _languageCode = state.languageCode;
+    final _whitelistedSenders = state.whitelistedSenders;
 
     return Scaffold(
       appBar: ElderShieldAppBar(titleText: l10n.settingsTitle),
@@ -536,6 +547,90 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             ],
           ),
           ), // Trusted contacts Card
+          // Trusted Senders (whitelist)
+          AppCard(
+            margin: const EdgeInsets.only(bottom: 12),
+            child: ExpansionTile(
+              leading: Icon(Icons.verified_user_outlined, color: theme.colorScheme.primary, size: 24),
+              title: Text(l10n.settingsTrustedSendersTitle, style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600)),
+              subtitle: Text(
+                _whitelistedSenders.isEmpty
+                    ? l10n.settingsTrustedSendersNone
+                    : l10n.settingsTrustedSendersCount(_whitelistedSenders.length),
+                style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+              ),
+              onExpansionChanged: (_) => lightImpact(),
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(8, 4, 8, 8),
+                        child: Text(
+                          l10n.settingsTrustedSendersExplanation,
+                          style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+                        ),
+                      ),
+                      if (_whitelistedSenders.isEmpty)
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+                          child: Text(
+                            l10n.settingsTrustedSendersNone,
+                            style: theme.textTheme.bodyMedium?.copyWith(
+                              color: theme.colorScheme.onSurfaceVariant,
+                              fontStyle: FontStyle.italic,
+                            ),
+                          ),
+                        ),
+                      ..._whitelistedSenders.map((sender) {
+                        // Show a friendlier label: phone numbers stay as-is,
+                        // alphanumeric IDs are shown in uppercase.
+                        final displaySender = RegExp(r'^\+?\d{6,}$').hasMatch(sender)
+                            ? sender
+                            : sender.toUpperCase();
+                        return ListTile(
+                          leading: const Icon(Icons.verified_user_outlined),
+                          title: Text(displaySender),
+                          trailing: IconButton(
+                            icon: const Icon(Icons.remove_circle_outline),
+                            constraints: const BoxConstraints(
+                              minWidth: DesignTokens.minTouchTarget,
+                              minHeight: DesignTokens.minTouchTarget,
+                            ),
+                            onPressed: () async {
+                              selectionClick();
+                              final ok = await showDialog<bool>(
+                                context: context,
+                                builder: (ctx) => AlertDialog(
+                                  title: Text(l10n.settingsTrustedSendersRemoveDialogTitle),
+                                  content: Text(l10n.settingsTrustedSendersRemoveDialogBody),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () => Navigator.of(ctx).pop(false),
+                                      child: Text(l10n.commonCancel),
+                                    ),
+                                    FilledButton(
+                                      onPressed: () => Navigator.of(ctx).pop(true),
+                                      child: Text(l10n.settingsTrustedSendersRemoveDialogRemove),
+                                    ),
+                                  ],
+                                ),
+                              );
+                              if (ok == true) {
+                                unawaited(_removeWhitelistedSender(sender));
+                              }
+                            },
+                          ),
+                        );
+                      }),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
           // Advanced & info
           AppCard(
             child: Padding(

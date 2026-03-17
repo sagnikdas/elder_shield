@@ -44,6 +44,8 @@ class SettingsKeys {
       'sensitivity_mode'; // e.g. 'conservative', 'balanced', 'sensitive'
   static const trustedContacts =
       'trusted_contacts'; // JSON array of {name, number}
+  static const whitelistedSenders =
+      'whitelisted_senders'; // JSON array of normalized sender strings
   static const fontScale = 'font_scale'; // double as string, e.g. '1.0'. 1.0 = 100%.
   static const themeMode = 'theme_mode'; // 'light', 'dark', 'system'
   static const languageCode = 'language_code'; // 'en', 'bn', 'kn', etc.
@@ -133,6 +135,28 @@ class SettingsService {
     await _storage.write(
       key: SettingsKeys.trustedContacts,
       value: json,
+    );
+  }
+
+  /// Senders whose messages are silently ignored (no alert shown).
+  /// Stored as a JSON array of normalized sender strings.
+  Future<List<String>> getWhitelistedSenders() async {
+    final raw =
+        await _storage.read(key: SettingsKeys.whitelistedSenders);
+    if (raw == null || raw.isEmpty) return const [];
+    try {
+      final decoded = jsonDecode(raw);
+      if (decoded is List) {
+        return decoded.whereType<String>().toList();
+      }
+    } catch (_) {}
+    return const [];
+  }
+
+  Future<void> setWhitelistedSenders(List<String> senders) async {
+    await _storage.write(
+      key: SettingsKeys.whitelistedSenders,
+      value: jsonEncode(senders),
     );
   }
 

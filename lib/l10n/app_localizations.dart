@@ -307,6 +307,12 @@ abstract class AppLocalizations {
   /// **'This is Safe'**
   String get actionSafe;
 
+  /// No description provided for @actionTrustSender.
+  ///
+  /// In en, this message translates to:
+  /// **'Trust this sender'**
+  String get actionTrustSender;
+
   /// No description provided for @snackbarGenericError.
   ///
   /// In en, this message translates to:
@@ -318,6 +324,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Marked as scam. Thank you.'**
   String get snackbarMarkedScam;
+
+  /// No description provided for @snackbarSenderTrusted.
+  ///
+  /// In en, this message translates to:
+  /// **'Sender trusted — no more alerts from them.'**
+  String get snackbarSenderTrusted;
+
+  /// No description provided for @settingsTrustedSendersTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Trusted Senders'**
+  String get settingsTrustedSendersTitle;
+
+  /// No description provided for @settingsTrustedSendersNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No trusted senders'**
+  String get settingsTrustedSendersNone;
+
+  /// No description provided for @settingsTrustedSendersCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} trusted sender(s)'**
+  String settingsTrustedSendersCount(int count);
+
+  /// No description provided for @settingsTrustedSendersExplanation.
+  ///
+  /// In en, this message translates to:
+  /// **'These senders will not trigger any alerts. Tap \'Trust this sender\' on a warning to add them here.'**
+  String get settingsTrustedSendersExplanation;
+
+  /// No description provided for @settingsTrustedSendersRemoveDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove trusted sender?'**
+  String get settingsTrustedSendersRemoveDialogTitle;
+
+  /// No description provided for @settingsTrustedSendersRemoveDialogBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Alerts will be shown again for messages from this sender.'**
+  String get settingsTrustedSendersRemoveDialogBody;
+
+  /// No description provided for @settingsTrustedSendersRemoveDialogRemove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get settingsTrustedSendersRemoveDialogRemove;
 
   /// No description provided for @highRiskSwipeUpForDetails.
   ///

@@ -70,6 +70,18 @@
 
   "actionScam": "ഇത് മോശമാണ്",
   "actionSafe": "ഇത് സുരക്ഷിതമാണ്",
+  "actionTrustSender": "Trust this sender",
+
+  "snackbarSenderTrusted": "Sender trusted — no more alerts from them.",
+
+  "settingsTrustedSendersTitle": "Trusted Senders",
+  "settingsTrustedSendersNone": "No trusted senders",
+  "settingsTrustedSendersCount": "{count} trusted sender(s)",
+  "settingsTrustedSendersExplanation": "These senders will not trigger any alerts. Tap 'Trust this sender' on a warning to add them here.",
+  "settingsTrustedSendersRemoveDialogTitle": "Remove trusted sender?",
+  "settingsTrustedSendersRemoveDialogBody": "Alerts will be shown again for messages from this sender.",
+  "settingsTrustedSendersRemoveDialogRemove": "Remove",
+
 
   "snackbarGenericError": "എന്തോ തെറ്റുപറ്റി. വീണ്ടും ശ്രമിക്കുക.",
   "snackbarMarkedScam": "മോശമായി അടയാളപ്പെടുത്തി. നന്ദി.",

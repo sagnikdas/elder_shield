@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:elder_shield/l10n/app_localizations.dart';
@@ -5,6 +7,8 @@ import 'package:elder_shield/application/app_providers.dart';
 import 'package:elder_shield/core/design_tokens.dart';
 import 'package:elder_shield/features/messages/data/message_repository.dart';
 import 'package:elder_shield/domain/detector/heuristic_detector.dart';
+import 'package:elder_shield/platform/whitelist_channel.dart';
+import 'package:elder_shield/utils/sender_utils.dart';
 import 'package:elder_shield/utils/snackbars.dart';
 import 'package:elder_shield/presentation/messages/reason_localizations.dart';
 
@@ -195,6 +199,44 @@ class _HighRiskWarningContent extends ConsumerWidget {
                     return;
                   }
                   if (context.mounted) {
+                    onDismiss();
+                    Navigator.of(context).pop();
+                  }
+                },
+              ),
+              const SizedBox(height: 12),
+              _ActionButton(
+                label: l10n.actionTrustSender,
+                icon: Icons.verified_user_outlined,
+                color: Colors.blueGrey.shade700,
+                onPressed: () async {
+                  final normalized = normalizeSender(message.sender);
+                  final settings = ref.read(settingsServiceProvider);
+                  try {
+                    final current = await settings.getWhitelistedSenders();
+                    if (!current.contains(normalized)) {
+                      final updated = [...current, normalized];
+                      await settings.setWhitelistedSenders(updated);
+                      ref
+                          .read(whitelistedSendersProvider.notifier)
+                          .state = updated.toSet();
+                      unawaited(WhitelistChannel.setWhitelist(updated));
+                    }
+                    await repo.saveFeedback(
+                      messageId: message.id,
+                      label: 'safe',
+                    );
+                  } catch (_) {
+                    if (!context.mounted) return;
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      elderSnackBar(l10n.snackbarGenericError),
+                    );
+                    return;
+                  }
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      elderSnackBar(l10n.snackbarSenderTrusted),
+                    );
                     onDismiss();
                     Navigator.of(context).pop();
                   }

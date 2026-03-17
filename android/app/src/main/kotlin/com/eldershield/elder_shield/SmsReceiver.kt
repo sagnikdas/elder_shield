@@ -68,7 +68,13 @@ class SmsReceiver : BroadcastReceiver() {
             val shouldInterruptNatively = !appVisible
             if (!shouldInterruptNatively) continue
 
-            val highRisk = SimpleRiskCheck.looksHighRisk(sender, body)
+            val trustedSenders = try {
+                context.getSharedPreferences("elder_shield_prefs", android.content.Context.MODE_PRIVATE)
+                    .getStringSet("trusted_senders", emptySet()) ?: emptySet()
+            } catch (e: Exception) {
+                emptySet<String>()
+            }
+            val highRisk = SimpleRiskCheck.looksHighRisk(sender, body, trustedSenders)
             Log.d(tag, "Background/killed app: looksHighRisk=$highRisk")
             if (highRisk) {
                 Log.d(tag, "Showing possible-scam notification and overlay")

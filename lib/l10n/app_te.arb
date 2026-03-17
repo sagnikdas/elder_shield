@@ -70,6 +70,18 @@
 
   "actionScam": "ఇది మోసం",
   "actionSafe": "ఇది సురక్షితం",
+  "actionTrustSender": "Trust this sender",
+
+  "snackbarSenderTrusted": "Sender trusted — no more alerts from them.",
+
+  "settingsTrustedSendersTitle": "Trusted Senders",
+  "settingsTrustedSendersNone": "No trusted senders",
+  "settingsTrustedSendersCount": "{count} trusted sender(s)",
+  "settingsTrustedSendersExplanation": "These senders will not trigger any alerts. Tap 'Trust this sender' on a warning to add them here.",
+  "settingsTrustedSendersRemoveDialogTitle": "Remove trusted sender?",
+  "settingsTrustedSendersRemoveDialogBody": "Alerts will be shown again for messages from this sender.",
+  "settingsTrustedSendersRemoveDialogRemove": "Remove",
+
 
   "snackbarGenericError": "ఏదో తప్పు జరిగింది. మళ్లీ ప్రయత్నించండి.",
   "snackbarMarkedScam": "మోసంగా గుర్తించబడింది. ధన్యవాదాలు.",

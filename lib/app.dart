@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:elder_shield/l10n/app_localizations.dart';
 import 'package:elder_shield/application/app_providers.dart';
 import 'package:elder_shield/core/navigation/app_routes.dart';
 import 'package:elder_shield/core/theme/app_theme.dart';
+import 'package:elder_shield/platform/whitelist_channel.dart';
 import 'package:elder_shield/presentation/launch_gate.dart';
 import 'package:elder_shield/presentation/onboarding/onboarding_flow.dart';
 import 'package:elder_shield/presentation/shell/main_shell.dart';
@@ -26,6 +29,7 @@ class _ElderShieldAppState extends ConsumerState<ElderShieldApp> {
       _loadFontScale();
       _loadThemeMode();
       _loadLanguage();
+      _loadWhitelist();
     });
   }
 
@@ -52,6 +56,18 @@ class _ElderShieldAppState extends ConsumerState<ElderShieldApp> {
     final code = await settings.getLanguageCode();
     if (mounted) ref.read(languageCodeProvider.notifier).state = code;
   }
+
+  Future<void> _loadWhitelist() async {
+    final settings = ref.read(settingsServiceProvider);
+    final senders = await settings.getWhitelistedSenders();
+    if (!mounted) return;
+    ref.read(whitelistedSendersProvider.notifier).state = senders.toSet();
+    // Sync to Kotlin layer so background checks also respect the whitelist.
+    if (senders.isNotEmpty) {
+      unawaited(WhitelistChannel.setWhitelist(senders));
+    }
+  }
+
   static ThemeData _buildLightTheme() => AppTheme.light();
 
   static ThemeData _buildDarkTheme() => AppTheme.dark();

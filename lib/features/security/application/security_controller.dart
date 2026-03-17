@@ -6,6 +6,7 @@ import 'package:elder_shield/features/messages/data/message_repository.dart';
 import 'package:elder_shield/l10n/app_localizations.dart';
 import 'package:elder_shield/platform/native_event_stream.dart';
 import 'package:elder_shield/services/notification_service.dart';
+import 'package:elder_shield/utils/sender_utils.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -53,6 +54,13 @@ class SecurityController {
 
   void _handleSms(SmsEvent sms) {
     if (sms.body.trim().isEmpty) return;
+
+    // Skip whitelisted senders entirely — no alert, no DB save.
+    final whitelist = _ref.read(whitelistedSendersProvider);
+    if (whitelist.contains(normalizeSender(sms.sender))) {
+      debugPrint('[SecurityController] ${sms.sender} is whitelisted — skipping');
+      return;
+    }
 
     final inCall = _ref.read(isInCallProvider);
     final result = _detector.analyze(
