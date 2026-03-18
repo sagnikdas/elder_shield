@@ -235,6 +235,115 @@ void main() {
       expect(result.band, RiskBand.low);
     });
 
+    // Vernacular language detection tests
+    test('Hindi KYC scam with urgency and OTP → high risk', () {
+      final result = detector.analyze(
+        sender: 'HDFCBANK',
+        body:
+            'आपका खाता बंद हो जाएगा। केवाईसी अपडेट करें। ओटीपी: 123456 किसी के साथ साझा न करें।',
+        isInCall: false,
+      );
+      expect(result.band, anyOf(RiskBand.medium, RiskBand.high));
+      expect(result.reasons, contains('Uses urgent or threatening language'));
+      expect(
+        result.reasons,
+        contains('Mentions bank account, KYC, or payment details'),
+      );
+    });
+
+    test('Tamil urgency + bank keywords → medium or high risk', () {
+      final result = detector.analyze(
+        sender: 'SBIBANK',
+        body:
+            'உங்கள் கணக்கு நிறுத்தப்படும். கேஒய்சி சரிபார்க்கவும். சட்ட நடவடிக்கை எடுக்கப்படும்.',
+        isInCall: false,
+      );
+      expect(result.band, anyOf(RiskBand.medium, RiskBand.high));
+      expect(result.reasons, contains('Uses urgent or threatening language'));
+      expect(
+        result.reasons,
+        contains('Mentions bank account, KYC, or payment details'),
+      );
+    });
+
+    test('Bengali reward scam → medium or high risk', () {
+      final result = detector.analyze(
+        sender: 'PROMO',
+        body:
+            'অভিনন্দন বিজয়ী! আপনি জিতেছেন লটারি পুরস্কার। এখনই দাবি করুন।',
+        isInCall: false,
+      );
+      expect(result.band, anyOf(RiskBand.medium, RiskBand.high));
+      expect(
+        result.reasons,
+        contains('Mentions a reward, prize, or lottery (likely scam)'),
+      );
+    });
+
+    test('Telugu parcel scam → medium or high risk', () {
+      final result = detector.analyze(
+        sender: 'COURIER',
+        body:
+            'పార్సెల్ డెలివరీ విఫలమైంది. కస్టమ్స్ క్లియరెన్స్ కోసం డెలివరీ చార్జ్ చెల్లించండి.',
+        isInCall: false,
+      );
+      expect(result.band, anyOf(RiskBand.medium, RiskBand.high));
+      expect(
+        result.reasons,
+        contains('Mentions a parcel or delivery issue (likely scam)'),
+      );
+    });
+
+    test('Urdu account suspension threat → flags urgency', () {
+      final result = detector.analyze(
+        sender: 'BANKALRT',
+        body:
+            'آپ کا اکاؤنٹ بند ہو جائے گا۔ کے وائی سی اپ ڈیٹ کریں ورنہ قانونی کارروائی ہوگی۔',
+        isInCall: false,
+      );
+      expect(result.reasons, contains('Uses urgent or threatening language'));
+      expect(
+        result.reasons,
+        contains('Mentions bank account, KYC, or payment details'),
+      );
+    });
+
+    test('Kannada crypto investment scam → flags crypto signal', () {
+      final result = detector.analyze(
+        sender: '+919876543210',
+        body:
+            'ಕ್ರಿಪ್ಟೋ ಹೂಡಿಕೆ ಮಾಡಿ ಮತ್ತು ಗ್ಯಾರಂಟಿ ರಿಟರ್ನ್ ಪಡೆಯಿರಿ. ಬಿಟ್‌ಕಾಯಿನ್ ಟ್ರೇಡಿಂಗ್ ಸಿಗ್ನಲ್.',
+        isInCall: false,
+      );
+      expect(
+        result.reasons,
+        contains('Mentions cryptocurrency investment (likely scam)'),
+      );
+    });
+
+    test('Malayalam OTP payment request → medium or high risk', () {
+      final result = detector.analyze(
+        sender: 'AXISBANK',
+        body:
+            'ഒടിപി: 847291. ഈ കോഡ് പങ്കിടരുത്. ഇപ്പോൾ പണം അടക്കുക.',
+        isInCall: false,
+      );
+      expect(result.band, anyOf(RiskBand.medium, RiskBand.high));
+      expect(
+        result.reasons,
+        contains('Asks for or mentions a one-time code (OTP)'),
+      );
+    });
+
+    test('Assamese benign family message → low risk', () {
+      final result = detector.analyze(
+        sender: '+919876543210',
+        body: 'মই আজি ৰাতি ঘৰলৈ আহিম। ৰাতিপুৱা খোৱা খাইছানে?',
+        isInCall: false,
+      );
+      expect(result.band, RiskBand.low);
+    });
+
     test('score is always clamped between 0 and 1', () {
       final result = detector.analyze(
         sender: 'SecureSupport',
