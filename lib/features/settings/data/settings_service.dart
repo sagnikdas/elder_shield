@@ -54,6 +54,7 @@ class SettingsKeys {
   static const fontScale = 'font_scale'; // double as string, e.g. '1.0'. 1.0 = 100%.
   static const themeMode = 'theme_mode'; // 'light', 'dark', 'system'
   static const languageCode = 'language_code'; // 'en', 'bn', 'kn', etc.
+  static const isPremiumCached = 'is_premium_cached'; // 'true' or 'false'
 }
 
 /// Secure settings stored in [FlutterSecureStorage].
@@ -254,6 +255,19 @@ class SettingsService {
     await _storage.write(
       key: SettingsKeys.languageCode,
       value: code,
+    );
+  }
+
+  /// Cached premium subscription state (local cache — always re-verified with Play Store on startup).
+  Future<bool> getIsPremiumCached() async {
+    final value = await _storage.read(key: SettingsKeys.isPremiumCached);
+    return value == 'true';
+  }
+
+  Future<void> setIsPremiumCached(bool value) async {
+    await _storage.write(
+      key: SettingsKeys.isPremiumCached,
+      value: value.toString(),
     );
   }
 

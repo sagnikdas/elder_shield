@@ -776,4 +776,65 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get onboardingFinish => 'அமைப்பை முடிக்கவும்';
+
+  @override
+  String guardianPlanMonthlyPrice(String price) {
+    return '₹$price';
+  }
+
+  @override
+  String guardianPlanYearlyPrice(String price) {
+    return '₹$price';
+  }
+
+  @override
+  String get guardianPlanTitle => 'கார்டியன் திட்டம்';
+
+  @override
+  String get guardianPlanSubtitle => 'குடும்பத்தினருக்கு சந்தேகமான செய்தி வரும்போது அறியுங்கள்';
+
+  @override
+  String get guardianPlanWhatYouGet => 'நீங்கள் பெறுவது';
+
+  @override
+  String get guardianPlanBenefitAlerts => 'சந்தேகமான செய்திகளில் WhatsApp/SMS எச்சரிக்கைகள்';
+
+  @override
+  String get guardianPlanBenefitHeartbeat => 'தினசரி செக்-இன்: அவர்கள் ஃபோன் பாதுகாக்கப்படுவதை அறியுங்கள்';
+
+  @override
+  String get guardianPlanBenefitSummary => 'வாராந்திர அச்சுறுத்தல் சுருக்கம்';
+
+  @override
+  String get guardianPlanBenefitFamily => '3 குடும்பத்தினரை பாதுகாக்கவும்';
+
+  @override
+  String get guardianPlanMonthlyFallback => 'மாதாந்திர திட்டம்';
+
+  @override
+  String get guardianPlanYearlyFallback => 'வார்ஷிக திட்டம் — 33% சேமிப்பு';
+
+  @override
+  String get guardianPlanYearlySaveBadge => '33% சேமிப்பு';
+
+  @override
+  String get guardianPlanRestore => 'கொள்முதல்களை மீட்டமைக்கவும்';
+
+  @override
+  String get guardianPlanMaybeLater => 'பிறகு';
+
+  @override
+  String get guardianPlanTerms => 'சேவை விதிமுறைகள்';
+
+  @override
+  String get guardianPlanPrivacy => 'தனியுரிமை கொள்கை';
+
+  @override
+  String get guardianPlanActiveSubtitle => 'கார்டியன் எச்சரிக்கைகள், தினசரி செக்-இன், வாராந்திர சுருக்கம்';
+
+  @override
+  String get guardianPlanUpgradeSubtitle => 'குடும்பத்தினருக்கு சந்தேகமான செய்தி வரும்போது அறிவிப்பு பெறுங்கள்';
+
+  @override
+  String get guardianPlanActiveBadge => 'செயலில்';
 }

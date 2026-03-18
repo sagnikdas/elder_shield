@@ -776,4 +776,65 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get onboardingFinish => 'सेटअप पूरा करें';
+
+  @override
+  String guardianPlanMonthlyPrice(String price) {
+    return '₹$price';
+  }
+
+  @override
+  String guardianPlanYearlyPrice(String price) {
+    return '₹$price';
+  }
+
+  @override
+  String get guardianPlanTitle => 'गार्डियन प्लान';
+
+  @override
+  String get guardianPlanSubtitle => 'जब परिवार के सदस्य को संदिग्ध संदेश आए तो सूचित हों';
+
+  @override
+  String get guardianPlanWhatYouGet => 'आपको क्या मिलता है';
+
+  @override
+  String get guardianPlanBenefitAlerts => 'संदिग्ध संदेश आने पर WhatsApp/SMS अलर्ट';
+
+  @override
+  String get guardianPlanBenefitHeartbeat => 'दैनिक चेक-इन: जानें कि उनका फोन सुरक्षित है';
+
+  @override
+  String get guardianPlanBenefitSummary => 'अवरुद्ध खतरों की साप्ताहिक सारांश';
+
+  @override
+  String get guardianPlanBenefitFamily => '3 परिवार के सदस्यों की सुरक्षा';
+
+  @override
+  String get guardianPlanMonthlyFallback => 'मासिक योजना';
+
+  @override
+  String get guardianPlanYearlyFallback => 'वार्षिक योजना — 33% बचत';
+
+  @override
+  String get guardianPlanYearlySaveBadge => '33% बचाएं';
+
+  @override
+  String get guardianPlanRestore => 'खरीद पुनः प्राप्त करें';
+
+  @override
+  String get guardianPlanMaybeLater => 'बाद में';
+
+  @override
+  String get guardianPlanTerms => 'सेवा की शर्तें';
+
+  @override
+  String get guardianPlanPrivacy => 'गोपनीयता नीति';
+
+  @override
+  String get guardianPlanActiveSubtitle => 'गार्डियन अलर्ट, दैनिक चेक-इन, साप्ताहिक सारांश';
+
+  @override
+  String get guardianPlanUpgradeSubtitle => 'परिवार को संदिग्ध संदेश आने पर अलर्ट पाएं';
+
+  @override
+  String get guardianPlanActiveBadge => 'सक्रिय';
 }

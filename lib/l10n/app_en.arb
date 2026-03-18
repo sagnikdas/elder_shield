@@ -395,6 +395,41 @@
   "addGuardianOptional": "Have a family member who cares? Add a guardian contact",
   "addGuardianOptionalSubtitle": "They can be notified when you receive a suspicious message.",
 
-  "onboardingFinish": "Finish Setup"
-}
+  "onboardingFinish": "Finish Setup",
 
+  "guardianPlanMonthlyPrice": "₹{price}/month",
+  "@guardianPlanMonthlyPrice": {
+    "description": "Guardian Plan monthly price",
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "guardianPlanYearlyPrice": "₹{price}/year",
+  "@guardianPlanYearlyPrice": {
+    "description": "Guardian Plan yearly price",
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "guardianPlanTitle": "Guardian Plan",
+  "guardianPlanSubtitle": "Get notified when your family member receives a suspicious message",
+  "guardianPlanWhatYouGet": "What you get",
+  "guardianPlanBenefitAlerts": "WhatsApp/SMS alerts when suspicious messages arrive",
+  "guardianPlanBenefitHeartbeat": "Daily check-in: know their phone is active and protected",
+  "guardianPlanBenefitSummary": "Weekly summary of threats blocked",
+  "guardianPlanBenefitFamily": "Protect up to 3 family members",
+  "guardianPlanMonthlyFallback": "Monthly plan",
+  "guardianPlanYearlyFallback": "Yearly plan \u2014 Save 33%",
+  "guardianPlanYearlySaveBadge": "Save 33%",
+  "guardianPlanRestore": "Restore purchases",
+  "guardianPlanMaybeLater": "Maybe later",
+  "guardianPlanTerms": "Terms of Service",
+  "guardianPlanPrivacy": "Privacy Policy",
+  "guardianPlanActiveSubtitle": "Guardian alerts, daily heartbeat, weekly summary",
+  "guardianPlanUpgradeSubtitle": "Get alerts when your family member gets a suspicious message",
+  "guardianPlanActiveBadge": "Active"
+}

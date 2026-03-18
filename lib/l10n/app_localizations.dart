@@ -1602,6 +1602,120 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Finish Setup'**
   String get onboardingFinish;
+
+  /// Guardian Plan monthly price
+  ///
+  /// In en, this message translates to:
+  /// **'₹{price}/month'**
+  String guardianPlanMonthlyPrice(String price);
+
+  /// Guardian Plan yearly price
+  ///
+  /// In en, this message translates to:
+  /// **'₹{price}/year'**
+  String guardianPlanYearlyPrice(String price);
+
+  /// No description provided for @guardianPlanTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Guardian Plan'**
+  String get guardianPlanTitle;
+
+  /// No description provided for @guardianPlanSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Get notified when your family member receives a suspicious message'**
+  String get guardianPlanSubtitle;
+
+  /// No description provided for @guardianPlanWhatYouGet.
+  ///
+  /// In en, this message translates to:
+  /// **'What you get'**
+  String get guardianPlanWhatYouGet;
+
+  /// No description provided for @guardianPlanBenefitAlerts.
+  ///
+  /// In en, this message translates to:
+  /// **'WhatsApp/SMS alerts when suspicious messages arrive'**
+  String get guardianPlanBenefitAlerts;
+
+  /// No description provided for @guardianPlanBenefitHeartbeat.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily check-in: know their phone is active and protected'**
+  String get guardianPlanBenefitHeartbeat;
+
+  /// No description provided for @guardianPlanBenefitSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly summary of threats blocked'**
+  String get guardianPlanBenefitSummary;
+
+  /// No description provided for @guardianPlanBenefitFamily.
+  ///
+  /// In en, this message translates to:
+  /// **'Protect up to 3 family members'**
+  String get guardianPlanBenefitFamily;
+
+  /// No description provided for @guardianPlanMonthlyFallback.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly plan'**
+  String get guardianPlanMonthlyFallback;
+
+  /// No description provided for @guardianPlanYearlyFallback.
+  ///
+  /// In en, this message translates to:
+  /// **'Yearly plan — Save 33%'**
+  String get guardianPlanYearlyFallback;
+
+  /// No description provided for @guardianPlanYearlySaveBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Save 33%'**
+  String get guardianPlanYearlySaveBadge;
+
+  /// No description provided for @guardianPlanRestore.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore purchases'**
+  String get guardianPlanRestore;
+
+  /// No description provided for @guardianPlanMaybeLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Maybe later'**
+  String get guardianPlanMaybeLater;
+
+  /// No description provided for @guardianPlanTerms.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms of Service'**
+  String get guardianPlanTerms;
+
+  /// No description provided for @guardianPlanPrivacy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get guardianPlanPrivacy;
+
+  /// No description provided for @guardianPlanActiveSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Guardian alerts, daily heartbeat, weekly summary'**
+  String get guardianPlanActiveSubtitle;
+
+  /// No description provided for @guardianPlanUpgradeSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Get alerts when your family member gets a suspicious message'**
+  String get guardianPlanUpgradeSubtitle;
+
+  /// No description provided for @guardianPlanActiveBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get guardianPlanActiveBadge;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
