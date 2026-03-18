@@ -235,6 +235,102 @@ void main() {
       expect(result.band, RiskBand.low);
     });
 
+    // ── Multilingual detection ────────────────────────────────────────────────
+
+    test('Hindi KYC scam → flags bank keyword', () {
+      final result = detector.analyze(
+        sender: 'SBIBANK',
+        body: 'आपका खाता बंद हो जाएगा। केवाईसी अपडेट करें अन्यथा बैंक खाता ब्लॉक होगा।',
+        isInCall: false,
+      );
+      expect(
+        result.reasons,
+        contains('Mentions bank account, KYC, or payment details'),
+      );
+      expect(result.band, isNot(RiskBand.low));
+    });
+
+    test('Hindi urgency + OTP scam → medium or high risk', () {
+      final result = detector.analyze(
+        sender: 'ALERTS',
+        body: 'तुरंत ध्यान दें: आपका खाता लॉक हो गया है। ओटीपी 748291 किसी को न बताएं।',
+        isInCall: false,
+      );
+      expect(result.reasons, contains('Uses urgent or threatening language'));
+      expect(result.reasons, contains('Asks for or mentions a one-time code (OTP)'));
+      expect(result.band, anyOf(RiskBand.medium, RiskBand.high));
+    });
+
+    test('Tamil urgency + bank scam → flags both signals', () {
+      final result = detector.analyze(
+        sender: 'TMBANK',
+        body: 'அவசரம்: உங்கள் வங்கி கணக்கு நிறுத்தப்படும். உடனே சரிபார்க்கவும்.',
+        isInCall: false,
+      );
+      expect(result.reasons, contains('Uses urgent or threatening language'));
+      expect(
+        result.reasons,
+        contains('Mentions bank account, KYC, or payment details'),
+      );
+      expect(result.band, isNot(RiskBand.low));
+    });
+
+    test('Tamil bank + OTP scam → medium or high risk', () {
+      final result = detector.analyze(
+        sender: 'HDFCALERT',
+        body: 'உங்கள் வங்கி கணக்கு சரிபார்க்க ஓடிபி: 384921. இந்த குறியீட்டை யாரிடமும் பகிர வேண்டாம்.',
+        isInCall: false,
+      );
+      expect(
+        result.reasons,
+        contains('Mentions bank account, KYC, or payment details'),
+      );
+      expect(result.reasons, contains('Asks for or mentions a one-time code (OTP)'));
+    });
+
+    test('Bengali urgency + bank scam → medium or high risk', () {
+      final result = detector.analyze(
+        sender: 'BNKalert',
+        body: 'জরুরি: আপনার অ্যাকাউন্ট বন্ধ হয়ে যাবে। কেওয়াইসি আপডেট করুন। ব্যাংক অ্যাকাউন্ট যাচাই করুন।',
+        isInCall: false,
+      );
+      expect(result.reasons, contains('Uses urgent or threatening language'));
+      expect(
+        result.reasons,
+        contains('Mentions bank account, KYC, or payment details'),
+      );
+      expect(result.band, anyOf(RiskBand.medium, RiskBand.high));
+    });
+
+    test('Bengali lottery reward scam → flags reward keyword', () {
+      final result = detector.analyze(
+        sender: 'PROMO',
+        body: 'অভিনন্দন বিজয়ী! আপনি জিতেছেন ১০ লক্ষ টাকা। পুরস্কার দাবি করুন এখনই।',
+        isInCall: false,
+      );
+      expect(result.reasons, contains('Looks like a prize or lottery reward scam'));
+    });
+
+    test('Hindi payment request scam → flags payment keyword', () {
+      final result = detector.analyze(
+        sender: '+919876543210',
+        body: 'अभी भुगतान करें। भुगतान लिंक पर क्लिक करें: http://bit.ly/pay123',
+        isInCall: false,
+      );
+      expect(result.reasons, contains('Asks you to send or approve a payment'));
+      expect(result.reasons, contains('Contains a shortened or suspicious link'));
+    });
+
+    test('benign Hindi family message → low risk', () {
+      final result = detector.analyze(
+        sender: '+918765432109',
+        body: 'नमस्ते, मैं कल आऊंगा। खाना तैयार रखना।',
+        isInCall: false,
+      );
+      expect(result.band, RiskBand.low);
+      expect(result.reasons, isEmpty);
+    });
+
     test('score is always clamped between 0 and 1', () {
       final result = detector.analyze(
         sender: 'SecureSupport',

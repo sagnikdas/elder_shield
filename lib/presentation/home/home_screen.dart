@@ -75,35 +75,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     if (mounted) setState(() => _showCallButtonTooltip = false);
   }
 
-  Future<void> _maybeShowPostOnboardingDialog() async {
-    if (await _settings.isPostOnboardingDialogShown()) return;
-    if (!_permissionsGranted) return;
-    if (!mounted) return;
-    await _loadTrustedContact();
-    if (!mounted) return;
-    final l10n = AppLocalizations.of(context)!;
-    final name = _trustedContactName?.isNotEmpty == true
-        ? _trustedContactName!
-        : l10n.homeTrustedContactFallbackName;
-    if (!mounted) return;
-    await showDialog<void>(
-      context: context,
-      barrierDismissible: false,
-      builder: (ctx) => AlertDialog(
-        title: Text(l10n.homePostOnboardingTitle),
-        content: Text(
-          l10n.homePostOnboardingBody(name),
-        ),
-        actions: [
-          FilledButton(
-            onPressed: () => Navigator.of(ctx).pop(),
-            child: Text(l10n.commonGotIt),
-          ),
-        ],
-      ),
-    );
-    await _settings.setPostOnboardingDialogShown(true);
-  }
 
   Future<void> _loadTrustedContact() async {
     final list = await _settings.getTrustedContacts();
@@ -194,7 +165,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     if (!mounted) return;
     setState(() => _permissionsGranted = true);
     _securityController.start();
-    await _maybeShowPostOnboardingDialog();
   }
 
   Future<void> _callTrustedContact() async {
