@@ -683,4 +683,97 @@ class AppLocalizationsMl extends AppLocalizations {
 
   @override
   String get fullScreenWarningBlockSender => 'ഈ അയച്ചയാളെ ബ്ലോക്ക് ചെയ്യുക (മെസ്സേജിംഗ് ആപ്പ് തുറക്കും)';
+
+  @override
+  String get roleSelectionTitle => 'ആർക്കുവേണ്ടി സജ്ജീകരിക്കുകയാണ്?';
+
+  @override
+  String get roleSelectionSubtitle => 'ഇത് അനുഭവം വ്യക്തിഗതമാക്കാൻ സഹായിക്കുന്നു.';
+
+  @override
+  String get caregiverOption => 'ഞാൻ എന്റെ മാതാപിതാക്കൾ / കുടുംബാംഗത്തിനുവേണ്ടി സജ്ജീകരിക്കുകയാണ്';
+
+  @override
+  String get selfProtectionOption => 'ഞാൻ എന്നെ സ്വയം സംരക്ഷിക്കാൻ ആഗ്രഹിക്കുന്നു';
+
+  @override
+  String get namePersonTitle => 'നിങ്ങൾ ആരെ സംരക്ഷിക്കുകയാണ്?';
+
+  @override
+  String get namePersonSubtitle => 'ഒരു പേര് തിരഞ്ഞെടുക്കുക അല്ലെങ്കിൽ സ്വയം ടൈപ്പ് ചെയ്യുക.';
+
+  @override
+  String get presetNameMaa => 'അമ്മ';
+
+  @override
+  String get presetNamePapa => 'അച്ഛൻ';
+
+  @override
+  String get presetNameDadi => 'അമ്മൂമ്മ';
+
+  @override
+  String get presetNameDada => 'അപ്പൂപ്പൻ';
+
+  @override
+  String get presetNameNani => 'നാനി';
+
+  @override
+  String get presetNameNana => 'നാനാ';
+
+  @override
+  String get namePersonCustomHint => 'അല്ലെങ്കിൽ ഒരു പേര് ടൈപ്പ് ചെയ്യുക';
+
+  @override
+  String get namePersonContinue => 'തുടരുക';
+
+  @override
+  String get namePersonValidation => 'ദയവായി ഒരു പേര് തിരഞ്ഞെടുക്കുക അല്ലെങ്കിൽ നൽകുക';
+
+  @override
+  String get guardianTitle => 'നിങ്ങളെ ഗാർഡിയനായി ചേർക്കുക';
+
+  @override
+  String get guardianSubtitle => 'അവരുടെ ഫോണിൽ സംശയകരമായ സന്ദേശം വന്നാൽ നിങ്ങളെ അറിയിക്കും.';
+
+  @override
+  String get guardianNameLabel => 'നിങ്ങളുടെ പേര്';
+
+  @override
+  String get guardianNameHint => 'ഉദാ. രാഹുൽ';
+
+  @override
+  String get guardianPhoneLabel => 'നിങ്ങളുടെ WhatsApp / ഫോൺ നമ്പർ';
+
+  @override
+  String get guardianPhoneHint => 'ഉദാ. +91 98765 43210';
+
+  @override
+  String get guardianContinue => 'തുടരുക';
+
+  @override
+  String get guardianValidation => 'ദയവായി നിങ്ങളുടെ പേരും ഫോൺ നമ്പറും നൽകുക';
+
+  @override
+  String get yourNameTitle => 'നിങ്ങളുടെ പേര് എന്താണ്?';
+
+  @override
+  String get yourNameSubtitle => 'നിങ്ങളുടെ സംരക്ഷണം വ്യക്തിഗതമാക്കാൻ.';
+
+  @override
+  String get yourNameHint => 'നിങ്ങളുടെ പേര് നൽകുക';
+
+  @override
+  String get yourNameContinue => 'തുടരുക';
+
+  @override
+  String get yourNameValidation => 'ദയവായി നിങ്ങളുടെ പേര് നൽകുക';
+
+  @override
+  String get addGuardianOptional => 'ശ്രദ്ധിക്കുന്ന ഒരു കുടുംബാംഗം ഉണ്ടോ? ഒരു ഗാർഡിയനെ ചേർക്കുക';
+
+  @override
+  String get addGuardianOptionalSubtitle => 'നിങ്ങൾക്ക് സംശയകരമായ സന്ദേശം ലഭിക്കുമ്പോൾ അവരെ അറിയിക്കാം.';
+
+  @override
+  String get onboardingFinish => 'സജ്ജീകരണം പൂർത്തിയാക്കുക';
 }

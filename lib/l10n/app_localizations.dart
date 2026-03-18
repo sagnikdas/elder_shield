@@ -1416,6 +1416,192 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Block this sender (opens messaging app)'**
   String get fullScreenWarningBlockSender;
+
+  /// No description provided for @roleSelectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Who is setting this up?'**
+  String get roleSelectionTitle;
+
+  /// No description provided for @roleSelectionSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This helps us tailor the experience.'**
+  String get roleSelectionSubtitle;
+
+  /// No description provided for @caregiverOption.
+  ///
+  /// In en, this message translates to:
+  /// **'I\'m setting this up for my parent / family member'**
+  String get caregiverOption;
+
+  /// No description provided for @selfProtectionOption.
+  ///
+  /// In en, this message translates to:
+  /// **'I want to protect myself'**
+  String get selfProtectionOption;
+
+  /// No description provided for @namePersonTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Who are you protecting?'**
+  String get namePersonTitle;
+
+  /// No description provided for @namePersonSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a name or type your own.'**
+  String get namePersonSubtitle;
+
+  /// No description provided for @presetNameMaa.
+  ///
+  /// In en, this message translates to:
+  /// **'Maa'**
+  String get presetNameMaa;
+
+  /// No description provided for @presetNamePapa.
+  ///
+  /// In en, this message translates to:
+  /// **'Papa'**
+  String get presetNamePapa;
+
+  /// No description provided for @presetNameDadi.
+  ///
+  /// In en, this message translates to:
+  /// **'Dadi'**
+  String get presetNameDadi;
+
+  /// No description provided for @presetNameDada.
+  ///
+  /// In en, this message translates to:
+  /// **'Dada'**
+  String get presetNameDada;
+
+  /// No description provided for @presetNameNani.
+  ///
+  /// In en, this message translates to:
+  /// **'Nani'**
+  String get presetNameNani;
+
+  /// No description provided for @presetNameNana.
+  ///
+  /// In en, this message translates to:
+  /// **'Nana'**
+  String get presetNameNana;
+
+  /// No description provided for @namePersonCustomHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Or type a name'**
+  String get namePersonCustomHint;
+
+  /// No description provided for @namePersonContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get namePersonContinue;
+
+  /// No description provided for @namePersonValidation.
+  ///
+  /// In en, this message translates to:
+  /// **'Please choose or enter a name'**
+  String get namePersonValidation;
+
+  /// No description provided for @guardianTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add yourself as guardian'**
+  String get guardianTitle;
+
+  /// No description provided for @guardianSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'We\'ll notify you if a suspicious message is detected on their phone.'**
+  String get guardianSubtitle;
+
+  /// No description provided for @guardianNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Your name'**
+  String get guardianNameLabel;
+
+  /// No description provided for @guardianNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Rahul'**
+  String get guardianNameHint;
+
+  /// No description provided for @guardianPhoneLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Your WhatsApp / phone number'**
+  String get guardianPhoneLabel;
+
+  /// No description provided for @guardianPhoneHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. +91 98765 43210'**
+  String get guardianPhoneHint;
+
+  /// No description provided for @guardianContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get guardianContinue;
+
+  /// No description provided for @guardianValidation.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter both your name and phone number'**
+  String get guardianValidation;
+
+  /// No description provided for @yourNameTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What is your name?'**
+  String get yourNameTitle;
+
+  /// No description provided for @yourNameSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'So we can personalise your protection.'**
+  String get yourNameSubtitle;
+
+  /// No description provided for @yourNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your name'**
+  String get yourNameHint;
+
+  /// No description provided for @yourNameContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get yourNameContinue;
+
+  /// No description provided for @yourNameValidation.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your name'**
+  String get yourNameValidation;
+
+  /// No description provided for @addGuardianOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'Have a family member who cares? Add a guardian contact'**
+  String get addGuardianOptional;
+
+  /// No description provided for @addGuardianOptionalSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'They can be notified when you receive a suspicious message.'**
+  String get addGuardianOptionalSubtitle;
+
+  /// No description provided for @onboardingFinish.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish Setup'**
+  String get onboardingFinish;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

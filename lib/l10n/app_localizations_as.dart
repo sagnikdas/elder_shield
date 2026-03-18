@@ -683,4 +683,97 @@ class AppLocalizationsAs extends AppLocalizations {
 
   @override
   String get fullScreenWarningBlockSender => 'এই প্ৰেৰণকাৰীক ব্লক কৰক (মেছেজিং এপ খোলিব)';
+
+  @override
+  String get roleSelectionTitle => 'এইটো কাৰ বাবে ছেটআপ কৰিছে?';
+
+  @override
+  String get roleSelectionSubtitle => 'এইটোৱে অভিজ্ঞতা ব্যক্তিগতকৰণ কৰাত সহায় কৰে।';
+
+  @override
+  String get caregiverOption => 'মই মোৰ অভিভাৱক / পৰিয়ালৰ সদস্যৰ বাবে ছেটআপ কৰিছো';
+
+  @override
+  String get selfProtectionOption => 'মই নিজকে সুৰক্ষিত কৰিব বিচাৰো';
+
+  @override
+  String get namePersonTitle => 'আপুনি কাক সুৰক্ষিত কৰিছে?';
+
+  @override
+  String get namePersonSubtitle => 'এটা নাম বাছনি কৰক বা নিজে টাইপ কৰক।';
+
+  @override
+  String get presetNameMaa => 'মা';
+
+  @override
+  String get presetNamePapa => 'দেউতা';
+
+  @override
+  String get presetNameDadi => 'আইতা';
+
+  @override
+  String get presetNameDada => 'ককা';
+
+  @override
+  String get presetNameNani => 'নানি';
+
+  @override
+  String get presetNameNana => 'নানা';
+
+  @override
+  String get namePersonCustomHint => 'বা এটা নাম টাইপ কৰক';
+
+  @override
+  String get namePersonContinue => 'আগবাঢ়ক';
+
+  @override
+  String get namePersonValidation => 'অনুগ্ৰহ কৰি নাম বাছনি বা প্ৰৱেশ কৰক';
+
+  @override
+  String get guardianTitle => 'নিজকে গাৰ্ডিয়ান হিচাপে যোগ কৰক';
+
+  @override
+  String get guardianSubtitle => 'তেওঁলোকৰ ফোনত সন্দেহজনক বাৰ্তা আহিলে আমি আপোনাক জনাম।';
+
+  @override
+  String get guardianNameLabel => 'আপোনাৰ নাম';
+
+  @override
+  String get guardianNameHint => 'যেনে ৰাহুল';
+
+  @override
+  String get guardianPhoneLabel => 'আপোনাৰ WhatsApp / ফোন নম্বৰ';
+
+  @override
+  String get guardianPhoneHint => 'যেনে +91 98765 43210';
+
+  @override
+  String get guardianContinue => 'আগবাঢ়ক';
+
+  @override
+  String get guardianValidation => 'অনুগ্ৰহ কৰি আপোনাৰ নাম আৰু ফোন নম্বৰ প্ৰৱেশ কৰক';
+
+  @override
+  String get yourNameTitle => 'আপোনাৰ নাম কি?';
+
+  @override
+  String get yourNameSubtitle => 'যাতে আমি আপোনাৰ সুৰক্ষা ব্যক্তিগতকৰণ কৰিব পাৰো।';
+
+  @override
+  String get yourNameHint => 'আপোনাৰ নাম প্ৰৱেশ কৰক';
+
+  @override
+  String get yourNameContinue => 'আগবাঢ়ক';
+
+  @override
+  String get yourNameValidation => 'অনুগ্ৰহ কৰি আপোনাৰ নাম প্ৰৱেশ কৰক';
+
+  @override
+  String get addGuardianOptional => 'পৰিয়ালৰ কোনো মানুহ চিন্তিত আছেনে? এজন গাৰ্ডিয়ান যোগ কৰক';
+
+  @override
+  String get addGuardianOptionalSubtitle => 'আপুনি সন্দেহজনক বাৰ্তা পালে তেওঁলোকক জনাব পৰা যায়।';
+
+  @override
+  String get onboardingFinish => 'ছেটআপ সম্পূৰ্ণ কৰক';
 }

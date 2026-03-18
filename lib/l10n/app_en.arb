@@ -358,6 +358,43 @@
   "fullScreenWarningClosingNote": "Closing this screen does not delete the message from your phone.",
   "fullScreenWarningDeleteAction": "Delete message",
   "fullScreenWarningDeleteSnackbar": "Removed from Elder Shield. Opening messaging app so you can delete it from your phone.",
-  "fullScreenWarningBlockSender": "Block this sender (opens messaging app)"
+  "fullScreenWarningBlockSender": "Block this sender (opens messaging app)",
+
+  "roleSelectionTitle": "Who is setting this up?",
+  "roleSelectionSubtitle": "This helps us tailor the experience.",
+  "caregiverOption": "I'm setting this up for my parent / family member",
+  "selfProtectionOption": "I want to protect myself",
+
+  "namePersonTitle": "Who are you protecting?",
+  "namePersonSubtitle": "Pick a name or type your own.",
+  "presetNameMaa": "Maa",
+  "presetNamePapa": "Papa",
+  "presetNameDadi": "Dadi",
+  "presetNameDada": "Dada",
+  "presetNameNani": "Nani",
+  "presetNameNana": "Nana",
+  "namePersonCustomHint": "Or type a name",
+  "namePersonContinue": "Continue",
+  "namePersonValidation": "Please choose or enter a name",
+
+  "guardianTitle": "Add yourself as guardian",
+  "guardianSubtitle": "We'll notify you if a suspicious message is detected on their phone.",
+  "guardianNameLabel": "Your name",
+  "guardianNameHint": "e.g. Rahul",
+  "guardianPhoneLabel": "Your WhatsApp / phone number",
+  "guardianPhoneHint": "e.g. +91 98765 43210",
+  "guardianContinue": "Continue",
+  "guardianValidation": "Please enter both your name and phone number",
+
+  "yourNameTitle": "What is your name?",
+  "yourNameSubtitle": "So we can personalise your protection.",
+  "yourNameHint": "Enter your name",
+  "yourNameContinue": "Continue",
+  "yourNameValidation": "Please enter your name",
+
+  "addGuardianOptional": "Have a family member who cares? Add a guardian contact",
+  "addGuardianOptionalSubtitle": "They can be notified when you receive a suspicious message.",
+
+  "onboardingFinish": "Finish Setup"
 }
 

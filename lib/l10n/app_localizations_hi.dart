@@ -683,4 +683,97 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get fullScreenWarningBlockSender => 'इस प्रेषक को ब्लॉक करें (मैसेजिंग ऐप खुलेगा)';
+
+  @override
+  String get roleSelectionTitle => 'यह किसके लिए सेट कर रहे हैं?';
+
+  @override
+  String get roleSelectionSubtitle => 'इससे हम अनुभव को अनुकूलित करेंगे।';
+
+  @override
+  String get caregiverOption => 'मैं अपने माता-पिता / परिवार के लिए यह सेट कर रहा हूँ';
+
+  @override
+  String get selfProtectionOption => 'मैं खुद को सुरक्षित करना चाहता हूँ';
+
+  @override
+  String get namePersonTitle => 'आप किसकी रक्षा कर रहे हैं?';
+
+  @override
+  String get namePersonSubtitle => 'कोई नाम चुनें या अपना नाम लिखें।';
+
+  @override
+  String get presetNameMaa => 'माँ';
+
+  @override
+  String get presetNamePapa => 'पापा';
+
+  @override
+  String get presetNameDadi => 'दादी';
+
+  @override
+  String get presetNameDada => 'दादा';
+
+  @override
+  String get presetNameNani => 'नानी';
+
+  @override
+  String get presetNameNana => 'नाना';
+
+  @override
+  String get namePersonCustomHint => 'या कोई नाम टाइप करें';
+
+  @override
+  String get namePersonContinue => 'आगे बढ़ें';
+
+  @override
+  String get namePersonValidation => 'कृपया नाम चुनें या दर्ज करें';
+
+  @override
+  String get guardianTitle => 'खुद को गार्डियन के रूप में जोड़ें';
+
+  @override
+  String get guardianSubtitle => 'अगर उनके फोन पर संदिग्ध संदेश आए तो हम आपको सूचित करेंगे।';
+
+  @override
+  String get guardianNameLabel => 'आपका नाम';
+
+  @override
+  String get guardianNameHint => 'जैसे राहुल';
+
+  @override
+  String get guardianPhoneLabel => 'आपका WhatsApp / फोन नंबर';
+
+  @override
+  String get guardianPhoneHint => 'जैसे +91 98765 43210';
+
+  @override
+  String get guardianContinue => 'आगे बढ़ें';
+
+  @override
+  String get guardianValidation => 'कृपया अपना नाम और फोन नंबर दर्ज करें';
+
+  @override
+  String get yourNameTitle => 'आपका नाम क्या है?';
+
+  @override
+  String get yourNameSubtitle => 'ताकि हम आपकी सुरक्षा को व्यक्तिगत बना सकें।';
+
+  @override
+  String get yourNameHint => 'अपना नाम दर्ज करें';
+
+  @override
+  String get yourNameContinue => 'आगे बढ़ें';
+
+  @override
+  String get yourNameValidation => 'कृपया अपना नाम दर्ज करें';
+
+  @override
+  String get addGuardianOptional => 'कोई परिवार का सदस्य जो देखभाल करे? गार्डियन संपर्क जोड़ें';
+
+  @override
+  String get addGuardianOptionalSubtitle => 'जब आपको संदिग्ध संदेश आए तो उन्हें सूचित किया जा सकता है।';
+
+  @override
+  String get onboardingFinish => 'सेटअप पूरा करें';
 }

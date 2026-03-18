@@ -46,6 +46,10 @@ class SettingsKeys {
       'trusted_contacts'; // JSON array of {name, number}
   static const whitelistedSenders =
       'whitelisted_senders'; // JSON array of normalized sender strings
+  static const userRole = 'user_role'; // 'caregiver' or 'self'
+  static const protectedPersonName = 'protected_person_name';
+  static const guardianContact =
+      'guardian_contact'; // JSON object {name, number}
   static const fontScale = 'font_scale'; // double as string, e.g. '1.0'. 1.0 = 100%.
   static const themeMode = 'theme_mode'; // 'light', 'dark', 'system'
   static const languageCode = 'language_code'; // 'en', 'bn', 'kn', etc.
@@ -157,6 +161,44 @@ class SettingsService {
     await _storage.write(
       key: SettingsKeys.whitelistedSenders,
       value: jsonEncode(senders),
+    );
+  }
+
+  /// User role selected during onboarding: 'caregiver' or 'self'.
+  Future<String?> getUserRole() async {
+    return _storage.read(key: SettingsKeys.userRole);
+  }
+
+  Future<void> setUserRole(String role) async {
+    await _storage.write(key: SettingsKeys.userRole, value: role);
+  }
+
+  /// Name of the person being protected (e.g. "Maa", "Papa", or a custom name).
+  Future<String?> getProtectedPersonName() async {
+    return _storage.read(key: SettingsKeys.protectedPersonName);
+  }
+
+  Future<void> setProtectedPersonName(String name) async {
+    await _storage.write(key: SettingsKeys.protectedPersonName, value: name);
+  }
+
+  /// Guardian contact (caregiver's name + phone number). Stored as JSON.
+  Future<TrustedContact?> getGuardianContact() async {
+    final raw = await _storage.read(key: SettingsKeys.guardianContact);
+    if (raw == null || raw.isEmpty) return null;
+    try {
+      final decoded = jsonDecode(raw);
+      if (decoded is Map<String, dynamic>) {
+        return TrustedContact.fromJson(decoded);
+      }
+    } catch (_) {}
+    return null;
+  }
+
+  Future<void> setGuardianContact(TrustedContact contact) async {
+    await _storage.write(
+      key: SettingsKeys.guardianContact,
+      value: jsonEncode(contact.toJson()),
     );
   }
 

@@ -683,4 +683,97 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get fullScreenWarningBlockSender => 'Block this sender (opens messaging app)';
+
+  @override
+  String get roleSelectionTitle => 'Who is setting this up?';
+
+  @override
+  String get roleSelectionSubtitle => 'This helps us tailor the experience.';
+
+  @override
+  String get caregiverOption => 'I\'m setting this up for my parent / family member';
+
+  @override
+  String get selfProtectionOption => 'I want to protect myself';
+
+  @override
+  String get namePersonTitle => 'Who are you protecting?';
+
+  @override
+  String get namePersonSubtitle => 'Pick a name or type your own.';
+
+  @override
+  String get presetNameMaa => 'Maa';
+
+  @override
+  String get presetNamePapa => 'Papa';
+
+  @override
+  String get presetNameDadi => 'Dadi';
+
+  @override
+  String get presetNameDada => 'Dada';
+
+  @override
+  String get presetNameNani => 'Nani';
+
+  @override
+  String get presetNameNana => 'Nana';
+
+  @override
+  String get namePersonCustomHint => 'Or type a name';
+
+  @override
+  String get namePersonContinue => 'Continue';
+
+  @override
+  String get namePersonValidation => 'Please choose or enter a name';
+
+  @override
+  String get guardianTitle => 'Add yourself as guardian';
+
+  @override
+  String get guardianSubtitle => 'We\'ll notify you if a suspicious message is detected on their phone.';
+
+  @override
+  String get guardianNameLabel => 'Your name';
+
+  @override
+  String get guardianNameHint => 'e.g. Rahul';
+
+  @override
+  String get guardianPhoneLabel => 'Your WhatsApp / phone number';
+
+  @override
+  String get guardianPhoneHint => 'e.g. +91 98765 43210';
+
+  @override
+  String get guardianContinue => 'Continue';
+
+  @override
+  String get guardianValidation => 'Please enter both your name and phone number';
+
+  @override
+  String get yourNameTitle => 'What is your name?';
+
+  @override
+  String get yourNameSubtitle => 'So we can personalise your protection.';
+
+  @override
+  String get yourNameHint => 'Enter your name';
+
+  @override
+  String get yourNameContinue => 'Continue';
+
+  @override
+  String get yourNameValidation => 'Please enter your name';
+
+  @override
+  String get addGuardianOptional => 'Have a family member who cares? Add a guardian contact';
+
+  @override
+  String get addGuardianOptionalSubtitle => 'They can be notified when you receive a suspicious message.';
+
+  @override
+  String get onboardingFinish => 'Finish Setup';
 }

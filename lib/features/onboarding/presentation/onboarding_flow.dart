@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:elder_shield/application/app_providers.dart';
-import 'package:elder_shield/presentation/onboarding/onboarding_permissions_screen.dart';
-import 'package:elder_shield/presentation/onboarding/onboarding_trusted_contact_screen.dart';
-import 'package:elder_shield/presentation/onboarding/onboarding_welcome_screen.dart';
+import 'package:elder_shield/features/onboarding/presentation/caregiver_flow.dart';
+import 'package:elder_shield/features/onboarding/presentation/role_selection_screen.dart';
+import 'package:elder_shield/features/onboarding/presentation/self_protection_flow.dart';
 
-/// Feature-level export of the 3-step onboarding flow.
+/// Feature-level export of the role-based onboarding flow.
+///
+/// Flow:
+/// 1. RoleSelectionScreen — user picks caregiver or self-protection
+/// 2a. CaregiverFlow (3 steps: name person, add guardian, permissions)
+/// 2b. SelfProtectionFlow (2 steps: your name, permissions + optional guardian)
+/// Both paths finish by calling [onComplete].
 class OnboardingFlow extends ConsumerStatefulWidget {
   const OnboardingFlow({super.key, required this.onComplete});
 
@@ -15,20 +21,23 @@ class OnboardingFlow extends ConsumerStatefulWidget {
   ConsumerState<OnboardingFlow> createState() => _OnboardingFlowState();
 }
 
+enum _OnboardingPhase { roleSelection, caregiver, selfProtection }
+
 class _OnboardingFlowState extends ConsumerState<OnboardingFlow> {
-  int _step = 0;
-  static const int _totalSteps = 3;
+  _OnboardingPhase _phase = _OnboardingPhase.roleSelection;
 
-  void _next() {
-    setState(() => _step++);
+  Future<void> _selectRole(String role) async {
+    final settings = ref.read(settingsServiceProvider);
+    await settings.setUserRole(role);
+    setState(() {
+      _phase = role == 'caregiver'
+          ? _OnboardingPhase.caregiver
+          : _OnboardingPhase.selfProtection;
+    });
   }
 
-  void _back() {
-    if (_step > 0) setState(() => _step--);
-  }
-
-  void _goToTrustedContact() {
-    setState(() => _step = 2);
+  void _backToRoleSelection() {
+    setState(() => _phase = _OnboardingPhase.roleSelection);
   }
 
   Future<void> _finishOnboarding() async {
@@ -39,28 +48,22 @@ class _OnboardingFlowState extends ConsumerState<OnboardingFlow> {
 
   @override
   Widget build(BuildContext context) {
-    final child = _step == 0
-        ? OnboardingWelcomeScreen(
-            step: _step + 1,
-            totalSteps: _totalSteps,
-            onGetStarted: _next,
-          )
-        : _step == 1
-            ? OnboardingPermissionsScreen(
-                step: _step + 1,
-                totalSteps: _totalSteps,
-                onBack: _back,
-                onDone: _goToTrustedContact,
-                onSkip: _goToTrustedContact,
-              )
-            : OnboardingTrustedContactScreen(
-                step: _step + 1,
-                totalSteps: _totalSteps,
-                onBack: _back,
-                onFinish: _finishOnboarding,
-                onSkip: _finishOnboarding,
-              );
-    return child;
+    switch (_phase) {
+      case _OnboardingPhase.roleSelection:
+        return RoleSelectionScreen(
+          onCaregiver: () => _selectRole('caregiver'),
+          onSelfProtection: () => _selectRole('self'),
+        );
+      case _OnboardingPhase.caregiver:
+        return CaregiverFlow(
+          onComplete: _finishOnboarding,
+          onBack: _backToRoleSelection,
+        );
+      case _OnboardingPhase.selfProtection:
+        return SelfProtectionFlow(
+          onComplete: _finishOnboarding,
+          onBack: _backToRoleSelection,
+        );
+    }
   }
 }
-
