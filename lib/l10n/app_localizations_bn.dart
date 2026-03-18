@@ -683,4 +683,65 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get fullScreenWarningBlockSender => 'এই প্রেরককে ব্লক করুন (মেসেজিং অ্যাপ খুলবে)';
+
+  @override
+  String guardianPlanMonthlyPrice(String price) {
+    return '₹$price';
+  }
+
+  @override
+  String guardianPlanYearlyPrice(String price) {
+    return '₹$price';
+  }
+
+  @override
+  String get guardianPlanTitle => 'গার্ডিয়ান প্ল্যান';
+
+  @override
+  String get guardianPlanSubtitle => 'পরিবারের সদস্য সন্দেহজনক বার্তা পেলে জানুন';
+
+  @override
+  String get guardianPlanWhatYouGet => 'আপনি কী পাবেন';
+
+  @override
+  String get guardianPlanBenefitAlerts => 'সন্দেহজনক বার্তায় WhatsApp/SMS অ্যালার্ট';
+
+  @override
+  String get guardianPlanBenefitHeartbeat => 'দৈনিক চেক-ইন: তাদের ফোন সক্রিয় জানুন';
+
+  @override
+  String get guardianPlanBenefitSummary => 'সাপ্তাহিক হুমকি সারাংশ';
+
+  @override
+  String get guardianPlanBenefitFamily => '৩ জন পরিবারের সুরক্ষা';
+
+  @override
+  String get guardianPlanMonthlyFallback => 'মাসিক পরিকল্পনা';
+
+  @override
+  String get guardianPlanYearlyFallback => 'বার্ষিক পরিকল্পনা — ৩৩% সাশ্রয়';
+
+  @override
+  String get guardianPlanYearlySaveBadge => '৩৩% সাশ্রয়';
+
+  @override
+  String get guardianPlanRestore => 'কেনাকাটা পুনরুদ্ধার করুন';
+
+  @override
+  String get guardianPlanMaybeLater => 'পরে';
+
+  @override
+  String get guardianPlanTerms => 'সেবার শর্তাবলী';
+
+  @override
+  String get guardianPlanPrivacy => 'গোপনীয়তা নীতি';
+
+  @override
+  String get guardianPlanActiveSubtitle => 'গার্ডিয়ান অ্যালার্ট, দৈনিক চেক-ইন, সাপ্তাহিক সারাংশ';
+
+  @override
+  String get guardianPlanUpgradeSubtitle => 'পরিবারের সদস্য সন্দেহজনক বার্তা পেলে অ্যালার্ট পান';
+
+  @override
+  String get guardianPlanActiveBadge => 'সক্রিয়';
 }

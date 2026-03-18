@@ -6,10 +6,10 @@ import 'package:elder_shield/l10n/app_localizations.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:elder_shield/application/app_providers.dart';
+import 'package:elder_shield/core/navigation/app_routes.dart';
 import 'package:elder_shield/core/design_tokens.dart';
 import 'package:elder_shield/widgets/app_card.dart';
 import 'package:elder_shield/platform/overlay_alerts.dart';
-import 'package:elder_shield/platform/whitelist_channel.dart';
 import 'package:elder_shield/presentation/settings/about_screen.dart';
 import 'package:elder_shield/presentation/settings/how_it_works_screen.dart';
 import 'package:elder_shield/presentation/settings/permissions_explained_screen.dart';
@@ -18,7 +18,6 @@ import 'package:elder_shield/presentation/widgets/elder_shield_app_bar.dart';
 import 'package:elder_shield/features/settings/application/settings_controller.dart';
 import 'package:elder_shield/features/settings/data/settings_service.dart';
 import 'package:elder_shield/utils/haptic.dart';
-import 'package:elder_shield/utils/sender_utils.dart';
 import 'package:elder_shield/utils/responsive.dart';
 import 'package:elder_shield/utils/snackbars.dart';
 import 'package:elder_shield/widgets/contact_picker_sheet.dart';
@@ -679,6 +678,50 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   trailing: const Icon(Icons.chevron_right_rounded, size: 22),
                   onTap: _openOverlayPermissionSettings,
                 ),
+                // Guardian Plan section
+                Consumer(
+                  builder: (context, ref, _) {
+                    final isPremiumAsync = ref.watch(isPremiumProvider);
+                    final isPremium = isPremiumAsync.valueOrNull ?? false;
+                    return ListTile(
+                      leading: Icon(
+                        isPremium
+                            ? Icons.shield_rounded
+                            : Icons.shield_outlined,
+                        color: isPremium
+                            ? theme.colorScheme.primary
+                            : theme.colorScheme.onSurfaceVariant,
+                        size: 24,
+                      ),
+                      title: Text(l10n.guardianPlanTitle),
+                      subtitle: Text(
+                        isPremium
+                            ? l10n.guardianPlanActiveSubtitle
+                            : l10n.guardianPlanUpgradeSubtitle,
+                      ),
+                      trailing: isPremium
+                          ? Chip(
+                              label: Text(
+                                l10n.guardianPlanActiveBadge,
+                                style: theme.textTheme.labelSmall?.copyWith(
+                                  color: theme.colorScheme.onPrimary,
+                                ),
+                              ),
+                              backgroundColor: theme.colorScheme.primary,
+                              padding: EdgeInsets.zero,
+                            )
+                          : const Icon(Icons.chevron_right_rounded, size: 22),
+                      onTap: isPremium
+                          ? null
+                          : () {
+                              selectionClick();
+                              Navigator.of(context)
+                                  .pushNamed(AppRoutes.guardianPaywall);
+                            },
+                    );
+                  },
+                ),
+                const Divider(height: 1),
                 ListTile(
                   leading: Icon(Icons.help_outline_rounded, color: theme.colorScheme.primary, size: 24),
                   title: Text(l10n.settingsHowItWorksTitle),

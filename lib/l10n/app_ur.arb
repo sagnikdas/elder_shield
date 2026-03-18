@@ -347,6 +347,25 @@
   "fullScreenWarningClosingNote": "اس اسکرین کو بند کرنے سے آپ کے فون سے پیغام نہیں مٹے گا۔",
   "fullScreenWarningDeleteAction": "پیغام مٹائیں",
   "fullScreenWarningDeleteSnackbar": "ایلڈر شیلڈ سے ہٹا دیا گیا۔ اب ہم آپ کا میسیجنگ ایپ کھولیں گے تاکہ آپ وہاں سے بھی اسے مٹا سکیں۔",
-  "fullScreenWarningBlockSender": "اس بھیجنے والے کو بلاک کریں (میسیجنگ ایپ کھلے گی)"
-}
+  "fullScreenWarningBlockSender": "اس بھیجنے والے کو بلاک کریں (میسیجنگ ایپ کھلے گی)",
 
+  "guardianPlanMonthlyPrice": "₹{price}",
+  "guardianPlanYearlyPrice": "₹{price}",
+  "guardianPlanTitle": "\u06af\u0627\u0631\u0688\u06cc\u0646 \u067e\u0644\u0627\u0646",
+  "guardianPlanSubtitle": "\u062c\u0628 \u062e\u0627\u0646\u062f\u0627\u0646 \u06a9\u0648 \u0645\u0634\u06a9\u0648\u06a9 \u067e\u06cc\u063a\u0627\u0645 \u0622\u0626\u06d2 \u062a\u0648 \u0645\u0637\u0644\u0639 \u06c1\u0648\u06ba",
+  "guardianPlanWhatYouGet": "\u0622\u067e \u06a9\u0648 \u06a9\u06cc\u0627 \u0645\u0644\u06d2 \u06af\u0627",
+  "guardianPlanBenefitAlerts": "\u0645\u0634\u06a9\u0648\u06a9 \u067e\u06cc\u063a\u0627\u0645\u0627\u062a \u067e\u0631 WhatsApp/SMS \u0627\u0637\u0644\u0627\u0639\u0627\u062a",
+  "guardianPlanBenefitHeartbeat": "\u0631\u0648\u0632\u0627\u0646\u06c1 \u0686\u06cc\u06a9-\u0627\u0646: \u062c\u0627\u0646\u06cc\u06ba \u0627\u0646 \u06a9\u0627 \u0641\u0648\u0646 \u0645\u062d\u0641\u0648\u0638 \u06c1\u06d2",
+  "guardianPlanBenefitSummary": "\u06c1\u0641\u062a\u06c1 \u0648\u0627\u0631 \u062e\u0637\u0631\u0627\u062a \u06a9\u0627 \u062e\u0644\u0627\u0635\u06c1",
+  "guardianPlanBenefitFamily": "3 \u062e\u0627\u0646\u062f\u0627\u0646\u06cc \u0627\u0641\u0631\u0627\u062f \u06a9\u06cc \u062d\u0641\u0627\u0638\u062a",
+  "guardianPlanMonthlyFallback": "\u0645\u0627\u06c1\u0627\u0646\u06c1 \u0645\u0646\u0635\u0648\u0628\u06c1",
+  "guardianPlanYearlyFallback": "\u0633\u0627\u0644\u0627\u0646\u06c1 \u0645\u0646\u0635\u0648\u0628\u06c1 \u2014 33% \u0628\u0686\u062a",
+  "guardianPlanYearlySaveBadge": "33% \u0628\u0686\u062a",
+  "guardianPlanRestore": "\u062e\u0631\u06cc\u062f\u0627\u0631\u06cc \u0628\u062d\u0627\u0644 \u06a9\u0631\u06cc\u06ba",
+  "guardianPlanMaybeLater": "\u0628\u0639\u062f \u0645\u06cc\u06ba",
+  "guardianPlanTerms": "\u062e\u062f\u0645\u0627\u062a \u06a9\u06cc \u0634\u0631\u0627\u0626\u0637",
+  "guardianPlanPrivacy": "\u0631\u0627\u0632\u062f\u0627\u0631\u06cc \u06a9\u06cc \u067e\u0627\u0644\u06cc\u0633\u06cc",
+  "guardianPlanActiveSubtitle": "\u06af\u0627\u0631\u0688\u06cc\u0646 \u0627\u0637\u0644\u0627\u0639\u0627\u062a\u060c \u0631\u0648\u0632\u0627\u0646\u06c1 \u0686\u06cc\u06a9-\u0627\u0646\u060c \u06c1\u0641\u062a\u06c1 \u0648\u0627\u0631 \u062e\u0644\u0627\u0635\u06c1",
+  "guardianPlanUpgradeSubtitle": "\u062e\u0627\u0646\u062f\u0627\u0646\u06cc \u0631\u06a9\u0646 \u06a9\u0648 \u0645\u0634\u06a9\u0648\u06a9 \u067e\u06cc\u063a\u0627\u0645 \u0622\u0646\u06d2 \u067e\u0631 \u0627\u0637\u0644\u0627\u0639 \u067e\u0627\u0626\u06cc\u06ba",
+  "guardianPlanActiveBadge": "\u0641\u0639\u0627\u0644"
+}

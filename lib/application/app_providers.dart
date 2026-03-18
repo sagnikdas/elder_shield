@@ -3,6 +3,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:elder_shield/data/database.dart';
 import 'package:elder_shield/features/messages/data/message_repository.dart';
 import 'package:elder_shield/features/settings/data/settings_service.dart';
+import 'package:elder_shield/services/subscription_service.dart';
 
 /// When non-null, the app shows the high-risk warning sheet (Block 7).
 /// SecurityController sets this; [HighRiskAlertListener] shows the sheet and clears.
@@ -45,3 +46,15 @@ final themeModeProvider = StateProvider<String>((ref) => 'system');
 
 /// Current app language code: 'en', 'bn', 'kn', etc. Null = follow system locale.
 final languageCodeProvider = StateProvider<String?>((ref) => null);
+
+/// Subscription service for Guardian Plan billing.
+final subscriptionServiceProvider = Provider<SubscriptionService>((ref) {
+  final service = SubscriptionService(ref.watch(settingsServiceProvider));
+  ref.onDispose(() => service.dispose());
+  return service;
+});
+
+/// Stream of premium subscription status (Guardian Plan).
+final isPremiumProvider = StreamProvider<bool>((ref) {
+  return ref.watch(subscriptionServiceProvider).isPremiumStream;
+});

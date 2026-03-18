@@ -9,6 +9,7 @@ import 'package:elder_shield/core/theme/app_theme.dart';
 import 'package:elder_shield/platform/whitelist_channel.dart';
 import 'package:elder_shield/presentation/launch_gate.dart';
 import 'package:elder_shield/presentation/onboarding/onboarding_flow.dart';
+import 'package:elder_shield/presentation/paywall/guardian_paywall_screen.dart';
 import 'package:elder_shield/presentation/shell/main_shell.dart';
 
 class ElderShieldApp extends ConsumerStatefulWidget {
@@ -30,6 +31,7 @@ class _ElderShieldAppState extends ConsumerState<ElderShieldApp> {
       _loadThemeMode();
       _loadLanguage();
       _loadWhitelist();
+      _initSubscription();
     });
   }
 
@@ -65,6 +67,16 @@ class _ElderShieldAppState extends ConsumerState<ElderShieldApp> {
     // Sync to Kotlin layer so background checks also respect the whitelist.
     if (senders.isNotEmpty) {
       unawaited(WhitelistChannel.setWhitelist(senders));
+    }
+  }
+
+  Future<void> _initSubscription() async {
+    try {
+      final service = ref.read(subscriptionServiceProvider);
+      await service.initialize();
+    } catch (e) {
+      // Non-fatal: subscription init failure should never crash the app.
+      debugPrint('[App] Subscription init error: $e');
     }
   }
 
@@ -141,6 +153,8 @@ class _ElderShieldAppState extends ConsumerState<ElderShieldApp> {
           return const MainShell(initialIndex: 1);
         case AppRoutes.settings:
           return const MainShell(initialIndex: 2);
+        case AppRoutes.guardianPaywall:
+          return const GuardianPaywallScreen();
         default:
           return const Scaffold(
             body: Center(

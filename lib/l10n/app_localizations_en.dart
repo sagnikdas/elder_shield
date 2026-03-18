@@ -683,4 +683,65 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get fullScreenWarningBlockSender => 'Block this sender (opens messaging app)';
+
+  @override
+  String guardianPlanMonthlyPrice(String price) {
+    return '₹$price/month';
+  }
+
+  @override
+  String guardianPlanYearlyPrice(String price) {
+    return '₹$price/year';
+  }
+
+  @override
+  String get guardianPlanTitle => 'Guardian Plan';
+
+  @override
+  String get guardianPlanSubtitle => 'Get notified when your family member receives a suspicious message';
+
+  @override
+  String get guardianPlanWhatYouGet => 'What you get';
+
+  @override
+  String get guardianPlanBenefitAlerts => 'WhatsApp/SMS alerts when suspicious messages arrive';
+
+  @override
+  String get guardianPlanBenefitHeartbeat => 'Daily check-in: know their phone is active and protected';
+
+  @override
+  String get guardianPlanBenefitSummary => 'Weekly summary of threats blocked';
+
+  @override
+  String get guardianPlanBenefitFamily => 'Protect up to 3 family members';
+
+  @override
+  String get guardianPlanMonthlyFallback => 'Monthly plan';
+
+  @override
+  String get guardianPlanYearlyFallback => 'Yearly plan — Save 33%';
+
+  @override
+  String get guardianPlanYearlySaveBadge => 'Save 33%';
+
+  @override
+  String get guardianPlanRestore => 'Restore purchases';
+
+  @override
+  String get guardianPlanMaybeLater => 'Maybe later';
+
+  @override
+  String get guardianPlanTerms => 'Terms of Service';
+
+  @override
+  String get guardianPlanPrivacy => 'Privacy Policy';
+
+  @override
+  String get guardianPlanActiveSubtitle => 'Guardian alerts, daily heartbeat, weekly summary';
+
+  @override
+  String get guardianPlanUpgradeSubtitle => 'Get alerts when your family member gets a suspicious message';
+
+  @override
+  String get guardianPlanActiveBadge => 'Active';
 }

@@ -11,6 +11,7 @@ abstract final class AppRoutes {
   static const String messages = '/messages';
   static const String settings = '/settings';
   static const String messageDetail = '/messages/detail';
+  static const String guardianPaywall = '/guardian-paywall';
 }
 
 /// Arguments for navigating to a specific analyzed message.
