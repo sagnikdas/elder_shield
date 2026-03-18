@@ -62,6 +62,12 @@ class SecurityController {
       return;
     }
 
+    // Skip TRAI DLT-verified sender headers — no alert, no DB save.
+    if (_isTrustedDltSender(sms.sender)) {
+      debugPrint('[SecurityController] ${sms.sender} is DLT-trusted — skipping');
+      return;
+    }
+
     final inCall = _ref.read(isInCallProvider);
     final result = _detector.analyze(
       sender: sms.sender,
@@ -157,6 +163,21 @@ class SecurityController {
       _ref.read(pendingHighRiskMessageProvider.notifier).state =
           message;
     }
+  }
+
+  /// Returns true when [sender] is a TRAI DLT-registered header.
+  /// Matches on the entity-code suffix after the two-letter telco prefix
+  /// (e.g. "AD-SBIBNK" → "SBIBNK"), so a single entry covers all operators.
+  /// Falls back to an exact uppercase match for gateways that strip the prefix.
+  bool _isTrustedDltSender(String sender) {
+    final upper = sender.toUpperCase().trim();
+    final suffixes = HeuristicDetector.config.trustedDltSuffixes;
+    // DLT format: 2-letter telco code + '-' + entity code
+    if (upper.length > 3 && upper[2] == '-') {
+      final entityCode = upper.substring(3);
+      if (suffixes.contains(entityCode)) return true;
+    }
+    return suffixes.contains(upper);
   }
 
   void _handleCallState(CallStateEvent call) {

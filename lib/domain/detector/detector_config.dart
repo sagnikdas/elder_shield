@@ -25,6 +25,12 @@ class DetectorConfig {
   final List<String> parcelScamKeywords;
   final List<String> cryptoScamKeywords;
 
+  /// TRAI DLT-registered sender entity codes (the part after the "XX-" telco
+  /// prefix, e.g. "SBIBNK" from "AD-SBIBNK"). A sender whose entity code
+  /// matches any entry here is treated as a verified legitimate header and
+  /// bypasses alert generation entirely.
+  final List<String> trustedDltSuffixes;
+
   const DetectorConfig({
     required this.thresholdMedium,
     required this.thresholdHigh,
@@ -47,6 +53,7 @@ class DetectorConfig {
     required this.rewardScamKeywords,
     required this.parcelScamKeywords,
     required this.cryptoScamKeywords,
+    required this.trustedDltSuffixes,
   });
 
   factory DetectorConfig.defaults() {
@@ -395,6 +402,64 @@ class DetectorConfig {
         'বিনিয়োগের সুযোগ',
         'নিশ্চিত রিটার্ন',
       ],
+      trustedDltSuffixes: const [
+        // ── PSU Banks ──────────────────────────────────────────────────────
+        'SBIINB', // State Bank of India – Internet Banking
+        'SBISMS', // State Bank of India – SMS alerts
+        'SBIBNK', // State Bank of India – Banking
+        'SBIUPI', // State Bank of India – UPI
+        'PNBSMS', // Punjab National Bank
+        'PNBNKD', // Punjab National Bank – alternate
+        'BOBIBD', // Bank of Baroda
+        'BOBBNK', // Bank of Baroda – alternate
+        'CANBNK', // Canara Bank
+        'UNIONB', // Union Bank of India
+        'INDBNK', // Indian Bank
+        'CENTBK', // Central Bank of India
+        'IOBSMS', // Indian Overseas Bank
+        'MAHBNK', // Bank of Maharashtra
+        // ── Private Banks ─────────────────────────────────────────────────
+        'HDFCBK', // HDFC Bank
+        'HDFCBN', // HDFC Bank – alternate
+        'ICICIB', // ICICI Bank
+        'ICICIBK', // ICICI Bank – alternate
+        'AXISBK', // Axis Bank
+        'AXISBN', // Axis Bank – alternate
+        'KOTAKB', // Kotak Mahindra Bank
+        'KOTAKM', // Kotak Mahindra Bank – alternate
+        'YESBNK', // Yes Bank
+        'YESBKS', // Yes Bank – alternate
+        'INDUSL', // IndusInd Bank
+        'INDUSB', // IndusInd Bank – alternate
+        'FEDBNK', // Federal Bank
+        'IDBIBNK', // IDBI Bank
+        'RBLBNK', // RBL Bank
+        'DCBBNK', // DCB Bank
+        'SOUTHB', // South Indian Bank
+        'KVBANK', // Karur Vysya Bank
+        'TMBBNK', // Tamilnad Mercantile Bank
+        'CSBBNK', // CSB Bank
+        // ── Small Finance Banks ───────────────────────────────────────────
+        'AUSFBL', // AU Small Finance Bank
+        'UJJIVN', // Ujjivan Small Finance Bank
+        'EQUITB', // Equitas Small Finance Bank
+        'JANSML', // Jana Small Finance Bank
+        'SURYOD', // Suryoday Small Finance Bank
+        // ── Fintech / Payments / NBFC ─────────────────────────────────────
+        'PAYTMB', // Paytm Payments Bank
+        'PYTMBN', // Paytm – alternate
+        'PHONPE', // PhonePe
+        'BAJFIN', // Bajaj Finance
+        'BAJFSV', // Bajaj Finserv
+        'HDBFIN', // HDB Financial Services (HDFC subsidiary)
+        'MUTHFT', // Muthoot Finance
+        'CREDAP', // CRED
+        'GROWWI', // Groww
+        'ZERODH', // Zerodha
+        'RZRPAY', // Razorpay
+        'CASHFR', // Cashfree Payments
+        'AMZNIN', // Amazon Pay India
+      ],
     );
   }
 
@@ -610,6 +675,10 @@ class DetectorConfig {
                 'trading signal',
                 'crypto profit',
               ],
+      trustedDltSuffixes: (json['trustedDltSuffixes'] as List<dynamic>?)
+              ?.map((e) => e.toString())
+              .toList() ??
+          const [],
     );
   }
 
@@ -636,6 +705,7 @@ class DetectorConfig {
       'rewardScamKeywords': rewardScamKeywords,
       'parcelScamKeywords': parcelScamKeywords,
       'cryptoScamKeywords': cryptoScamKeywords,
+      'trustedDltSuffixes': trustedDltSuffixes,
     };
   }
 }

@@ -7,6 +7,54 @@ package com.eldershield.elder_shield
  */
 object SimpleRiskCheck {
 
+    // TRAI DLT-registered entity-code suffixes (the part after the "XX-" telco
+    // prefix). Kept in sync with detector-config.json trustedDltSuffixes.
+    private val trustedDltSuffixes = setOf(
+        // PSU Banks
+        "SBIINB", "SBISMS", "SBIBNK", "SBIUPI",
+        "PNBSMS", "PNBNKD",
+        "BOBIBD", "BOBBNK",
+        "CANBNK",
+        "UNIONB",
+        "INDBNK",
+        "CENTBK",
+        "IOBSMS",
+        "MAHBNK",
+        // Private Banks
+        "HDFCBK", "HDFCBN",
+        "ICICIB", "ICICIBK",
+        "AXISBK", "AXISBN",
+        "KOTAKB", "KOTAKM",
+        "YESBNK", "YESBKS",
+        "INDUSL", "INDUSB",
+        "FEDBNK",
+        "IDBIBNK",
+        "RBLBNK",
+        "DCBBNK",
+        "SOUTHB",
+        "KVBANK",
+        "TMBBNK",
+        "CSBBNK",
+        // Small Finance Banks
+        "AUSFBL",
+        "UJJIVN",
+        "EQUITB",
+        "JANSML",
+        "SURYOD",
+        // Fintech / Payments / NBFC
+        "PAYTMB", "PYTMBN",
+        "PHONPE",
+        "BAJFIN", "BAJFSV",
+        "HDBFIN",
+        "MUTHFT",
+        "CREDAP",
+        "GROWWI",
+        "ZERODH",
+        "RZRPAY",
+        "CASHFR",
+        "AMZNIN"
+    )
+
     private val shortUrlDomains = listOf(
         "bit.ly", "tinyurl.com", "goo.gl", "t.co", "ow.ly",
         "is.gd", "buff.ly", "short.io", "rb.gy", "cutt.ly", "tiny.cc", "snip.ly"
@@ -68,6 +116,7 @@ object SimpleRiskCheck {
         trustedSenders: Set<String> = emptySet()
     ): Boolean {
         if (trustedSenders.contains(normalizeSender(sender))) return false
+        if (isTrustedDltSender(sender)) return false
 
         val lower = body.lowercase()
         var score = 0
@@ -79,6 +128,19 @@ object SimpleRiskCheck {
 
         // When app is killed we show notification for any red flag (score >= 1)
         return score >= 1
+    }
+
+    /**
+     * Returns true when [sender] is a TRAI DLT-registered header.
+     * Matches on the entity-code suffix (e.g. "AD-SBIBNK" → "SBIBNK").
+     */
+    private fun isTrustedDltSender(sender: String): Boolean {
+        val upper = sender.uppercase().trim()
+        if (upper.length > 3 && upper[2] == '-') {
+            val entityCode = upper.substring(3)
+            if (trustedDltSuffixes.contains(entityCode)) return true
+        }
+        return trustedDltSuffixes.contains(upper)
     }
 
     /**
